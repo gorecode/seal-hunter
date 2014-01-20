@@ -48,7 +48,7 @@ public class BearController : MonoBehaviour
 
             animator.SetFloat("Speed", speed);
 
-            if (Input.touchCount > 0 || (Input.mousePresent && Input.GetMouseButtonDown(0)))
+            if (Input.touchCount > 0 || (Input.mousePresent && (Input.GetMouseButtonDown(0) || Input.GetMouseButton(0))))
             {
                 Vector3 positionIn3d;
 
