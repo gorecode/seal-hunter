@@ -7,8 +7,10 @@ public class BearController : MonoBehaviour
     public AudioClip death1Sound;
     public AudioClip death2Sound;
     public Transform movable;
+    private Animator animator;
     private bool dead;
-
+    private float sniffDelay;
+    private float sniffDuration;
     private Vector2 touchPositionIn2d;
 
     void Awake()
@@ -19,7 +21,22 @@ public class BearController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        ;
+        animator = GetComponent<Animator>();
+
+        sniffDelay = 1 + Random.value * 4;
+        sniffDuration = 1 + Random.value * 3;
+
+        StartCoroutine("SniffCoroutine");
+    }
+
+    IEnumerator SniffCoroutine()
+    {
+        yield return new WaitForSeconds(sniffDelay);
+        float oldSpeed = speed;
+        speed = 0.0f;
+        yield return new WaitForSeconds(sniffDuration);
+        speed = oldSpeed;
+        yield return null;
     }
 
     // Update is called once per frame
@@ -28,6 +45,8 @@ public class BearController : MonoBehaviour
         if (!dead)
         {
             movable.position += Vector3.right * speed * Time.deltaTime;
+
+            animator.SetFloat("Speed", speed);
 
             if (Input.touchCount > 0 || (Input.mousePresent && Input.GetMouseButtonDown(0)))
             {
@@ -59,19 +78,19 @@ public class BearController : MonoBehaviour
             return;
         }
 
-        Animator animator = GetComponent<Animator>();
+        speed = 0;
 
-        if (Random.value >= 0.5)
+        bool eyeShot = Random.value >= 0.5;
+
+        AudioClip deathSound = eyeShot ? death1Sound : death2Sound;
+
+        if (deathSound != null)
         {
-            animator.SetBool("Eyeshot", true);
-
-            if (death1Sound != null) AudioSource.PlayClipAtPoint(death1Sound, Camera.main.transform.position);
+            AudioSource.PlayClipAtPoint(deathSound, Camera.main.transform.position);
         }
 
-        if (death2Sound != null) AudioSource.PlayClipAtPoint(death2Sound, Camera.main.transform.position);
+        animator.Play(eyeShot ? "EyeShot" : "HeadExplosion");
 
-        animator.SetInteger("Health", 0);
-        
         gameObject.layer = LayerMask.NameToLayer("Background");
 
         dead = true;
