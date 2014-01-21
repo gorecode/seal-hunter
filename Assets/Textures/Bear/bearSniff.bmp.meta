@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c735d5e33ab1d6749ac9010f07f560b4
+guid: 7f0a10d1cf754dd4f837a6cb87dc3bb3
 TextureImporter:
   serializedVersion: 2
   mipmaps:
@@ -20,8 +20,8 @@ TextureImporter:
   grayScaleToAlpha: 0
   generateCubemap: 0
   seamlessCubemap: 0
-  textureFormat: -3
-  maxTextureSize: 128
+  textureFormat: -1
+  maxTextureSize: 1024
   textureSettings:
     filterMode: 0
     aniso: 1
@@ -45,41 +45,23 @@ TextureImporter:
     compressionQuality: 50
   spriteSheet:
     sprites:
-    - name: bearWalk_0
+    - name: bearSniff_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 78
-        width: 46
-        height: 26
+        y: 22
+        width: 45
+        height: 22
       alignment: 6
       pivot: {x: 0, y: 0}
-    - name: bearWalk_1
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 52
-        width: 46
-        height: 26
-      alignment: 6
-      pivot: {x: 0, y: 0}
-    - name: bearWalk_2
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 26
-        width: 46
-        height: 26
-      alignment: 6
-      pivot: {x: 0, y: 0}
-    - name: bearWalk_3
+    - name: bearSniff_1
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 46
-        height: 26
+        width: 45
+        height: 22
       alignment: 6
       pivot: {x: 0, y: 0}
-  spritePackingTag: 
+  spritePackingTag: BigMob
   userData: 
