@@ -1,19 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BearController : MonoBehaviour
+public class SealLogic : MonoBehaviour
 {
     public float speed = 0.001f;
-    public AudioClip death1Sound;
-    public AudioClip death2Sound;
-    public Transform movable;
     private Animator animator;
-    private bool dead;
-    private float sniffDelay;
-    private float sniffDuration;
-    private Vector2 touchPositionIn2d;
     private SpriteRenderer spriteRenderer;
-
+    private Transform parent;
+    private bool dead;
+    private bool crawl;
+    private Vector2 touchPositionIn2d;
+    private bool crawlCoroutineIsRunning;
     void Awake()
     {
         touchPositionIn2d = new Vector2();
@@ -24,20 +21,20 @@ public class BearController : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-
-        sniffDelay = 1 + Random.value * 4;
-        sniffDuration = 1 + Random.value * 3;
-
-        StartCoroutine("SniffCoroutine");
+        parent = transform.parent;
     }
 
-    IEnumerator SniffCoroutine()
+    IEnumerator FallAndStartCrawl()
     {
-        yield return new WaitForSeconds(sniffDelay);
+        crawl = true;
+        animator.SetBool("Crawl", true);
         float oldSpeed = speed;
-        speed = 0.0f;
-        yield return new WaitForSeconds(sniffDuration);
-        speed = oldSpeed;
+        speed = 0;
+        while (!animator.GetCurrentAnimatorStateInfo(0).IsName("Crawl"))
+        {
+            yield return new WaitForFixedUpdate();
+        }
+        speed = oldSpeed * 0.5f;
         yield return null;
     }
 
@@ -46,9 +43,7 @@ public class BearController : MonoBehaviour
     {
         if (!dead)
         {
-            movable.position += Vector3.right * speed * Time.deltaTime;
-
-            animator.SetFloat("Speed", speed);
+            parent.position += Vector3.right * speed * Time.deltaTime;
 
             if (Input.touchCount > 0 || (Input.mousePresent && (Input.GetMouseButtonDown(0) || Input.GetMouseButton(0))))
             {
@@ -67,7 +62,17 @@ public class BearController : MonoBehaviour
 
                 if (gameObject.collider2D.OverlapPoint(touchPositionIn2d))
                 {
-                    Die();
+                    if (!crawl)
+                    {
+                        StartCoroutine(FallAndStartCrawl());
+                    }
+                    else
+                    {
+                        if (speed > 0)
+                        {
+                            Die();
+                        }
+                    }
                 }
             }
         }
@@ -80,18 +85,7 @@ public class BearController : MonoBehaviour
             return;
         }
 
-        speed = 0;
-
-        bool eyeShot = Random.value >= 0.5;
-
-        AudioClip deathSound = eyeShot ? death1Sound : death2Sound;
-
-        if (deathSound != null)
-        {
-            AudioSource.PlayClipAtPoint(deathSound, Camera.main.transform.position);
-        }
-
-        animator.Play(eyeShot ? "EyeShot" : "HeadExplosion");
+        animator.SetBool("Dead", true);
 
         spriteRenderer.sortingLayerName = "Background";
 

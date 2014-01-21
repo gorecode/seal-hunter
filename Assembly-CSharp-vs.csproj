@@ -50,6 +50,7 @@
      <Compile Include="Assets\Scripts\DeathPool.cs" />
      <Compile Include="Assets\Scripts\EnemySpawner.cs" />
      <Compile Include="Assets\Scripts\LogCollisions.cs" />
+     <Compile Include="Assets\Scripts\SealLogic.cs" />
      <None Include="Assets\Textures\SpriteColorMod.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
