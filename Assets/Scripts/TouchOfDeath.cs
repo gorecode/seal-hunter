@@ -36,13 +36,18 @@ public class TouchOfDeath : MonoBehaviour {
                 pointerHighlight.localScale = Vector3.one * touchSlop;
             }
 
-            Collider2D collider = Physics2D.OverlapCircle(positionIn2d, touchSlop * 0.5f, layerMask);
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(positionIn2d, touchSlop * 0.5f, layerMask);
 
-            if (collider != null)
+            if (colliders != null && colliders.Length > 0)
             {
-                MobBehaviour mobController = collider.gameObject.GetComponent<MobBehaviour>();
+                for (int i = 0; i < colliders.Length; i++)
+                {
+                    Collider2D collider = colliders[i];
 
-                if (mobController != null) mobController.OnGetTouched();
+                    MobBehaviour mobController = collider.gameObject.GetComponent<MobBehaviour>();
+
+                    if (mobController != null) mobController.OnGetTouched();
+                }
             }
         }
         else
