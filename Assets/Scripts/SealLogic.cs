@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SealLogic : MonoBehaviour
+public class SealLogic : MobBehaviour
 {
     public float speed = 0.001f;
     private Animator animator;
@@ -9,11 +9,10 @@ public class SealLogic : MonoBehaviour
     private Transform parent;
     private bool dead;
     private bool crawl;
-    private Vector2 touchPositionIn2d;
     private bool crawlCoroutineIsRunning;
+
     void Awake()
     {
-        touchPositionIn2d = new Vector2();
     }
 
     // Use this for initialization
@@ -44,36 +43,20 @@ public class SealLogic : MonoBehaviour
         if (!dead)
         {
             parent.position += Vector3.right * speed * Time.deltaTime;
+        }
+    }
 
-            if (Input.touchCount > 0 || (Input.mousePresent && (Input.GetMouseButtonDown(0) || Input.GetMouseButton(0))))
+    public override void OnGetTouched()
+    {
+        if (!crawl)
+        {
+            StartCoroutine(FallAndStartCrawl());
+        }
+        else
+        {
+            if (speed > 0)
             {
-                Vector3 positionIn3d;
-
-                if (Input.mousePresent)
-                {
-                    positionIn3d = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                }
-                else
-                {
-                    positionIn3d = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
-                }
-
-                touchPositionIn2d.Set(positionIn3d.x, positionIn3d.y);
-
-                if (gameObject.collider2D.OverlapPoint(touchPositionIn2d))
-                {
-                    if (!crawl)
-                    {
-                        StartCoroutine(FallAndStartCrawl());
-                    }
-                    else
-                    {
-                        if (speed > 0)
-                        {
-                            Die();
-                        }
-                    }
-                }
+                Die();
             }
         }
     }
@@ -88,6 +71,8 @@ public class SealLogic : MonoBehaviour
         animator.SetBool("Dead", true);
 
         spriteRenderer.sortingLayerName = "Background";
+
+        RemovePhysics();
 
         dead = true;
     }

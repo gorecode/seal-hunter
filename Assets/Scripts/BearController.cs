@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BearController : MonoBehaviour
+public class BearController : MobBehaviour
 {
     public float speed = 0.001f;
     public AudioClip death1Sound;
@@ -11,12 +11,10 @@ public class BearController : MonoBehaviour
     private bool dead;
     private float sniffDelay;
     private float sniffDuration;
-    private Vector2 touchPositionIn2d;
     private SpriteRenderer spriteRenderer;
 
     void Awake()
     {
-        touchPositionIn2d = new Vector2();
     }
 
     // Use this for initialization
@@ -49,28 +47,12 @@ public class BearController : MonoBehaviour
             movable.position += Vector3.right * speed * Time.deltaTime;
 
             animator.SetFloat("Speed", speed);
-
-            if (Input.touchCount > 0 || (Input.mousePresent && (Input.GetMouseButtonDown(0) || Input.GetMouseButton(0))))
-            {
-                Vector3 positionIn3d;
-
-                if (Input.mousePresent)
-                {
-                    positionIn3d = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                }
-                else
-                {
-                    positionIn3d = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
-                }
-
-                touchPositionIn2d.Set(positionIn3d.x, positionIn3d.y);
-
-                if (gameObject.collider2D.OverlapPoint(touchPositionIn2d))
-                {
-                    Die();
-                }
-            }
         }
+    }
+
+    public override void OnGetTouched()
+    {
+        Die();
     }
 
     void Die()
@@ -94,6 +76,8 @@ public class BearController : MonoBehaviour
         animator.Play(eyeShot ? "EyeShot" : "HeadExplosion");
 
         spriteRenderer.sortingLayerName = "Background";
+
+        RemovePhysics();
 
         dead = true;
     }

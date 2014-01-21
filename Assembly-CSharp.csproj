@@ -50,7 +50,9 @@
      <Compile Include="Assets\Scripts\DeathPool.cs" />
      <Compile Include="Assets\Scripts\EnemySpawner.cs" />
      <Compile Include="Assets\Scripts\LogCollisions.cs" />
+     <Compile Include="Assets\Scripts\MobBehaviour.cs" />
      <Compile Include="Assets\Scripts\SealLogic.cs" />
+     <Compile Include="Assets\Scripts\TouchOfDeath.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
