@@ -10,11 +10,10 @@ public class SealLogic : MobBehaviour
     private Animator animator;
     private SpriteRenderer spriteRenderer;
     private Transform parent;
-    private bool dyingOrDead;
+    private bool dying;
     private bool dead;
-    private bool crawl;
-    private bool crawlCoroutineIsRunning;
-
+    private bool crawling;
+    private int dyingMethod;
     void Awake()
     {
     }
@@ -25,6 +24,7 @@ public class SealLogic : MobBehaviour
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         parent = transform.parent;
+        dyingMethod = Random.Range(0, 2);
     }
 
     IEnumerator FallAndStartCrawl()
@@ -33,11 +33,11 @@ public class SealLogic : MobBehaviour
         {
             AudioSource.PlayClipAtPoint(soundsOfFalling[Random.Range(0, soundsOfFalling.Length - 1)], Camera.main.transform.position);
         }
-        crawl = true;
+        crawling = true;
         animator.SetBool("Crawl", true);
         float oldSpeed = speed;
         speed = 0;
-        while (!animator.GetCurrentAnimatorStateInfo(0).IsName("Crawl"))
+        while (!animator.GetCurrentAnimatorStateInfo(0).IsName("Base.Crawl"))
         {
             yield return new WaitForFixedUpdate();
         }
@@ -48,21 +48,24 @@ public class SealLogic : MobBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!dyingOrDead)
+        if (!dying)
         {
             parent.position += Vector3.right * speed * Time.deltaTime;
         }
         else
         {
-            if (!dead)
+            if (!dead && dying)
             {
                 AnimatorStateInfo animState = animator.GetCurrentAnimatorStateInfo(0);
 
-                if (animState.IsName("Base.CrawlDeath") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+                if (animState.IsName("Base.FallDeath") || animState.IsName("Base.CrawlDeath"))
                 {
-                    dead = true;
+                    if (animState.normalizedTime >= 1.0f)
+                    {
+                        dead = true;
 
-                    EventBus.EnemyDied.Publish(gameObject);
+                        EventBus.EnemyDied.Publish(gameObject);
+                    }
                 }
             }
         }
@@ -70,27 +73,31 @@ public class SealLogic : MobBehaviour
 
     public override void OnGetTouched()
     {
-        if (!crawl)
+        if (dying) return;
+
+        if (dyingMethod == 0)
         {
-            StartCoroutine(FallAndStartCrawl());
+            animator.SetBool("Fall", true);
+            StartDying();
+        }
+        else if (crawling)
+        {
+            if (speed > 0) StartDying();
         }
         else
         {
-            if (speed > 0)
-            {
-                Die();
-            }
+            StartCoroutine(FallAndStartCrawl());
         }
     }
 
-    void Die()
+    void StartDying()
     {
-        if (dyingOrDead)
+        if (dying)
         {
             return;
         }
 
-        if (soundsOfDying!= null && soundsOfDying.Length > 0)
+        if (soundsOfDying != null && soundsOfDying.Length > 0)
         {
             AudioClip sound = soundsOfDying[Random.Range(0, soundsOfDying.Length - 1)];
 
@@ -103,6 +110,8 @@ public class SealLogic : MobBehaviour
 
         RemovePhysics();
 
-        dyingOrDead = true;
+        dying = true;
+
+        speed = 0;
     }
 }
