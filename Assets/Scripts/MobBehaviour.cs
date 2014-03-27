@@ -2,6 +2,15 @@
 using System.Collections;
 
 public class MobBehaviour : MonoBehaviour {
+    private Animator myAnimator;
+     
+    public Animator animator
+    {
+        get {
+            if (myAnimator == null) myAnimator = GetComponent<Animator>();
+            return myAnimator;
+        }
+    }
 
 	// Use this for initialization
 	void Start () {

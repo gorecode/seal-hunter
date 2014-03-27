@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Assets.Scripts;
 
 public class BearController : MobBehaviour
 {
@@ -8,6 +9,7 @@ public class BearController : MobBehaviour
     public AudioClip death2Sound;
     public Transform movable;
     private Animator animator;
+    private bool dying;
     private bool dead;
     private float sniffDelay;
     private float sniffDuration;
@@ -42,11 +44,25 @@ public class BearController : MobBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!dead)
+        if (!dying)
         {
             movable.position += Vector3.right * speed * Time.deltaTime;
 
             animator.SetFloat("Speed", speed);
+        }
+        else if (!dead)
+        {
+            AnimatorStateInfo animState = animator.GetCurrentAnimatorStateInfo(0);
+
+            if (animState.IsName("Base.EyeShot") || animState.IsName("Base.HeadExplosion"))
+            {
+                if (animState.normalizedTime >= 1.0f)
+                {
+                    dead = true;
+
+                    EventBus.EnemyDied.Publish(gameObject);
+                }
+            }
         }
     }
 
@@ -57,7 +73,7 @@ public class BearController : MobBehaviour
 
     void Die()
     {
-        if (dead)
+        if (dying)
         {
             return;
         }
@@ -79,6 +95,6 @@ public class BearController : MobBehaviour
 
         RemovePhysics();
 
-        dead = true;
+        dying = true;
     }
 }

@@ -19,7 +19,7 @@
 	<DebugType>full</DebugType>
 	<Optimize>false</Optimize>
 	<OutputPath>Temp\bin\Debug\</OutputPath>
-	<DefineConstants>DEBUG;TRACE;UNITY_ANDROID;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_AUDIO_FMOD;ENABLE_MONO;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_GENERICS;ENABLE_SUBSTANCE;INCLUDE_WP8SUPPORT;ENABLE_WWW;ENABLE_IMAGEEFFECTS;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;ENABLE_CACHING;ENABLE_CLOTH;UNITY_ANDROID_API;ENABLE_2D_PHYSICS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;UNITY_4_3_2;UNITY_4_3;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_WIN;UNITY_TEAM_LICENSE</DefineConstants>
+	<DefineConstants>DEBUG;TRACE;UNITY_IPHONE;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_AUDIO_FMOD;ENABLE_MONO;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_GENERICS;ENABLE_SUBSTANCE;INCLUDE_WP8SUPPORT;ENABLE_WWW;ENABLE_IMAGEEFFECTS;UNITY_IPHONE_API;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;ENABLE_NETWORK;ENABLE_PHYSICS;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_2D_PHYSICS;ENABLE_GAMECENTER;UNITY_IOS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;UNITY_4_3_4;UNITY_4_3;DEVELOPMENT_BUILD;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_WIN;UNITY_TEAM_LICENSE</DefineConstants>
 	<ErrorReport>prompt</ErrorReport>
 	<WarningLevel>4</WarningLevel>
 	<NoWarn>0169</NoWarn>
@@ -46,13 +46,29 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Output\EventSystem\MecanimEvent.cs" />
+     <Compile Include="Assets\Output\EventSystem\MecanimEventData.cs" />
+     <Compile Include="Assets\Output\EventSystem\MecanimEventEmitter.cs" />
+     <Compile Include="Assets\Output\EventSystem\MecanimEventEmitterWithData.cs" />
+     <Compile Include="Assets\Output\EventSystem\MecanimEventManager.cs" />
+     <Compile Include="Assets\Output\EventSystem\MecanimEventSetupHelper.cs" />
+     <Compile Include="Assets\Output\Example\Scripts\IdleRunJump.cs" />
+     <Compile Include="Assets\Output\Example\Scripts\MessageReceiverExample.cs" />
+     <Compile Include="Assets\Output\Example\Scripts\ThirdPersonCamera.cs" />
      <Compile Include="Assets\Scripts\BearController.cs" />
+     <Compile Include="Assets\Scripts\DeadmenController.cs" />
      <Compile Include="Assets\Scripts\DeathPool.cs" />
+     <Compile Include="Assets\Scripts\EnemyDiedEvent.cs" />
      <Compile Include="Assets\Scripts\EnemySpawner.cs" />
+     <Compile Include="Assets\Scripts\EventBus.cs" />
+     <Compile Include="Assets\Scripts\GameObjects.cs" />
+     <Compile Include="Assets\Scripts\Layers.cs" />
      <Compile Include="Assets\Scripts\LogCollisions.cs" />
      <Compile Include="Assets\Scripts\MobBehaviour.cs" />
      <Compile Include="Assets\Scripts\SealLogic.cs" />
      <Compile Include="Assets\Scripts\TouchOfDeath.cs" />
+     <None Include="Assets\Output\Changes.txt" />
+     <None Include="Assets\Output\Tutorial2.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

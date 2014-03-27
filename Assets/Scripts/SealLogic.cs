@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Assets.Scripts;
 
 public class SealLogic : MobBehaviour
 {
@@ -7,6 +8,7 @@ public class SealLogic : MobBehaviour
     private Animator animator;
     private SpriteRenderer spriteRenderer;
     private Transform parent;
+    private bool dyingOrDead;
     private bool dead;
     private bool crawl;
     private bool crawlCoroutineIsRunning;
@@ -40,9 +42,23 @@ public class SealLogic : MobBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!dead)
+        if (!dyingOrDead)
         {
             parent.position += Vector3.right * speed * Time.deltaTime;
+        }
+        else
+        {
+            if (!dead)
+            {
+                AnimatorStateInfo animState = animator.GetCurrentAnimatorStateInfo(0);
+
+                if (animState.IsName("Base.CrawlDeath") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+                {
+                    dead = true;
+
+                    EventBus.EnemyDied.Publish(gameObject);
+                }
+            }
         }
     }
 
@@ -63,7 +79,7 @@ public class SealLogic : MobBehaviour
 
     void Die()
     {
-        if (dead)
+        if (dyingOrDead)
         {
             return;
         }
@@ -74,6 +90,6 @@ public class SealLogic : MobBehaviour
 
         RemovePhysics();
 
-        dead = true;
+        dyingOrDead = true;
     }
 }
