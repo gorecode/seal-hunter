@@ -5,6 +5,8 @@ using Assets.Scripts;
 public class SealLogic : MobBehaviour
 {
     public float speed = 0.001f;
+    public AudioClip[] soundsOfDying;
+    public AudioClip[] soundsOfFalling;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
     private Transform parent;
@@ -27,6 +29,10 @@ public class SealLogic : MobBehaviour
 
     IEnumerator FallAndStartCrawl()
     {
+        if (soundsOfFalling != null && soundsOfFalling.Length > 0)
+        {
+            AudioSource.PlayClipAtPoint(soundsOfFalling[Random.Range(0, soundsOfFalling.Length - 1)], Camera.main.transform.position);
+        }
         crawl = true;
         animator.SetBool("Crawl", true);
         float oldSpeed = speed;
@@ -82,6 +88,13 @@ public class SealLogic : MobBehaviour
         if (dyingOrDead)
         {
             return;
+        }
+
+        if (soundsOfDying!= null && soundsOfDying.Length > 0)
+        {
+            AudioClip sound = soundsOfDying[Random.Range(0, soundsOfDying.Length - 1)];
+
+            AudioSource.PlayClipAtPoint(sound, Camera.main.transform.position);
         }
 
         animator.SetBool("Dead", true);
