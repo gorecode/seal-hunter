@@ -1,6 +1,19 @@
 fileFormatVersion: 2
 guid: 7db5b67cf7648294fb30a6a25fa1e21c
 TextureImporter:
+  fileIDToRecycleName:
+    21300000: bearEyeshot_0
+    21300002: bearEyeshot_1
+    21300004: bearEyeshot_2
+    21300006: bearEyeshot_3
+    21300008: bearEyeshot_4
+    21300010: bearEyeshot_5
+    21300012: bearEyeshot_6
+    21300014: bearEyeshot_7
+    21300016: bearEyeshot_8
+    21300018: bearEyeshot_9
+    21300020: bearEyeshot_10
+    21300022: bearEyeshot_11
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -35,6 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
   alphaIsTransparency: 1
   textureType: 8
@@ -54,6 +68,7 @@ TextureImporter:
         height: 30
       alignment: 6
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: bearEyeshot_1
       rect:
         serializedVersion: 2
@@ -63,6 +78,7 @@ TextureImporter:
         height: 30
       alignment: 6
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: bearEyeshot_2
       rect:
         serializedVersion: 2
@@ -72,6 +88,7 @@ TextureImporter:
         height: 30
       alignment: 6
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: bearEyeshot_3
       rect:
         serializedVersion: 2
@@ -81,6 +98,7 @@ TextureImporter:
         height: 30
       alignment: 6
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: bearEyeshot_4
       rect:
         serializedVersion: 2
@@ -90,6 +108,7 @@ TextureImporter:
         height: 30
       alignment: 6
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: bearEyeshot_5
       rect:
         serializedVersion: 2
@@ -99,6 +118,7 @@ TextureImporter:
         height: 30
       alignment: 6
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: bearEyeshot_6
       rect:
         serializedVersion: 2
@@ -108,6 +128,7 @@ TextureImporter:
         height: 30
       alignment: 6
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: bearEyeshot_7
       rect:
         serializedVersion: 2
@@ -117,6 +138,7 @@ TextureImporter:
         height: 30
       alignment: 6
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: bearEyeshot_8
       rect:
         serializedVersion: 2
@@ -126,6 +148,7 @@ TextureImporter:
         height: 30
       alignment: 6
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: bearEyeshot_9
       rect:
         serializedVersion: 2
@@ -135,6 +158,7 @@ TextureImporter:
         height: 30
       alignment: 6
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: bearEyeshot_10
       rect:
         serializedVersion: 2
@@ -144,6 +168,7 @@ TextureImporter:
         height: 30
       alignment: 6
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: bearEyeshot_11
       rect:
         serializedVersion: 2
@@ -153,5 +178,6 @@ TextureImporter:
         height: 30
       alignment: 6
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: BigMob
   userData: 
