@@ -3,13 +3,12 @@ using UnityEngineExt;
 using System.Collections;
 using Assets.Scripts;
 
-public class Seal : FSM<Seal.State>, ITouchable
+public class Seal : Creature, ITouchable
 {
     public const int ANIM_DYING_BY_HEADSHOT = 2;
     public const int ANIM_DYING_BY_BODYSHOT = 1;
     public const int ANIM_DYING_WHILE_CRAWLING = 1;
 
-    public enum State { Alive, Dying, Dead, Recycled }
     public enum Alive_SubState { Walking, Falling, Crawling };
 
     public float maximumSpeed;
@@ -18,24 +17,16 @@ public class Seal : FSM<Seal.State>, ITouchable
     public AudioClip[] soundsOfDying;
     public AudioClip[] soundsOfFalling;
 
-    private SpriteRenderer mySpriteRenderer;
-    private Animator myAnimator;
-    private Transform myParent;
-
     private FSM<Alive_SubState> aliveState;
 
-    void Awake()
+    public new void Awake()
     {
-        myAnimator = GetComponent<Animator>();
-        mySpriteRenderer = GetComponent<SpriteRenderer>();
-        myParent = transform.parent;
+        base.Awake();
 
         // General mob lifecycle.
         RegisterState(State.Alive, onUpdate: OnLiving);
         RegisterState(State.Dying, OnBecomeDying, OnDying);
         RegisterState(State.Dead, OnBecomeDead);
-
-        AllowTransitionChain(State.Alive, State.Dying, State.Dead, State.Recycled);
 
         SetDefaultState(State.Alive);
 
