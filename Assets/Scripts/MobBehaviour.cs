@@ -1,17 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MobBehaviour : MonoBehaviour {
-    private Animator myAnimator;
-     
-    public Animator animator
-    {
-        get {
-            if (myAnimator == null) myAnimator = GetComponent<Animator>();
-            return myAnimator;
-        }
-    }
-
+public class MobBehaviour : MonoBehaviour, ITouchable {
 	// Use this for initialization
 	void Start () {
 	
@@ -29,7 +19,7 @@ public class MobBehaviour : MonoBehaviour {
         Destroy(rigidbody2D);
     }
 
-    public virtual void OnGetTouched() 
+    public virtual void OnTouch() 
     {
     }
 }

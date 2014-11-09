@@ -66,7 +66,7 @@ public class BearController : MobBehaviour
         }
     }
 
-    public override void OnGetTouched()
+    public override void OnTouch()
     {
         Die();
     }

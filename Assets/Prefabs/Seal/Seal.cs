@@ -1,117 +1,139 @@
 ﻿using UnityEngine;
+using UnityEngineExt;
 using System.Collections;
 using Assets.Scripts;
 
-public class Seal : MobBehaviour
+public class Seal : FSM<Seal.State>, ITouchable
 {
-    public float speed = 0.001f;
+    public const int ANIM_DYING_BY_HEADSHOT = 2;
+    public const int ANIM_DYING_BY_BODYSHOT = 1;
+    public const int ANIM_DYING_WHILE_CRAWLING = 1;
+
+    public enum State { Alive, Dying, Dead, Recycled }
+    public enum Alive_SubState { Walking, Falling, Crawling };
+
+    public float maximumSpeed;
+    public float currentSpeed;
+
     public AudioClip[] soundsOfDying;
     public AudioClip[] soundsOfFalling;
-    private Animator animator;
-    private SpriteRenderer spriteRenderer;
-    private Transform parent;
-    private bool dying;
-    private bool dead;
-    private bool crawling;
-    private int dyingMethod;
+
+    private SpriteRenderer mySpriteRenderer;
+    private Animator myAnimator;
+    private Transform myParent;
+
+    private FSM<Alive_SubState> aliveState;
+
     void Awake()
     {
+        myAnimator = GetComponent<Animator>();
+        mySpriteRenderer = GetComponent<SpriteRenderer>();
+        myParent = transform.parent;
+
+        // General mob lifecycle.
+        RegisterState(State.Alive, onUpdate: OnLiving);
+        RegisterState(State.Dying, OnBecomeDying, OnDying);
+        RegisterState(State.Dead, OnBecomeDead);
+
+        AllowTransitionChain(State.Alive, State.Dying, State.Dead, State.Recycled);
+
+        SetDefaultState(State.Alive);
+
+        // Seal living lifecycle.
+        aliveState = new FSM<Alive_SubState>();
+
+        aliveState.RegisterState(Alive_SubState.Walking, OnBecomeWalking);
+        aliveState.RegisterState(Alive_SubState.Falling, OnBecomeFalling);
+        aliveState.RegisterState(Alive_SubState.Crawling, OnBecomeCrawling);
+
+        aliveState.AllowTransitionChain(Alive_SubState.Walking, Alive_SubState.Falling, Alive_SubState.Crawling);
+
+        aliveState.SetDefaultState(Alive_SubState.Walking);
+
+        currentSpeed = maximumSpeed;
     }
 
-    // Use this for initialization
-    void Start()
+    public void OnTouch()
     {
-        animator = GetComponent<Animator>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        parent = transform.parent;
-        dyingMethod = Random.Range(0, 2);
-    }
+        if (!State.Alive.Equals(GetCurrentState())) return;
 
-    IEnumerator FallAndStartCrawl()
-    {
-        if (soundsOfFalling != null && soundsOfFalling.Length > 0)
+        switch (aliveState.GetCurrentState())
         {
-            AudioSource.PlayClipAtPoint(soundsOfFalling[Random.Range(0, soundsOfFalling.Length - 1)], Camera.main.transform.position);
-        }
-        crawling = true;
-        animator.SetBool("Crawl", true);
-        float oldSpeed = speed;
-        speed = 0;
-        while (!animator.GetCurrentAnimatorStateInfo(0).IsName("Base.Crawl"))
-        {
-            yield return new WaitForFixedUpdate();
-        }
-        speed = oldSpeed * 0.5f;
-        yield return null;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (!dying)
-        {
-            parent.position += Vector3.right * speed * Time.deltaTime;
-        }
-        else
-        {
-            if (!dead && dying)
-            {
-                AnimatorStateInfo animState = animator.GetCurrentAnimatorStateInfo(0);
-
-                if (animState.IsName("Base.FallDeath") || animState.IsName("Base.CrawlDeath"))
+            case Alive_SubState.Walking:
+                if (Random2.NextBool())
                 {
-                    if (animState.normalizedTime >= 1.0f)
-                    {
-                        dead = true;
-
-                        EventBus.EnemyDied.Publish(gameObject);
-                    }
+                    aliveState.Advance(Alive_SubState.Falling);
+                } else
+                {
+                    int animatorParamValue = Random2.NextBool() ? ANIM_DYING_BY_BODYSHOT : ANIM_DYING_BY_HEADSHOT;
+                    
+                    Advance(State.Dying, animatorParamValue);
                 }
-            }
+                break;
+            case Alive_SubState.Crawling:
+                Advance(State.Dying, ANIM_DYING_WHILE_CRAWLING);
+                break;
         }
     }
 
-    public override void OnGetTouched()
+    /// <summary>
+    /// Called from the StartCrawl animation clip.
+    /// </summary>
+    public void BecomeCrawling()
     {
-        if (dying) return;
-
-        if (dyingMethod == 0)
-        {
-            animator.SetBool("Fall", true);
-            StartDying();
-        }
-        else if (crawling)
-        {
-            if (speed > 0) StartDying();
-        }
-        else
-        {
-            StartCoroutine(FallAndStartCrawl());
-        }
+        aliveState.Advance(Alive_SubState.Crawling);
     }
 
-    void StartDying()
+    private void OnBecomeWalking(object param)
     {
-        if (dying)
-        {
-            return;
-        }
+        currentSpeed = maximumSpeed;
+    }
 
-        if (soundsOfDying != null && soundsOfDying.Length > 0)
-        {
-            AudioClip sound = soundsOfDying[Random.Range(0, soundsOfDying.Length - 1)];
+    private void OnLiving()
+    {
+        myParent.position += Vector3.right * currentSpeed * Time.deltaTime;
 
-            AudioSource.PlayClipAtPoint(sound, Camera.main.transform.position);
-        }
+        aliveState.Update();
+    }
 
-        animator.SetBool("Dead", true);
+    private void OnBecomeFalling(object param)
+    {
+        currentSpeed = 0;
+        
+        AudioClips.PlayRandomClipAtMainCamera(soundsOfFalling);
 
-        spriteRenderer.sortingLayerName = "Background";
+        myAnimator.SetBool("Crawling", true);
+    }
 
-        RemovePhysics();
+    private void OnBecomeCrawling(object param)
+    {
+        currentSpeed = maximumSpeed / 2;
+    }
 
-        dying = true;
+    private void OnBecomeDying(object param)
+    {
+        this.RemovePhysics();
 
-        speed = 0;
+        System.Int32 animatorParameter = (System.Int32)param;
+
+        AudioClips.PlayRandomClipAtMainCamera(soundsOfDying);
+
+        mySpriteRenderer.sortingLayerID = Layers.BACKGROUND;
+
+        myAnimator.SetInteger("Dying", animatorParameter);
+    }
+
+    private void OnDying()
+    {
+        AnimatorStateInfo info = myAnimator.GetCurrentAnimatorStateInfo(0);
+
+        if (info.IsTag("dying") && info.normalizedTime >= 1.0f) Advance(State.Dead);
+    }
+
+    private void OnBecomeDead(object param)
+    {
+        EventBus.EnemyDied.Publish(gameObject);
+
+        Advance(State.Recycled);
     }
 }

@@ -44,9 +44,9 @@ public class TouchOfDeath : MonoBehaviour {
                 {
                     Collider2D collider = colliders[i];
 
-                    MobBehaviour mobController = collider.gameObject.GetComponent<MobBehaviour>();
+                    Component[] touchable = collider.gameObject.GetComponents(typeof(ITouchable));
 
-                    if (mobController != null) mobController.OnGetTouched();
+                    if (touchable != null && touchable.Length > 0) ((ITouchable)touchable[0]).OnTouch();
                 }
             }
         }

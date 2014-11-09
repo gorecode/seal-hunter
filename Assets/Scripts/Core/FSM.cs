@@ -42,11 +42,11 @@ class Transition<S> : System.IEquatable<Transition<S>>
     public S GetBState() { return mNext; }
 }
 
-public delegate void OnEnter(Object arg);
+public delegate void OnEnter(object arg);
 public delegate void OnUpdate();
 public delegate void OnExit();
 
-public class FSM<S>
+public class FSM<S> : MonoBehaviour
 {
     class StateDelegates {
         public OnEnter onEnter;
@@ -65,7 +65,7 @@ public class FSM<S>
         mDelegates = new Dictionary<S, StateDelegates>();
     }
 
-    public void Init(S s)
+    public void SetDefaultState(S s)
     {
         mCurrState = s;
 
@@ -77,12 +77,7 @@ public class FSM<S>
         }
     }
 
-    public void Advance(S nextState)
-    {
-        Advance(nextState, null);
-    }
-
-    public void Advance(S nextState, Object transitionParam)
+    public void Advance(S nextState, object transitionParam = null)
     {
         if (mCurrState.Equals(nextState)) return;
 
@@ -113,7 +108,7 @@ public class FSM<S>
         }
     }
 
-    public void RegisterState(S state, OnEnter onEnter, OnUpdate onUpdate, OnExit onExit)
+    public void RegisterState(S state, OnEnter onEnter = null, OnUpdate onUpdate = null, OnExit onExit = null)
     {
         StateDelegates delegates = new StateDelegates();
         
@@ -124,7 +119,15 @@ public class FSM<S>
         mDelegates.Add(state, delegates);
     }
 
-    public void AddTransition(S init, S end)
+    public void AllowTransitionChain(params S[] states)
+    {
+        for (int i = 0; i < states.Length - 1; i++)
+        {
+            AllowTransition(states[i], states[i + 1]);
+        }
+    }
+
+    public void AllowTransition(S init, S end)
     {
         Transition<S> tr = new Transition<S>(init, end);
 
