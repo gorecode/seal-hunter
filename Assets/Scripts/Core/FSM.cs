@@ -65,6 +65,23 @@ public class FSM<S>
         mDelegates = new Dictionary<S, StateDelegates>();
     }
 
+    public void Init(S s)
+    {
+        mCurrState = s;
+
+        StateDelegates delegates = null;
+        
+        if (mDelegates.TryGetValue(mCurrState, out delegates) && delegates.onEnter != null)
+        {
+            delegates.onEnter(null);
+        }
+    }
+
+    public void Advance(S nextState)
+    {
+        Advance(nextState, null);
+    }
+
     public void Advance(S nextState, Object transitionParam)
     {
         if (mCurrState.Equals(nextState)) return;
@@ -88,12 +105,12 @@ public class FSM<S>
             oldStateDelegates.onExit();
         }
 
+        mCurrState = nextState;
+
         if (newStateDelegates != null && newStateDelegates.onEnter != null)
         {
             newStateDelegates.onEnter(transitionParam);
         }
-
-        mCurrState = nextState;
     }
 
     public void RegisterState(S state, OnEnter onEnter, OnUpdate onUpdate, OnExit onExit)
@@ -119,6 +136,18 @@ public class FSM<S>
 
 
         mTransitions.Add(tr);
+    }
+
+    public void Update()
+    {
+        if (mCurrState == null) return;
+
+        StateDelegates delegates = null;
+
+        if (mDelegates.TryGetValue(mCurrState, out delegates) && delegates.onUpdate != null)
+        {
+            delegates.onUpdate();
+        }
     }
 
     public S GetCurrentState() { return mCurrState; }
