@@ -126,11 +126,4 @@ public class Seal : Creature, ITouchable
 
         Advance(State.Recycled);
     }
-
-    public new void Update()
-    {
-        base.Update();
-
-        Debug.DrawRay(transform.TransformPoint(Vector3.zero), Vector3.right, Color.red);
-    }
 }
