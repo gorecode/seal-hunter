@@ -10,9 +10,9 @@ GameObject:
   - 4: {fileID: 400000}
   - 212: {fileID: 21200000}
   - 95: {fileID: 9500000}
-  - 114: {fileID: 11400000}
   - 61: {fileID: 6100000}
   - 50: {fileID: 5000000}
+  - 114: {fileID: 11400000}
   m_Layer: 8
   m_Name: Sprite
   m_TagString: Untagged
@@ -95,7 +95,7 @@ Animator:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 09300aedb11439f489bc5643712f6ab1, type: 2}
+  m_Controller: {fileID: 9100000, guid: 4ba23920811534ed9860d0369e5037e7, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -109,10 +109,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2df7cfe684ed5c04d8d97fab1438e48f, type: 3}
+  m_Script: {fileID: 11500000, guid: f1f8dd09518ce417d967547eefb247e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: .5
+  maximumSpeed: .5
+  currentSpeed: 0
   soundsOfDying:
   - {fileID: 8300000, guid: 7ffb8b2bb3363cc45a9075720a027166, type: 3}
   - {fileID: 8300000, guid: 397c88e978c038a4880ee01fc62d101a, type: 3}

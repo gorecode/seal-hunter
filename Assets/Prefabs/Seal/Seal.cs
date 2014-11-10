@@ -56,7 +56,7 @@ public class Seal : Creature, ITouchable
                     aliveState.Advance(Alive_SubState.Falling);
                 } else
                 {
-                    int animatorParamValue = Random2.NextBool() ? ANIM_DYING_BY_BODYSHOT : ANIM_DYING_BY_HEADSHOT;
+                    int animatorParamValue = (Random2.NextBool()) ? ANIM_DYING_BY_BODYSHOT : ANIM_DYING_BY_HEADSHOT;
                     
                     Advance(State.Dying, animatorParamValue);
                 }
@@ -126,5 +126,12 @@ public class Seal : Creature, ITouchable
         EventBus.EnemyDied.Publish(gameObject);
 
         Advance(State.Recycled);
+    }
+
+    public new void Update()
+    {
+        base.Update();
+
+        Debug.DrawRay(transform.TransformPoint(Vector3.zero), Vector3.right, Color.red);
     }
 }
