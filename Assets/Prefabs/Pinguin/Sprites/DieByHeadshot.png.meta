@@ -1,0 +1,124 @@
+fileFormatVersion: 2
+guid: c3ea8a57e09114826a9a72dd0a63c9e4
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: DieByHeadshot_0
+    21300002: DieByHeadshot_1
+    21300004: DieByHeadshot_2
+    21300006: DieByHeadshot_3
+    21300008: DieByHeadshot_4
+    21300010: DieByHeadshot_5
+    21300012: DieByHeadshot_6
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: 0
+    aniso: 1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: DieByHeadshot_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 198
+        width: 70
+        height: 33
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: DieByHeadshot_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 165
+        width: 70
+        height: 33
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: DieByHeadshot_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 132
+        width: 70
+        height: 33
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: DieByHeadshot_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 99
+        width: 70
+        height: 33
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: DieByHeadshot_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 66
+        width: 70
+        height: 33
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: DieByHeadshot_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 33
+        width: 70
+        height: 33
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: DieByHeadshot_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 70
+        height: 33
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: smallMob
+  userData: 
