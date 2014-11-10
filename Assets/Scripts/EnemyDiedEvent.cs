@@ -4,25 +4,22 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace Assets.Scripts
+public class EnemyDiedEvent
 {
-    public class EnemyDiedEvent
+    private readonly List<Action<GameObject>> _callbacks = new List<Action<GameObject>>();
+
+    public void Subscribe(Action<GameObject> callback)
     {
-        private readonly List<Action<GameObject>> _callbacks = new List<Action<GameObject>>();
+        _callbacks.Add(callback);
+    }
 
-        public void Subscribe(Action<GameObject> callback)
+    public void Publish(GameObject unit)
+    {
+        Debug.Log("Enemy died");
+
+        foreach (Action<GameObject> callback in _callbacks)
         {
-            _callbacks.Add(callback);
-        }
-
-        public void Publish(GameObject unit)
-        {
-            Debug.Log("Enemy died");
-
-            foreach (Action<GameObject> callback in _callbacks)
-            {
-                callback(unit);
-            }
+            callback(unit);
         }
     }
 }

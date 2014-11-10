@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngineExt;
 using System.Collections;
-using Assets.Scripts;
 
 public class Seal : Creature, ITouchable
 {

@@ -1,7 +1,15 @@
 fileFormatVersion: 2
-guid: 3323a34d8ef234cc7a21bc2665b50496
+guid: 57a76ead2019b4568aa7f28d16c452e8
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: Sliding2_0
+    21300002: Sliding2_1
+    21300004: Sliding2_2
+    21300006: Sliding2_3
+    21300008: Sliding_0
+    21300010: Sliding_1
+    21300012: Sliding_2
+    21300014: Sliding_3
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -31,10 +39,10 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 6
+  alignment: 0
   spritePivot: {x: .5, y: .5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
@@ -42,6 +50,46 @@ TextureImporter:
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites: []
+    sprites:
+    - name: Sliding_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 69
+        width: 27
+        height: 23
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Sliding_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 46
+        width: 27
+        height: 23
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Sliding_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 23
+        width: 27
+        height: 23
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Sliding_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 27
+        height: 23
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: smallMob
   userData: 
