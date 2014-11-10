@@ -9,10 +9,13 @@ public class Pinguin : Creature, ITouchable
     private const int DEATH_HEADSHOT = 2;
     private const int DEATH_BODYSHOT = 1;
 
+    public float slidingSpeed;
     public float walkingSpeed = 0.3f;
     public float currentSpeed;
     public float friction = 0.02f;
     public float delayBeforeSliding = 1;
+
+    public Vector3 direction = Vector3.right;
 
     public AudioClip[] soundsOfDying;
     public AudioClip[] soundsOfSpawning;
@@ -64,7 +67,7 @@ public class Pinguin : Creature, ITouchable
 
     private void OnContinueLiving()
     {
-        myParent.position += Vector3.right * currentSpeed * Time.deltaTime;
+        myParent.position += direction * currentSpeed * Time.deltaTime;
 
         aliveState.Update();
     }
@@ -87,7 +90,10 @@ public class Pinguin : Creature, ITouchable
 
     private void OnBecomeSliding(object param)
     {
-        currentSpeed = walkingSpeed * 2;
+        slidingSpeed = currentSpeed = walkingSpeed * 2;
+
+        direction = Quaternion.Euler(0, 0, Random.Range(-30, 30)) * direction;
+        direction.Normalize();
 
         myAnimator.SetBool("Sliding", true);
     }
@@ -111,12 +117,14 @@ public class Pinguin : Creature, ITouchable
                 if (myAnimator.IsFinishedPlayingAnimationWithTag("Dying")) Advance(State.Dead);
                 break;
             case Alive_SubState.Sliding:
-                myParent.position += Vector3.right * currentSpeed * Time.deltaTime;
+                myParent.position += direction * currentSpeed * Time.deltaTime;
 
                 currentSpeed = Mathf.Max(0.0f, currentSpeed - friction * Time.deltaTime);
 
+                myAnimator.speed = 1.0f - (slidingSpeed - currentSpeed) / slidingSpeed;
+
                 if (currentSpeed == 0.0f) Advance(State.Dead);
-                Debug.Log("s="+currentSpeed);
+
                 break;
         }
     }
