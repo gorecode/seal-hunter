@@ -603,10 +603,11 @@ MonoBehaviour:
   spawnZoneY: 1.29999995
   enemiesPerSecond: 1
   enemiesPerSecondSpeed: 0
-  enemyPrefabs:
+  dynamicObjects: {fileID: 754483847}
+  enemyPrefabs: []
+  enemyPrefabsSupportingPools:
   - {fileID: 100002, guid: 3d9fa03033681465aacf525b2a8b5ade, type: 2}
-  - {fileID: 100002, guid: ecdb20d0eab5b7844aae40aadc792d34, type: 2}
-  sealPrefab: {fileID: 100002, guid: 543907ba2c8722643abd41e2c459330a, type: 2}
+  - {fileID: 100002, guid: 543907ba2c8722643abd41e2c459330a, type: 2}
 --- !u!4 &2106316359
 Transform:
   m_ObjectHideFlags: 0

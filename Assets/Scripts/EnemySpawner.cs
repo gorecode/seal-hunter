@@ -9,6 +9,8 @@ public class EnemySpawner : MonoBehaviour
     public float enemiesPerSecond = 0.1f;
     public float enemiesPerSecondSpeed = 0.1f;
 
+    public GameObject dynamicObjects;
+
     public GameObject[] enemyPrefabs;
     public GameObject[] enemyPrefabsSupportingPools;
 
@@ -44,6 +46,7 @@ public class EnemySpawner : MonoBehaviour
         {
             GameObject prefab = enemyPrefabsSupportingPools[Random.Range((int)0, (int)enemyPrefabsSupportingPools.Length)];
             GameObject go = GameObjectPool.Instance.Instantiate(prefab, transform.position, Quaternion.identity) as GameObject;
+            go.transform.parent = dynamicObjects.transform;
             go.transform.position += Vector3.up * ((Random.value * 2.0f) - 1.0f) * spawnZoneY;
         }
     }
@@ -57,7 +60,7 @@ public class EnemySpawner : MonoBehaviour
         if (enemyPrefab != null)
         {
             GameObject newEnemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity) as GameObject;
-            
+            enemyPrefab.transform.parent = dynamicObjects.transform;
             newEnemy.transform.position += Vector3.up * ((Random.value * 2.0f) - 1.0f) * spawnZoneY;
         }
     }
