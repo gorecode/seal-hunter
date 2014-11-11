@@ -4,8 +4,6 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace Assets.Scripts
-{
     public class GameObjects
     {
         public static void DestroyRoot(GameObject go)
@@ -18,4 +16,3 @@ namespace Assets.Scripts
             GameObject.Destroy(t.gameObject);
         }
     }
-}

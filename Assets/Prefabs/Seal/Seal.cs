@@ -8,6 +8,8 @@ public class Seal : Creature, ITouchable
     public const int ANIM_DYING_BY_BODYSHOT = 1;
     public const int ANIM_DYING_WHILE_CRAWLING = 1;
 
+    private static readonly int WALKING_STATE_HASH = Animator.StringToHash("Base Layer.Walk");
+
     public enum Alive_SubState { Walking, Falling, Crawling };
 
     public float maximumSpeed;
@@ -23,24 +25,26 @@ public class Seal : Creature, ITouchable
         base.Awake();
 
         // General mob lifecycle.
-        RegisterState(State.Alive, onUpdate: OnLiving);
+        RegisterState(State.Alive, OnBecomeAlive, OnLiving);
         RegisterState(State.Dying, OnBecomeDying, OnDying);
         RegisterState(State.Dead, OnBecomeDead);
 
-        SetDefaultState(State.Alive);
+        SetDebugOutput(true);
 
         // Seal living lifecycle.
         aliveState = new FSM<Alive_SubState>();
+        aliveState.AllowTransitionChain(Alive_SubState.Walking, Alive_SubState.Falling, Alive_SubState.Crawling);
 
         aliveState.RegisterState(Alive_SubState.Walking, OnBecomeWalking);
         aliveState.RegisterState(Alive_SubState.Falling, OnBecomeFalling);
         aliveState.RegisterState(Alive_SubState.Crawling, OnBecomeCrawling);
 
-        aliveState.AllowTransitionChain(Alive_SubState.Walking, Alive_SubState.Falling, Alive_SubState.Crawling);
+        aliveState.SetDebugOutput(true);
+    }
 
-        aliveState.SetDefaultState(Alive_SubState.Walking);
-
-        currentSpeed = maximumSpeed;
+    public void OnEnable()
+    {
+        ForceEnterState(State.Alive);
     }
 
     public void OnTouch()
@@ -74,8 +78,18 @@ public class Seal : Creature, ITouchable
         aliveState.Advance(Alive_SubState.Crawling);
     }
 
+    private void OnBecomeAlive(object param)
+    {
+        myAnimator.SetBool("Crawling", false);
+        myAnimator.SetInteger("Dying", 0);
+
+        aliveState.ForceEnterState(Alive_SubState.Walking);
+    }
+
     private void OnBecomeWalking(object param)
     {
+        myAnimator.Play(WALKING_STATE_HASH, 0, 0);
+
         currentSpeed = maximumSpeed;
     }
 
@@ -102,7 +116,7 @@ public class Seal : Creature, ITouchable
 
     private void OnBecomeDying(object param)
     {
-        this.RemovePhysics();
+        //collider2D.enabled = false;
 
         System.Int32 animatorParameter = (System.Int32)param;
 
@@ -122,7 +136,7 @@ public class Seal : Creature, ITouchable
 
     private void OnBecomeDead(object param)
     {
-        EventBus.EnemyDied.Publish(gameObject);
+        EventBus.EnemyDied.Publish(transform.parent.gameObject);
 
         Advance(State.Recycled);
     }

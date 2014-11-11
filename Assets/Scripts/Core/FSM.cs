@@ -54,6 +54,8 @@ public class FSM<S> : MonoBehaviour
         public OnExit onExit;
     }
 
+    private bool debug;
+
     private S mCurrState;
 
     private HashSet<Transition<S>> mTransitions;
@@ -65,12 +67,19 @@ public class FSM<S> : MonoBehaviour
         mDelegates = new Dictionary<S, StateDelegates>();
     }
 
-    public void SetDefaultState(S s)
+    public void SetDebugOutput(bool debug)
+    {
+        this.debug = debug;
+    }
+
+    public void ForceEnterState(S s)
     {
         mCurrState = s;
 
         StateDelegates delegates = null;
-        
+
+        if (debug) Debug.Log("ForceEnterState(" + s + ")");
+
         if (mDelegates.TryGetValue(mCurrState, out delegates) && delegates.onEnter != null)
         {
             delegates.onEnter(null);
@@ -85,7 +94,7 @@ public class FSM<S> : MonoBehaviour
 
         if (!mTransitions.Contains(transition))
         {
-            Debug.Log("[FSM] Cannot advance to " + nextState + " state");
+            Debug.Log("[FSM] Cannot advance to " + nextState + " state, current state is " + mCurrState);
             return;
         }
 
@@ -101,6 +110,8 @@ public class FSM<S> : MonoBehaviour
         }
 
         mCurrState = nextState;
+
+        if (debug) Debug.Log("EnterState(" + nextState + ")");
 
         if (newStateDelegates != null && newStateDelegates.onEnter != null)
         {

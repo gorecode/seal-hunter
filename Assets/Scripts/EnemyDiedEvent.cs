@@ -15,8 +15,6 @@ public class EnemyDiedEvent
 
     public void Publish(GameObject unit)
     {
-        Debug.Log("Enemy died");
-
         foreach (Action<GameObject> callback in _callbacks)
         {
             callback(unit);

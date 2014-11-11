@@ -51,18 +51,16 @@ public class Pinguin : Creature, ITouchable
         aliveState.RegisterState(Alive_SubState.Sliding, OnBecomeSliding);
     }
 
-    public new void Start()
+    public void Start()
     {
-        base.Start();
-
-        SetDefaultState(State.Alive);
+        ForceEnterState(State.Alive);
     }
 
     private void OnBecomeAlive(object param)
     {
         AudioClips.PlayRandomClipAtMainCamera(soundsOfSpawning);
 
-        aliveState.SetDefaultState(Alive_SubState.Walking);
+        aliveState.ForceEnterState(Alive_SubState.Walking);
     }
 
     private void OnContinueLiving()
