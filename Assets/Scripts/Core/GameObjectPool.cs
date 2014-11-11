@@ -36,17 +36,23 @@ public class GameObjectPool {
         }
     }
 
-    public void Recycle(GameObject gameObject)
+    public bool Recycle(GameObject gameObject)
     {
         PrefabField marker = gameObject.GetComponent<PrefabField>();
 
-        if (marker == null) Debug.LogError("PrefabField component is required to use GameObjectPool.");
+        if (marker == null)
+        {
+            Debug.LogError("PrefabField component is required to use GameObjectPool.");
+            return false;
+        }
 
         LinkedList<GameObject> recycled = GetRecycledObjects(marker.prefab);
 
         gameObject.SetActive(false);
 
         recycled.AddFirst(gameObject);
+
+        return true;
     }
 
     private LinkedList<GameObject> GetRecycledObjects(GameObject prefab)

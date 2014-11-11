@@ -29,8 +29,6 @@ public class Seal : Creature, ITouchable
         RegisterState(State.Dying, OnBecomeDying, OnDying);
         RegisterState(State.Dead, OnBecomeDead);
 
-        SetDebugOutput(true);
-
         // Seal living lifecycle.
         aliveState = new FSM<Alive_SubState>();
         aliveState.AllowTransitionChain(Alive_SubState.Walking, Alive_SubState.Falling, Alive_SubState.Crawling);
@@ -38,8 +36,6 @@ public class Seal : Creature, ITouchable
         aliveState.RegisterState(Alive_SubState.Walking, OnBecomeWalking);
         aliveState.RegisterState(Alive_SubState.Falling, OnBecomeFalling);
         aliveState.RegisterState(Alive_SubState.Crawling, OnBecomeCrawling);
-
-        aliveState.SetDebugOutput(true);
     }
 
     public void OnEnable()
@@ -80,6 +76,8 @@ public class Seal : Creature, ITouchable
 
     private void OnBecomeAlive(object param)
     {
+        collider2D.enabled = true;
+
         myAnimator.SetBool("Crawling", false);
         myAnimator.SetInteger("Dying", 0);
 
@@ -116,7 +114,7 @@ public class Seal : Creature, ITouchable
 
     private void OnBecomeDying(object param)
     {
-        //collider2D.enabled = false;
+        collider2D.enabled = false;
 
         System.Int32 animatorParameter = (System.Int32)param;
 

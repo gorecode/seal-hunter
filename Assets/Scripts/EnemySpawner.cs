@@ -10,8 +10,7 @@ public class EnemySpawner : MonoBehaviour
     public float enemiesPerSecondSpeed = 0.1f;
 
     public GameObject[] enemyPrefabs;
-
-    public GameObject sealPrefab;
+    public GameObject[] enemyPrefabsSupportingPools;
 
     private float nextSpawnTime;
 
@@ -33,20 +32,23 @@ public class EnemySpawner : MonoBehaviour
     {
         if (Time.time >= nextSpawnTime)
         {
-            //spawnNonPooledObject();
-            spawnPooledObject();
+            SpawnWithPooling();
 
             SetUpNextSpawnTime();
         }
     }
 
-    void spawnPooledObject()
+    void SpawnWithPooling()
     {
-        GameObject go = GameObjectPool.Instance.Instantiate(sealPrefab, transform.position, Quaternion.identity) as GameObject;
-        go.transform.position += Vector3.up * ((Random.value * 2.0f) - 1.0f) * spawnZoneY;
+        if (enemyPrefabsSupportingPools.Length > 0)
+        {
+            GameObject prefab = enemyPrefabsSupportingPools[Random.Range((int)0, (int)enemyPrefabsSupportingPools.Length)];
+            GameObject go = GameObjectPool.Instance.Instantiate(prefab, transform.position, Quaternion.identity) as GameObject;
+            go.transform.position += Vector3.up * ((Random.value * 2.0f) - 1.0f) * spawnZoneY;
+        }
     }
 
-    void spawnNonPooledObject()
+    void SpawnWithoutPooling()
     {
         int index = Random.Range((int)0, (int)enemyPrefabs.Length);
         
@@ -67,7 +69,10 @@ public class EnemySpawner : MonoBehaviour
 
     private void OnEnemyDie(GameObject enemy)
     {
-        GameObjectPool.Instance.Recycle(enemy);
+        if (!GameObjectPool.Instance.Recycle(enemy))
+        {
+            GameObject.Destroy(enemy);
+        }
     }
 
     private void SetUpNextSpawnTime()

@@ -9,16 +9,18 @@ public class Pinguin : Creature, ITouchable
     private const int DEATH_HEADSHOT = 2;
     private const int DEATH_BODYSHOT = 1;
 
+    private static readonly int WALKING_STATE_HASH = Animator.StringToHash("Base Layer.Walking");
+
     public float slidingSpeed;
     public float walkingSpeed = 0.3f;
     public float currentSpeed;
     public float friction = 0.02f;
     public float delayBeforeSliding = 1;
 
-    public Vector3 direction = Vector3.right;
-
     public AudioClip[] soundsOfDying;
     public AudioClip[] soundsOfSpawning;
+
+    private Vector3 direction = Vector3.right;
 
     private FSM<Alive_SubState> aliveState;
 
@@ -51,13 +53,21 @@ public class Pinguin : Creature, ITouchable
         aliveState.RegisterState(Alive_SubState.Sliding, OnBecomeSliding);
     }
 
-    public void Start()
+    public void OnEnable()
     {
         ForceEnterState(State.Alive);
     }
 
     private void OnBecomeAlive(object param)
     {
+        myAnimator.speed = 1;
+        myAnimator.SetInteger("DeathAnimationId", 0);
+        myAnimator.SetBool("Sliding", false);
+
+        direction = Vector3.right;
+
+        collider2D.enabled = true;
+
         AudioClips.PlayRandomClipAtMainCamera(soundsOfSpawning);
 
         aliveState.ForceEnterState(Alive_SubState.Walking);
@@ -72,6 +82,8 @@ public class Pinguin : Creature, ITouchable
 
     private void OnBecomeWalking(object param)
     {
+        myAnimator.Play(WALKING_STATE_HASH, 0, 0);
+
         currentSpeed = walkingSpeed;
 
         StartCoroutine(StartSlidingAfterDelay(delayBeforeSliding));
@@ -98,7 +110,9 @@ public class Pinguin : Creature, ITouchable
 
     private void OnBecomeDying(object param)
     {
-        this.RemovePhysics();
+        StopAllCoroutines();
+
+        collider2D.enabled = false;
 
         System.Int32 deathAnimationId = (System.Int32)param;
 
@@ -129,6 +143,6 @@ public class Pinguin : Creature, ITouchable
 
     private void OnBecomeDead(object param)
     {
-        EventBus.EnemyDied.Publish(gameObject);
+        EventBus.EnemyDied.Publish(transform.parent.gameObject);
     }
 }
