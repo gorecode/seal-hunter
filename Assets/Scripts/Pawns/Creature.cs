@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Creature : FSM<Creature.State> {
+public class Creature : FSMBehaviour<Creature.State> {
     public enum State { Alive, Dying, Dead, Recycled }
 
     protected SpriteRenderer mySpriteRenderer;

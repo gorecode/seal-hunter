@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BearController : MobBehaviour
+public class BearController : BaseBehaviour
 {
     public float speed = 0.001f;
     public AudioClip death1Sound;

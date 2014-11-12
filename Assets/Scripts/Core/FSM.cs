@@ -46,7 +46,7 @@ public delegate void OnEnter(object arg);
 public delegate void OnUpdate();
 public delegate void OnExit();
 
-public class FSM<S> : MonoBehaviour
+public class FSM<S>
 {
     class StateDelegates {
         public OnEnter onEnter;

@@ -1,17 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MobBehaviour : MonoBehaviour, ITouchable {
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-
+public class BaseBehaviour : MonoBehaviour, ITouchable {
     public void RemovePhysics()
     {
         collider2D.enabled = false;
