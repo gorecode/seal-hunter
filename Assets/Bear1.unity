@@ -257,7 +257,7 @@ AudioSource:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 456859972}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_audioClip: {fileID: 8300000, guid: 46911f23360a5204f94182dd87512dc8, type: 3}
   m_PlayOnAwake: 1
@@ -601,13 +601,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnZoneY: 1.29999995
-  enemiesPerSecond: 1
+  enemiesPerSecond: .100000001
   enemiesPerSecondSpeed: 0
   dynamicObjects: {fileID: 754483847}
   enemyPrefabs: []
   enemyPrefabsSupportingPools:
-  - {fileID: 100002, guid: 3d9fa03033681465aacf525b2a8b5ade, type: 2}
-  - {fileID: 100002, guid: 543907ba2c8722643abd41e2c459330a, type: 2}
+  - {fileID: 100002, guid: ecdb20d0eab5b7844aae40aadc792d34, type: 2}
 --- !u!4 &2106316359
 Transform:
   m_ObjectHideFlags: 0

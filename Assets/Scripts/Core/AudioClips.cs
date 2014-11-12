@@ -9,5 +9,10 @@ public class AudioClips {
         if (clip != null) AudioSource.PlayClipAtPoint(clip, Camera.main.transform.position);
     }
 
+    public static void PlayClipAtMainCamera(AudioClip clip)
+    {
+        if (clip != null) AudioSource.PlayClipAtPoint(clip, Camera.main.transform.position);
+    }
+
     private AudioClips() { }
 }

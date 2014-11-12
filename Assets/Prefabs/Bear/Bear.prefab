@@ -12,7 +12,6 @@ GameObject:
   - 95: {fileID: 9500000}
   - 61: {fileID: 6100000}
   - 114: {fileID: 11400000}
-  - 50: {fileID: 5000000}
   m_Layer: 8
   m_Name: BearSprite
   m_TagString: Untagged
@@ -60,21 +59,6 @@ Transform:
   - {fileID: 400000}
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!50 &5000000
-Rigidbody2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: .0500000007
-  m_GravityScale: 1
-  m_FixedAngle: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
 --- !u!61 &6100000
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -96,9 +80,9 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 15014ff31fbf3f84a96adce75341df32, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &11400000
@@ -112,10 +96,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcebb5b971620e24d94abe23385e7f2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: .400000006
-  death1Sound: {fileID: 8300000, guid: df3d5d61962f8fb49a894ed087a2a179, type: 3}
-  death2Sound: {fileID: 8300000, guid: cbd0e7a56e74eed4a94a3f4df6cf162c, type: 3}
-  movable: {fileID: 400002}
+  walkingSpeed: .5
+  currentSpeed: 0
+  soundsOfDying:
+  - {fileID: 8300000, guid: df3d5d61962f8fb49a894ed087a2a179, type: 3}
+  - {fileID: 8300000, guid: cbd0e7a56e74eed4a94a3f4df6cf162c, type: 3}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

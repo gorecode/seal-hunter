@@ -1,99 +1,98 @@
 ﻿using UnityEngine;
+using UnityEngineExt;
 using System.Collections;
 
-public class BearController : BaseBehaviour
+public class BearController : Creature
 {
-    public float speed = 0.001f;
-    public AudioClip death1Sound;
-    public AudioClip death2Sound;
-    public Transform movable;
-    private Animator animator;
-    private bool dying;
-    private bool dead;
-    private float sniffDelay;
-    private float sniffDuration;
-    private SpriteRenderer spriteRenderer;
+    private const string ANIM_WALKING = "Base.Walk";
+    private const string ANIM_DEATH_FROM_EYESHOT = "Base.EyeShot";
+    private const string ANIM_DEATH_FROM_BODYSHOT = "Base.HeadExplosion";
 
-    void Awake()
-    {
-    }
+    public float walkingSpeed = 0.01f;
+    public float currentSpeed;
 
-    // Use this for initialization
-    void Start()
-    {
-        animator = GetComponent<Animator>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-
-        sniffDelay = 1 + Random.value * 4;
-        sniffDuration = 1 + Random.value * 3;
-
-        StartCoroutine("SniffCoroutine");
-    }
-
-    IEnumerator SniffCoroutine()
-    {
-        yield return new WaitForSeconds(sniffDelay);
-        float oldSpeed = speed;
-        speed = 0.0f;
-        yield return new WaitForSeconds(sniffDuration);
-        speed = oldSpeed;
-        yield return null;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (!dying)
-        {
-            movable.position += Vector3.right * speed * Time.deltaTime;
-
-            animator.SetFloat("Speed", speed);
-        }
-        else if (!dead)
-        {
-            AnimatorStateInfo animState = animator.GetCurrentAnimatorStateInfo(0);
-
-            if (animState.IsName("Base.EyeShot") || animState.IsName("Base.HeadExplosion"))
-            {
-                if (animState.normalizedTime >= 1.0f)
-                {
-                    dead = true;
-
-                    EventBus.OnDeath(transform.parent.gameObject);
-                }
-            }
-        }
-    }
+    public AudioClip[] soundsOfDying;
 
     public override void OnTouch()
     {
-        Die();
+        Advance(State.Dying, Random2.NextBool() ? ANIM_DEATH_FROM_EYESHOT : ANIM_DEATH_FROM_BODYSHOT);
     }
 
-    void Die()
+    public new void Awake()
     {
-        if (dying)
+        base.Awake();
+
+        RegisterState(State.Alive, OnBecomeAlive);
+        RegisterState(State.Dying, OnBecomeDying);
+        RegisterState(State.Dead, OnBecomeDead);
+    }
+
+    void OnEnable()
+    {
+        ForceEnterState(State.Alive);
+    }
+
+    private void OnBecomeAlive(object param)
+    {
+        collider2D.enabled = true;
+
+        currentSpeed = walkingSpeed;
+
+        myAnimator.CrossFade(ANIM_WALKING, 0);
+
+        transform.position = Vector3.zero;
+
+        StartCoroutine(Wait_Sniff_Walk_Coroutine());
+    }
+
+    private void OnBecomeDying(object param)
+    {
+        StopAllCoroutines();
+
+        string animatorStateName = param as string;
+
+        AudioClip audioClip = ANIM_DEATH_FROM_EYESHOT.Equals(animatorStateName) ? soundsOfDying[0] : soundsOfDying[1];
+
+        AudioClips.PlayClipAtMainCamera(audioClip);
+
+        myAnimator.CrossFade(animatorStateName, 0);
+
+        mySpriteRenderer.sortingLayerID = Layers.BACKGROUND;
+        
+        collider2D.enabled = false;
+    }
+
+    private void OnBecomeDead(object param)
+    {
+        EventBus.OnDeath(transform.parent.gameObject);
+    }
+
+    new void Update()
+    {
+        base.Update();
+
+        switch (GetCurrentState())
         {
-            return;
+            case State.Alive:
+                transform.parent.position += Vector3.right * currentSpeed * Time.deltaTime;
+
+                myAnimator.SetFloat("Speed", currentSpeed);
+
+                break;
+            case State.Dying:
+                if (myAnimator.IsFinishedPlayingAnimationWithTag("Dying")) Advance(State.Dead);
+                break;
+
         }
+    }
 
-        speed = 0;
-
-        bool eyeShot = Random.value >= 0.5;
-
-        AudioClip deathSound = eyeShot ? death1Sound : death2Sound;
-
-        if (deathSound != null)
-        {
-            AudioSource.PlayClipAtPoint(deathSound, Camera.main.transform.position);
-        }
-
-        animator.Play(eyeShot ? "EyeShot" : "HeadExplosion");
-
-        spriteRenderer.sortingLayerName = "Background";
-
-        RemovePhysics();
-
-        dying = true;
+    IEnumerator Wait_Sniff_Walk_Coroutine()
+    {
+        yield return new WaitForSeconds(1 + Random.value * 4);
+        float oldSpeed = currentSpeed;
+        currentSpeed = 0.0f;
+        yield return new WaitForSeconds(1 + Random.value * 3);
+        currentSpeed = oldSpeed;
+        yield return null;
     }
 }

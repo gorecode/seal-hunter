@@ -43,7 +43,7 @@ public class Seal : Creature, ITouchable
         ForceEnterState(State.Alive);
     }
 
-    public void OnTouch()
+    public new void OnTouch()
     {
         if (!State.Alive.Equals(GetCurrentState())) return;
 

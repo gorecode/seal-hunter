@@ -22,8 +22,6 @@ public class GameObjectPool {
             return newObject;
         } else
         {
-            Debug.Log("Prefab reused.");
-
             GameObject oldObject = recycled.First.Value;
 
             oldObject.transform.position = position;
