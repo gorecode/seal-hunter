@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6b1ea113f8c141d496761d909b36cc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slidingSpeed: 0
   walkingSpeed: .300000012
   currentSpeed: 0
   friction: .300000012

@@ -194,7 +194,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 189890919}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2671e88f5aef2c429095dd0b8fbffb1, type: 3}
+  m_Script: {fileID: 11500000, guid: 35147af525ec845699def476d94dd4eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!50 &189890924
@@ -601,11 +601,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnZoneY: 1.29999995
-  enemiesPerSecond: .100000001
+  enemiesPerSecond: 1
   enemiesPerSecondSpeed: 0
   dynamicObjects: {fileID: 754483847}
-  enemyPrefabs: []
-  enemyPrefabsSupportingPools:
+  enemyPrefabs:
+  - {fileID: 100002, guid: 543907ba2c8722643abd41e2c459330a, type: 2}
+  - {fileID: 100002, guid: 3d9fa03033681465aacf525b2a8b5ade, type: 2}
   - {fileID: 100002, guid: ecdb20d0eab5b7844aae40aadc792d34, type: 2}
 --- !u!4 &2106316359
 Transform:

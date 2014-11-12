@@ -84,6 +84,8 @@ public class Pinguin : Creature, ITouchable
     {
         myAnimator.Play(WALKING_STATE_HASH, 0, 0);
 
+        transform.position = Vector3.zero;
+
         currentSpeed = walkingSpeed;
 
         StartCoroutine(StartSlidingAfterDelay(delayBeforeSliding));

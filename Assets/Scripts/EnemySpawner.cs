@@ -12,7 +12,6 @@ public class EnemySpawner : MonoBehaviour
     public GameObject dynamicObjects;
 
     public GameObject[] enemyPrefabs;
-    public GameObject[] enemyPrefabsSupportingPools;
 
     private float nextSpawnTime;
 
@@ -42,26 +41,12 @@ public class EnemySpawner : MonoBehaviour
 
     void SpawnWithPooling()
     {
-        if (enemyPrefabsSupportingPools.Length > 0)
+        if (enemyPrefabs.Length > 0)
         {
-            GameObject prefab = enemyPrefabsSupportingPools[Random.Range((int)0, (int)enemyPrefabsSupportingPools.Length)];
+            GameObject prefab = enemyPrefabs[Random.Range((int)0, (int)enemyPrefabs.Length)];
             GameObject go = GameObjectPool.Instance.Instantiate(prefab, transform.position, Quaternion.identity) as GameObject;
             go.transform.parent = dynamicObjects.transform;
             go.transform.position += Vector3.up * ((Random.value * 2.0f) - 1.0f) * spawnZoneY;
-        }
-    }
-
-    void SpawnWithoutPooling()
-    {
-        int index = Random.Range((int)0, (int)enemyPrefabs.Length);
-        
-        GameObject enemyPrefab = enemyPrefabs[index];
-        
-        if (enemyPrefab != null)
-        {
-            GameObject newEnemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity) as GameObject;
-            enemyPrefab.transform.parent = dynamicObjects.transform;
-            newEnemy.transform.position += Vector3.up * ((Random.value * 2.0f) - 1.0f) * spawnZoneY;
         }
     }
 

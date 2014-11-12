@@ -38,7 +38,7 @@ public class BearController : Creature
 
         currentSpeed = walkingSpeed;
 
-        myAnimator.CrossFade(ANIM_WALKING, 0);
+        myAnimator.Play(ANIM_WALKING, 0, 0);
 
         transform.position = Vector3.zero;
 
@@ -55,7 +55,7 @@ public class BearController : Creature
 
         AudioClips.PlayClipAtMainCamera(audioClip);
 
-        myAnimator.CrossFade(animatorStateName, 0);
+        myAnimator.Play(animatorStateName, 0, 0);
 
         mySpriteRenderer.sortingLayerID = Layers.BACKGROUND;
         
