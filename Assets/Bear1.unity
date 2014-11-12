@@ -552,6 +552,7 @@ GameObject:
   - 212: {fileID: 1358922300}
   - 111: {fileID: 1358922299}
   - 114: {fileID: 1358922298}
+  - 61: {fileID: 1358922301}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -617,8 +618,11 @@ Animation:
   m_GameObject: {fileID: 1358922296}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 0}
-  m_Animations: []
+  m_Animation: {fileID: 7400000, guid: 1012e1584330645c888a9078753f15de, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: ea990233f17b045349afb097e2b4d555, type: 2}
+  - {fileID: 7400000, guid: 6493c502581724c1ab8325c8a5995f56, type: 2}
+  - {fileID: 7400000, guid: 1012e1584330645c888a9078753f15de, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
@@ -645,6 +649,17 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: a513d283ea0584f47b5539b5bcdcf718, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!61 &1358922301
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1358922296}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Size: {x: .589999974, y: .379999995}
+  m_Center: {x: .294999987, y: .189999998}
 --- !u!1 &1552264022
 GameObject:
   m_ObjectHideFlags: 0
@@ -720,7 +735,7 @@ GameObject:
   m_Icon: {fileID: -2065832391, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2106316358
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,21 +1,36 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(SpriteRenderer))]
-[RequireComponent(typeof(Animation))]
-public class SpriteAnimator : MonoBehaviour
+[System.Serializable]
+[ExecuteInEditMode]
+public class SpriteList
 {
+    public Sprite[] sprites;
+}
+
+public class SpriteAnimator : MonoBehaviour {
+    public float index;
+    public float sheet;
+
+    public SpriteList[] sheets;
+
     private SpriteRenderer mySpriteRenderer;
-    private Animation myAnimation;
-    
-    void Awake()
-    {
-        mySpriteRenderer = renderer as SpriteRenderer;
-        myAnimation = animation as Animation; 
-    }
 
     public void SetSprite(Sprite sprite)
     {
-       mySpriteRenderer.sprite = sprite;
+        mySpriteRenderer.sprite = sprite;
+    }
+
+    void Start()
+    {
+        mySpriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    void Update()
+    {
+        if (mySpriteRenderer != null && sheets != null)
+        {
+            mySpriteRenderer.sprite = sheets[(int)sheet].sprites[(int)index];
+        }
     }
 }
