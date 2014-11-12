@@ -59,7 +59,7 @@ public class BearController : MobBehaviour
                 {
                     dead = true;
 
-                    EventBus.EnemyDied.Publish(gameObject);
+                    EventBus.OnDeath(transform.parent.gameObject);
                 }
             }
         }

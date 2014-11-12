@@ -134,7 +134,7 @@ public class Seal : Creature, ITouchable
 
     private void OnBecomeDead(object param)
     {
-        EventBus.EnemyDied.Publish(transform.parent.gameObject);
+        EventBus.OnDeath(transform.parent.gameObject);
 
         Advance(State.Recycled);
     }

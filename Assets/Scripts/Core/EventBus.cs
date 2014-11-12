@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using UnityEngine;
+using System;
 
 public class EventBus
 {
-    public static readonly EnemyDiedEvent EnemyDied = new EnemyDiedEvent();
+    public delegate void OnDeathMethod(GameObject go);
+
+    public static OnDeathMethod OnDeath;
 }

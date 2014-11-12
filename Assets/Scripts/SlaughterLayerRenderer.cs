@@ -30,7 +30,7 @@ public class SlaughterLayerRenderer : MonoBehaviour
         renderTextureCamera.gameObject.SetActive(false);
         renderTextureCamera.clearFlags = CameraClearFlags.Nothing;
 
-        EventBus.EnemyDied.Subscribe(OnEnemyDied);
+        EventBus.OnDeath += OnEnemyDied;
 
         dynamicBackgroundObject.gameObject.layer = oldLayer;
         dynamicBackgroundObject.GetComponent<MeshRenderer>().material.mainTexture = renderTexture;
