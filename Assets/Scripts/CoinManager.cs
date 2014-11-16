@@ -1,15 +1,20 @@
 ﻿using UnityEngine;
+using UnityEngineExt;
 using System.Collections;
+using System;
+using System.Text;
 
 public class CoinManager : MonoBehaviour {
     public Transform dynamicObjects;
     public GameObject coinPrefab;
 
     private int coins;
-    private string coinsStr;
+    private StringBuilder coinsStr;
 
     void Start()
     {
+        coinsStr = new StringBuilder("Coins: XXX");
+
         UpdateCoinsStr();
     }
 
@@ -26,7 +31,7 @@ public class CoinManager : MonoBehaviour {
     void OnGUI () 
     {
         GUI.color = Color.red;
-        GUILayout.Label(coinsStr);
+        GUILayout.Label(coinsStr.ToString());
     }
 
     private void OnBecomeDying(GameObject enemy)
@@ -47,6 +52,8 @@ public class CoinManager : MonoBehaviour {
 
     private void UpdateCoinsStr()
     {
-        coinsStr = "Coins: " + coins;
+        coinsStr.Remove(0, coinsStr.Length);
+        coinsStr.Append("Coins: ");
+        coinsStr.Append(coins.ToStringLookup());
     }
 }
