@@ -272,6 +272,7 @@ GameObject:
   - 82: {fileID: 456859974}
   - 114: {fileID: 456859973}
   - 114: {fileID: 456859980}
+  - 114: {fileID: 456859981}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -302,7 +303,7 @@ AudioSource:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 456859972}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_audioClip: {fileID: 8300000, guid: 46911f23360a5204f94182dd87512dc8, type: 3}
   m_PlayOnAwake: 1
@@ -431,6 +432,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+--- !u!114 &456859981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 456859972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ff234cf4ee474bcf918021de138f239, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dynamicObjects: {fileID: 797841244}
+  oneShotAudioPrefab: {fileID: 100000, guid: 27525f51330f84a21a5e5ad0ad75de3c, type: 2}
 --- !u!1 &576744728
 GameObject:
   m_ObjectHideFlags: 0
@@ -555,9 +569,37 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.98847342, y: -.0137124658, z: -.0545196533}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 797841244}
   m_Father: {fileID: 0}
   m_RootOrder: 7
+--- !u!1 &797841243
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 797841244}
+  m_Layer: 0
+  m_Name: Audio
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &797841244
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 797841243}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 754483848}
+  m_RootOrder: 0
 --- !u!1 &1552264022
 GameObject:
   m_ObjectHideFlags: 0
@@ -647,7 +689,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnZoneY: 1.29999995
   enemiesPerSecond: 1
-  enemiesPerSecondSpeed: 0
+  enemiesPerSecondSpeed: .00999999978
   dynamicObjects: {fileID: 754483847}
   enemyPrefabs:
   - {fileID: 100002, guid: 543907ba2c8722643abd41e2c459330a, type: 2}
