@@ -41,6 +41,7 @@ public class GameObjectPool {
         if (marker == null)
         {
             Debug.LogError("PrefabField component is required to use GameObjectPool.");
+            GameObject.Destroy(gameObject);
             return false;
         }
 

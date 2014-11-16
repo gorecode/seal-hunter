@@ -7,6 +7,7 @@ public class Creature : FSMBehaviour<Creature.State> {
     protected SpriteRenderer mySpriteRenderer;
     protected Animator myAnimator;
     protected Transform myParent;
+    protected Animation myAnimation;
 
     public void Awake()
     {
@@ -15,5 +16,6 @@ public class Creature : FSMBehaviour<Creature.State> {
         myAnimator = GetComponent<Animator>();
         mySpriteRenderer = GetComponent<SpriteRenderer>();
         myParent = transform.parent;
+        myAnimation = animation;
     }
 }
