@@ -47,7 +47,7 @@ public class BigBear : Creature {
         myAnimation.Play("Walk");
         mySpriteRenderer.sortingLayerID = SortingLayer.FOREGROUND;
 
-        AudioClips.PlayRandomClipAtMainCamera(soundsOfRessurection);
+        AudioCenter.PlayRandomClipAtMainCamera(soundsOfRessurection);
 
         Invoke(BecomeRunningAction.GetMethodName(), 4.0f);
     }
@@ -68,7 +68,7 @@ public class BigBear : Creature {
     {
         CancelInvoke();
 
-        AudioClips.PlayRandomClipAtMainCamera(soundsOfDying);
+        AudioCenter.PlayRandomClipAtMainCamera(soundsOfDying);
 
         friction = currentSpeed;
 

@@ -53,7 +53,7 @@ public class BearController : Creature
 
         AudioClip audioClip = ANIM_DEATH_FROM_EYESHOT.Equals(animatorStateName) ? soundsOfDying[0] : soundsOfDying[1];
 
-        AudioClips.PlayClipAtMainCamera(audioClip);
+        AudioCenter.PlayClipAtMainCamera(audioClip);
 
         myAnimator.Play(animatorStateName, 0, 0);
 

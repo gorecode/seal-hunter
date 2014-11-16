@@ -104,7 +104,7 @@ public class Seal : Creature, ITouchable
     {
         currentSpeed = 0;
         
-        AudioClips.PlayRandomClipAtMainCamera(soundsOfFalling);
+        AudioCenter.PlayRandomClipAtMainCamera(soundsOfFalling);
 
         myAnimator.SetBool("Crawling", true);
     }
@@ -120,7 +120,7 @@ public class Seal : Creature, ITouchable
 
         System.Int32 animatorParameter = (System.Int32)param;
 
-        AudioClips.PlayRandomClipAtMainCamera(soundsOfDying);
+        AudioCenter.PlayRandomClipAtMainCamera(soundsOfDying);
 
         mySpriteRenderer.sortingLayerID = Layers.BACKGROUND;
 

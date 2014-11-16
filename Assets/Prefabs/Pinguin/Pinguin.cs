@@ -68,7 +68,7 @@ public class Pinguin : Creature, ITouchable
 
         collider2D.enabled = true;
 
-        AudioClips.PlayRandomClipAtMainCamera(soundsOfSpawning);
+        AudioCenter.PlayRandomClipAtMainCamera(soundsOfSpawning);
 
         aliveState.ForceEnterState(Alive_SubState.Walking);
     }
@@ -118,7 +118,7 @@ public class Pinguin : Creature, ITouchable
 
         System.Int32 deathAnimationId = (System.Int32)param;
 
-        AudioClips.PlayRandomClipAtMainCamera(soundsOfDying);
+        AudioCenter.PlayRandomClipAtMainCamera(soundsOfDying);
 
         myAnimator.SetInteger("DeathAnimationId", deathAnimationId);
     }
