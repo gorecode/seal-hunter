@@ -8,9 +8,12 @@ public class AudioCenter : MonoBehaviour {
 
     private Dictionary<AudioClip, LinkedList<AudioSource>> pool;
 
+    private HashSet<AudioClip> clipsWasPlayedNow;
+
     public AudioCenter()
     {
         pool = new Dictionary<AudioClip, LinkedList<AudioSource>>();
+        clipsWasPlayedNow = new HashSet<AudioClip>();
     }
 
     public static void PlayRandomClipAtMainCamera(AudioClip[] clips)
@@ -29,6 +32,8 @@ public class AudioCenter : MonoBehaviour {
     public void PlayOneShot(AudioClip clip)
     {
         if (clip == null) return;
+
+        if (clipsWasPlayedNow.Contains(clip)) return;
 
         LinkedList<AudioSource> list = null;
 
@@ -58,5 +63,12 @@ public class AudioCenter : MonoBehaviour {
         }
 
         audioSource.Play();
+
+        clipsWasPlayedNow.Add(clip);
+    }
+
+    void LateUpdate()
+    {
+        clipsWasPlayedNow.Clear();
     }
 }
