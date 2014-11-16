@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngineExt;
 using System.Collections;
 using System;
@@ -77,6 +77,8 @@ public class BigBear : Creature {
         collider2D.enabled = false;
 
         mySpriteRenderer.sortingLayerID = SortingLayer.BACKGROUND;
+
+        EventBus.OnBecomeDying(myParent.gameObject);
     }
 
     private void OnDying()
@@ -90,6 +92,6 @@ public class BigBear : Creature {
 
     private void OnBecomeDead(object param)
     {
-        EventBus.OnDeath(myParent.gameObject);
+        EventBus.OnBecomeDead(myParent.gameObject);
     }
 }

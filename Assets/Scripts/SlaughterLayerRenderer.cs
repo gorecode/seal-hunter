@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -30,7 +30,7 @@ public class SlaughterLayerRenderer : MonoBehaviour
         renderTextureCamera.gameObject.SetActive(false);
         renderTextureCamera.clearFlags = CameraClearFlags.Nothing;
 
-        EventBus.OnDeath += OnEnemyDied;
+        EventBus.OnBecomeDead += OnEnemyDied;
 
         dynamicBackgroundObject.gameObject.layer = oldLayer;
         dynamicBackgroundObject.GetComponent<MeshRenderer>().material.mainTexture = renderTexture;

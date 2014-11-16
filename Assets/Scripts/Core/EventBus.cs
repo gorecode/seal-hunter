@@ -3,7 +3,8 @@ using System;
 
 public class EventBus
 {
-    public delegate void OnDeathMethod(GameObject go);
+    public delegate void GameObjectCallback(GameObject go);
 
-    public static OnDeathMethod OnDeath;
+    public static GameObjectCallback OnBecomeDead;
+    public static GameObjectCallback OnBecomeDying;
 }

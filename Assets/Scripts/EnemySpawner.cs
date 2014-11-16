@@ -26,7 +26,7 @@ public class EnemySpawner : MonoBehaviour
     {
         SetUpNextSpawnTime();
 
-        EventBus.OnDeath += OnEnemyDeath;
+        EventBus.OnBecomeDead += OnEnemyBecomeDead;
     }
 
     void Update()
@@ -55,7 +55,7 @@ public class EnemySpawner : MonoBehaviour
         enemiesPerSecond += Time.fixedDeltaTime * enemiesPerSecondSpeed;
     }
 
-    private void OnEnemyDeath(GameObject enemy)
+    private void OnEnemyBecomeDead(GameObject enemy)
     {
         if (!GameObjectPool.Instance.Recycle(enemy))
         {

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngineExt;
 using System.Collections;
 
@@ -60,11 +60,13 @@ public class BearController : Creature
         mySpriteRenderer.sortingLayerID = Layers.BACKGROUND;
         
         collider2D.enabled = false;
+
+        EventBus.OnBecomeDying(myParent.gameObject);
     }
 
     private void OnBecomeDead(object param)
     {
-        EventBus.OnDeath(transform.parent.gameObject);
+        EventBus.OnBecomeDead(transform.parent.gameObject);
     }
 
     new void Update()

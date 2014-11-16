@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngineExt;
 using System.Collections;
 
@@ -121,6 +121,8 @@ public class Pinguin : Creature, ITouchable
         AudioCenter.PlayRandomClipAtMainCamera(soundsOfDying);
 
         myAnimator.SetInteger("DeathAnimationId", deathAnimationId);
+
+        EventBus.OnBecomeDying(myParent.gameObject);
     }
 
     private void OnDying()
@@ -145,6 +147,6 @@ public class Pinguin : Creature, ITouchable
 
     private void OnBecomeDead(object param)
     {
-        EventBus.OnDeath(transform.parent.gameObject);
+        EventBus.OnBecomeDead(transform.parent.gameObject);
     }
 }

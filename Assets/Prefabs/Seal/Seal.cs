@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngineExt;
 using System.Collections;
 
@@ -125,6 +125,8 @@ public class Seal : Creature, ITouchable
         mySpriteRenderer.sortingLayerID = Layers.BACKGROUND;
 
         myAnimator.SetInteger("Dying", animatorParameter);
+
+        EventBus.OnBecomeDying(myParent.gameObject);
     }
 
     private void OnDying()
@@ -136,7 +138,7 @@ public class Seal : Creature, ITouchable
 
     private void OnBecomeDead(object param)
     {
-        EventBus.OnDeath(transform.parent.gameObject);
+        EventBus.OnBecomeDead(transform.parent.gameObject);
 
         Advance(State.Recycled);
     }
