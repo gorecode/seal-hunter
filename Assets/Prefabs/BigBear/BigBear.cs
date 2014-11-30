@@ -59,7 +59,7 @@ public class BigBear : Creature {
 
     private void BecomeRunning()
     {
-        myAnimation.CrossFade("Run", 0.1f, PlayMode.StopAll);
+        myAnimation.Play("Run");
 
         currentSpeed = runningSpeed;
     }
@@ -92,6 +92,8 @@ public class BigBear : Creature {
 
     private void OnBecomeDead(object param)
     {
+        mySpriteRenderer.sprite = null;
+
         EventBus.OnBecomeDead(myParent.gameObject);
     }
 }
