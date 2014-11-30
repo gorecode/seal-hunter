@@ -40,14 +40,10 @@ public class Tortoise : Creature {
         
         myAnimation.Play("Walk");
 
-        //gameObject.SampleAnimation(myAnimation["Walk"].clip, 0f);
+        gameObject.SampleAnimation(myAnimation["Walk"].clip, 0f);
 
         mySpriteRenderer.sortingLayerID = SortingLayer.FOREGROUND;
 
-        SpriteAnimator sa = GetComponent<SpriteAnimator>();
-
-        Debug.Log("sheet = " + sa.sheet + ", index = " + sa.index);
-        
         AudioCenter.PlayRandomClipAtMainCamera(soundsOfRessurection);
     }
 
@@ -77,6 +73,8 @@ public class Tortoise : Creature {
     private void OnBecomeDead(object param)
     {
         myAnimation.Stop();
+
+        gameObject.SampleAnimation(myAnimation["Walk"].clip, 0f);
 
         EventBus.OnBecomeDead(myParent.gameObject);
     }

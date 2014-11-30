@@ -33,6 +33,11 @@ public class SpriteAnimator : MonoBehaviour {
         mySpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
+    void OnEnable()
+    {
+        Update();
+    }
+
     void Update()
     {
         if (mySpriteRenderer == null || sheets == null) return;
