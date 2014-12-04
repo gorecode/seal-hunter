@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class FSMBehaviour<S> : BaseBehaviour {
+public class FSMBehaviour<S> : SSBehaviour {
     protected readonly FSM<S> fsm = new FSM<S>();
 
     public void RegisterState(S state, OnEnter onEnter = null, OnUpdate onUpdate = null, OnExit onExit = null)

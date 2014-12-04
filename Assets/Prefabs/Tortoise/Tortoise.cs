@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngineExt;
 using System.Collections;
+using System;
 
 public class Tortoise : Creature {
     public enum AliveSubState {
@@ -13,14 +14,23 @@ public class Tortoise : Creature {
     public AudioClip[] soundsOfRessurection;
     public AudioClip[] soundsOfDying;
 
+    private const string HIDE = "Hide";
+    private const string SHOW = "Show";
+
     private static string[] DYING_ANIMATIONS = { "Die1", "Die2" };
     private FSM<AliveSubState> aliveSubState;
+
+    private Action hideAction;
+    private Action showAction;
 
     public override void OnTouch()
     {
         base.OnTouch();
-        
-        Advance(State.Dying, Random2.RandomArrayElement(DYING_ANIMATIONS));
+
+        if (GetCurrentState() == State.Alive && aliveSubState.GetCurrentState() == AliveSubState.WALKING)
+        {
+            Advance(State.Dying, Random2.RandomArrayElement(DYING_ANIMATIONS));
+        }
     }
 
     public new void Awake()
@@ -29,10 +39,17 @@ public class Tortoise : Creature {
 
         aliveSubState = new FSM<AliveSubState>();
         aliveSubState.AllowTransitionChain(AliveSubState.WALKING, AliveSubState.HIDDING, AliveSubState.HIDDEN, AliveSubState.APPEARING, AliveSubState.WALKING);
+        aliveSubState.RegisterState(AliveSubState.WALKING, OnBecomeWalking);
+        aliveSubState.RegisterState(AliveSubState.APPEARING, OnBecomeHiddingOrAppearing, OnHiddingOrAppearing);
+        aliveSubState.RegisterState(AliveSubState.HIDDING, OnBecomeHiddingOrAppearing, OnHiddingOrAppearing);
+        aliveSubState.RegisterState(AliveSubState.HIDDEN, OnBecomeHidden);
 
         RegisterState(State.Alive, OnBecomeAlive, OnLiving);
         RegisterState(State.Dying, OnBecomeDying, OnDying);
         RegisterState(State.Dead, OnBecomeDead);
+
+        hideAction = () => aliveSubState.Advance(AliveSubState.HIDDING, HIDE);
+        showAction = () => aliveSubState.Advance(AliveSubState.APPEARING, SHOW);
     }
 
     void OnEnable()
@@ -43,27 +60,67 @@ public class Tortoise : Creature {
     private void OnBecomeAlive(object param)
     {
         collider2D.enabled = true;
-        
-        currentSpeed = walkingSpeed;
-        
-        myAnimation.Play("Walk");
-
-        gameObject.SampleAnimation(myAnimation["Walk"].clip, 0f);
-
-        SpriteAnimator sa = GetComponent<SpriteAnimator>();
 
         mySpriteRenderer.sortingLayerID = SortingLayer.FOREGROUND;
 
         AudioCenter.PlayRandomClipAtMainCamera(soundsOfRessurection);
+
+        aliveSubState.ForceEnterState(AliveSubState.WALKING);
+    }
+
+    private void OnBecomeWalking(object param)
+    {
+        currentSpeed = walkingSpeed;
+
+        Invoke(hideAction.GetMethodName(), UnityEngine.Random.Range(1.0f, 4.0f));
+
+        animation.Play("Walk");
+    }
+
+    private void OnBecomeHidden(object param)
+    {
+        Invoke(showAction.GetMethodName(), UnityEngine.Random.Range(3.0f, 6.0f));
+    }
+
+    private void OnBecomeHiddingOrAppearing(object param)
+    {
+        AnimationState clipState = animation["Hide"];
+
+        if (SHOW.Equals(param))
+        {
+            clipState.speed = -1;
+            clipState.normalizedTime = 1;
+        } else
+        {
+            clipState.speed = 1;
+            clipState.time = 0;
+        }
+
+        myAnimation.Play("Hide");
+    }
+
+    private void OnHiddingOrAppearing()
+    {
+        if (!myAnimation.isPlaying)
+        {
+            aliveSubState.Advance(myAnimation["Hide"].speed == 1 ? AliveSubState.HIDDEN : AliveSubState.WALKING);
+        }
     }
 
     private void OnLiving()
     {
-        myParent.position += Vector3.right * Time.deltaTime * currentSpeed;
+        aliveSubState.Update();
+
+        if (aliveSubState.GetCurrentState() == AliveSubState.WALKING)
+        {
+            myParent.position += Vector3.right * Time.deltaTime * currentSpeed;
+        }
     }
 
     private void OnBecomeDying(object param)
     {
+        CancelInvoke();
+
         myAnimation.Play((string)param);
 
         collider2D.enabled = false;
@@ -75,7 +132,8 @@ public class Tortoise : Creature {
 
     private void OnDying()
     {
-        if (!myAnimation.isPlaying) {
+        if (!myAnimation.isPlaying)
+        {
             Advance(State.Dead);
         }
     }

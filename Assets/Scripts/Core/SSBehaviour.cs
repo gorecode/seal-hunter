@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BaseBehaviour : MonoBehaviour, ITouchable {
+public class SSBehaviour : MonoBehaviour, ITouchable {
     public void RemovePhysics()
     {
         collider2D.enabled = false;

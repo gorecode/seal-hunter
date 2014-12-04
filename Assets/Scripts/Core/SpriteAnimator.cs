@@ -35,8 +35,6 @@ public class SpriteAnimator : MonoBehaviour {
 
     void OnEnable()
     {
-        Debug.Log("SpriteAnimator.OnEnable()");
-
         Update();
     }
 
