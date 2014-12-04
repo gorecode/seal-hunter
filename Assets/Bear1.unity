@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnZoneY: 1.29999995
-  enemiesPerSecond: 1
+  enemiesPerSecond: .200000003
   enemiesPerSecondSpeed: 0
   dynamicObjects: {fileID: 754483847}
   enemyPrefabs:

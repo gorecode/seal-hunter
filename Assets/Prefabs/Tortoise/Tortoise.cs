@@ -3,6 +3,10 @@ using UnityEngineExt;
 using System.Collections;
 
 public class Tortoise : Creature {
+    public enum AliveSubState {
+        WALKING, HIDDING, HIDDEN, APPEARING
+    }
+
     public float walkingSpeed = 0.5f;
     public float currentSpeed;
 
@@ -10,6 +14,7 @@ public class Tortoise : Creature {
     public AudioClip[] soundsOfDying;
 
     private static string[] DYING_ANIMATIONS = { "Die1", "Die2" };
+    private FSM<AliveSubState> aliveSubState;
 
     public override void OnTouch()
     {
@@ -21,7 +26,10 @@ public class Tortoise : Creature {
     public new void Awake()
     {
         base.Awake();
-        
+
+        aliveSubState = new FSM<AliveSubState>();
+        aliveSubState.AllowTransitionChain(AliveSubState.WALKING, AliveSubState.HIDDING, AliveSubState.HIDDEN, AliveSubState.APPEARING, AliveSubState.WALKING);
+
         RegisterState(State.Alive, OnBecomeAlive, OnLiving);
         RegisterState(State.Dying, OnBecomeDying, OnDying);
         RegisterState(State.Dead, OnBecomeDead);
@@ -41,6 +49,8 @@ public class Tortoise : Creature {
         myAnimation.Play("Walk");
 
         gameObject.SampleAnimation(myAnimation["Walk"].clip, 0f);
+
+        SpriteAnimator sa = GetComponent<SpriteAnimator>();
 
         mySpriteRenderer.sortingLayerID = SortingLayer.FOREGROUND;
 
@@ -73,8 +83,6 @@ public class Tortoise : Creature {
     private void OnBecomeDead(object param)
     {
         myAnimation.Stop();
-
-        gameObject.SampleAnimation(myAnimation["Walk"].clip, 0f);
 
         EventBus.OnBecomeDead(myParent.gameObject);
     }

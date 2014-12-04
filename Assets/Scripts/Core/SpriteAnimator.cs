@@ -35,17 +35,21 @@ public class SpriteAnimator : MonoBehaviour {
 
     void OnEnable()
     {
+        Debug.Log("SpriteAnimator.OnEnable()");
+
         Update();
     }
 
-    void Update()
+    public void Update()
     {
         if (mySpriteRenderer == null || sheets == null) return;
 
         int sheetIndex = (int)sheet;
         int spriteIndex = (int)index;
 
-        mySpriteRenderer.sprite = sheets[sheetIndex].sprites[spriteIndex];
+        SpriteList sheetObj = sheets[sheetIndex];
+
+        mySpriteRenderer.sprite = sheetObj.sprites[Mathf.Clamp(spriteIndex, 0, sheetObj.sprites.Length - 1)];
 
         Vector3[] pivots = sheets[sheetIndex].pivots;
 
