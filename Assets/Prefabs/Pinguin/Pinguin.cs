@@ -24,7 +24,7 @@ public class Pinguin : Creature, ITouchable
 
     private FSM<Alive_SubState> aliveState;
 
-    public void OnTouch()
+    public override void OnTouch()
     {
         if (!State.Alive.Equals(GetCurrentState())) return;
 

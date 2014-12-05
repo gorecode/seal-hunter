@@ -160,7 +160,7 @@ GameObject:
   m_Icon: {fileID: -2065832391, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &134496730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,8 +200,8 @@ GameObject:
   - 4: {fileID: 189890921}
   - 61: {fileID: 189890920}
   - 114: {fileID: 189890922}
-  - 50: {fileID: 189890924}
-  m_Layer: 9
+  - 50: {fileID: 189890923}
+  m_Layer: 10
   m_Name: Trap for Enemies
   m_TagString: Untagged
   m_Icon: {fileID: -1003283189, guid: 0000000000000000d000000000000000, type: 0}
@@ -226,7 +226,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 189890919}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.49352407, y: 0, z: 0}
+  m_LocalPosition: {x: 3.78064942, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -242,7 +242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35147af525ec845699def476d94dd4eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!50 &189890924
+--- !u!50 &189890923
 Rigidbody2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -250,10 +250,10 @@ Rigidbody2D:
   m_GameObject: {fileID: 189890919}
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0
-  m_GravityScale: 0
+  m_AngularDrag: .0500000007
+  m_GravityScale: 1
   m_FixedAngle: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -545,7 +545,7 @@ GameObject:
   - 4: {fileID: 598763118}
   - 212: {fileID: 598763117}
   - 114: {fileID: 598763119}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Saw
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -727,7 +727,7 @@ GameObject:
   m_Icon: {fileID: -2065832391, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2106316358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -748,6 +748,8 @@ MonoBehaviour:
   - {fileID: 100002, guid: 3d9fa03033681465aacf525b2a8b5ade, type: 2}
   - {fileID: 100002, guid: ecdb20d0eab5b7844aae40aadc792d34, type: 2}
   - {fileID: 100000, guid: b36c181b99d9f47a2829890d96fe3ace, type: 2}
+  - {fileID: 100002, guid: cbc801e40a70b4baaaa45d5c03328935, type: 2}
+  - {fileID: 100002, guid: ba03e9789c529457b9e27113fddc02b9, type: 2}
 --- !u!4 &2106316359
 Transform:
   m_ObjectHideFlags: 0
