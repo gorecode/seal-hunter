@@ -54,7 +54,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100002}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -.588723063, y: -1.24504304, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400000}
@@ -115,7 +115,8 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 25c7577a1cf084f47811b5adefc4ffa9, type: 3}
     - {fileID: 21300000, guid: cae019baddaa84432b7233e9f1357c9f, type: 3}
     pivots:
-    - {x: .0199999996, y: .0199999996, z: 3}
+    - {x: 0, y: .00999999978, z: 0}
+    - {x: .0199999996, y: .0299999993, z: 3}
   - sprites:
     - {fileID: 21300000, guid: c8b05a4ee9bda4f4d865105b4deb3f7e, type: 3}
     - {fileID: 21300002, guid: c8b05a4ee9bda4f4d865105b4deb3f7e, type: 3}

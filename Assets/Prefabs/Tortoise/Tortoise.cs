@@ -8,16 +8,15 @@ public class Tortoise : Creature {
         WALKING, HIDDING, HIDDEN, APPEARING
     }
 
+    private const string HIDE = "Hide";
+    private const string SHOW = "Show";
+
     public float walkingSpeed = 0.5f;
     public float currentSpeed;
 
     public AudioClip[] soundsOfRessurection;
     public AudioClip[] soundsOfDying;
 
-    private const string HIDE = "Hide";
-    private const string SHOW = "Show";
-
-    private static string[] DYING_ANIMATIONS = { "Die1", "Die2" };
     private FSM<AliveSubState> aliveSubState;
 
     private Action hideAction;
@@ -27,9 +26,18 @@ public class Tortoise : Creature {
     {
         base.OnTouch();
 
-        if (GetCurrentState() == State.Alive && aliveSubState.GetCurrentState() == AliveSubState.WALKING)
+        if (GetCurrentState() == State.Alive)
         {
-            Advance(State.Dying, Random2.RandomArrayElement(DYING_ANIMATIONS));
+            switch (aliveSubState.GetCurrentState())
+            {
+                case AliveSubState.WALKING:
+                    Advance(State.Dying, "Die1");
+                    break;
+                case AliveSubState.APPEARING:
+                case AliveSubState.HIDDING:
+                    Advance(State.Dying, "Die2");
+                    break;
+            }
         }
     }
 
@@ -74,7 +82,7 @@ public class Tortoise : Creature {
 
         Invoke(hideAction.GetMethodName(), UnityEngine.Random.Range(1.0f, 4.0f));
 
-        animation.Play("Walk");
+        animation.PlayImmediately("Walk");
     }
 
     private void OnBecomeHidden(object param)
@@ -84,6 +92,8 @@ public class Tortoise : Creature {
 
     private void OnBecomeHiddingOrAppearing(object param)
     {
+        currentSpeed = 0;
+
         AnimationState clipState = animation["Hide"];
 
         if (SHOW.Equals(param))
@@ -111,10 +121,7 @@ public class Tortoise : Creature {
     {
         aliveSubState.Update();
 
-        if (aliveSubState.GetCurrentState() == AliveSubState.WALKING)
-        {
-            myParent.position += Vector3.right * Time.deltaTime * currentSpeed;
-        }
+        myParent.position += Vector3.right * Time.deltaTime * currentSpeed;
     }
 
     private void OnBecomeDying(object param)
@@ -140,8 +147,6 @@ public class Tortoise : Creature {
 
     private void OnBecomeDead(object param)
     {
-        myAnimation.Stop();
-
         EventBus.OnBecomeDead(myParent.gameObject);
     }
 }
