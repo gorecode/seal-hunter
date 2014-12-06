@@ -1,0 +1,135 @@
+fileFormatVersion: 2
+guid: ef50009e1f0614f36862d5743fab3762
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: BloodyDecals_0
+    21300002: BloodyDecals_1
+    21300004: BloodyDecals_2
+    21300006: BloodyDecals_3
+    21300008: BloodyDecals_4
+    21300010: BloodyDecals_5
+    21300012: BloodyDecals_6
+    21300014: BloodyDecals_7
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: 0
+    aniso: 1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: BloodyDecals_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 134
+        width: 36
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BloodyDecals_1
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 115
+        width: 21
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BloodyDecals_2
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 96
+        width: 30
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BloodyDecals_3
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 79
+        width: 25
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BloodyDecals_4
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 60
+        width: 19
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BloodyDecals_5
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 39
+        width: 23
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BloodyDecals_6
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 20
+        width: 29
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BloodyDecals_7
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 1
+        width: 22
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: smallMob
+  userData: 
