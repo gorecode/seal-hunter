@@ -24,9 +24,9 @@ public class FSMBehaviour<S> : SSBehaviour {
         fsm.AllowTransition(from, to);
     }
 
-    public void Advance(S state, object param = null)
+    public bool Advance(S state, object param = null)
     {
-        fsm.Advance(state, param);
+        return fsm.Advance(state, param);
     }
 
     public void Update()

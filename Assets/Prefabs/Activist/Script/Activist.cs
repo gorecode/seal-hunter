@@ -7,6 +7,12 @@ public class Activist : Creature2 {
         RUNNING, START_RUNNING_WITHOUT_SEAL, RUNNING_WITHOUT_SEAL
     }
 
+    enum DropDownState {
+        NONE, IN_PROGRESS, DONE
+    }
+
+    public GameObject sealPrefab;
+
     public AudioClip[] soundsOfDyingSeal1;
     public AudioClip[] soundsOfDyingSeal2;
 
@@ -15,6 +21,8 @@ public class Activist : Creature2 {
     // XXX: Flag to make activist temporary immortal not to kill him right after
     // he drop the seal to test it.
     private bool immortal;
+
+    private DropDownState dropDownState;
 
     protected new void Awake()
     {
@@ -38,7 +46,10 @@ public class Activist : Creature2 {
             case AliveState.RUNNING:
                 if (Random2.NextBool())
                 {
-                    Advance(State.Dying, Random2.RandomArrayElement("DieAndDropDown1", "DieAndDropDown2"));
+                    if (Advance(State.Dying, Random2.RandomArrayElement("DieAndDropDown1", "DieAndDropDown2")))
+                    {
+                        dropDownState = DropDownState.IN_PROGRESS;
+                    }
                 }
                 else
                 {
@@ -61,7 +72,8 @@ public class Activist : Creature2 {
     {
         base.OnBecomeAlive(param);
 
-        currentSpeed = runningSpeed  = defaultRunningSpeed;
+        runningSpeed = UnityEngine.Random.Range(defaultRunningSpeed, defaultRunningSpeed * 2);
+        currentSpeed = runningSpeed;
 
         aliveState.ForceEnterState(AliveState.RUNNING);
 
@@ -71,6 +83,8 @@ public class Activist : Creature2 {
         mySpriteAnimator.Update();
 
         immortal = false;
+
+        dropDownState = DropDownState.NONE;
     }
 
     protected void OnBecomeRunWithDeadSeal(object param)
@@ -85,5 +99,25 @@ public class Activist : Creature2 {
         aliveState.Update();
 
         myParent.position += Vector3.right * Time.deltaTime * currentSpeed;
+    }
+
+    protected override void OnDying()
+    {
+        base.OnDying();
+
+        if (dropDownState == DropDownState.IN_PROGRESS)
+        {
+            int sheet = (int)mySpriteAnimator.sheet;
+
+            if ((sheet == 3 || sheet == 4) && ((int)mySpriteAnimator.index >= 4))
+            {
+                Vector3 position = myParent.transform.position;
+                position.x += 0.14f;
+
+                GameObjectPool.Instance.Instantiate(sealPrefab, position, Quaternion.identity);
+
+                dropDownState = DropDownState.DONE;
+            }
+        }
     }
 }

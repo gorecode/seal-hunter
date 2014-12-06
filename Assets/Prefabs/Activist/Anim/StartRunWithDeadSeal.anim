@@ -23,12 +23,12 @@ AnimationClip:
         inSlope: Infinity
         outSlope: -0
         tangentMode: 21
-      - time: .933333337
+      - time: .636363626
         value: 1
         inSlope: 0
         outSlope: -0
         tangentMode: 21
-      - time: 1
+      - time: .681818187
         value: 1
         inSlope: 0
         outSlope: Infinity
@@ -45,14 +45,14 @@ AnimationClip:
       - time: 0
         value: 0
         inSlope: Infinity
-        outSlope: 15
+        outSlope: 22
         tangentMode: 21
-      - time: .933333337
+      - time: .636363626
         value: 14
-        inSlope: 15
+        inSlope: 22
         outSlope: -0
         tangentMode: 21
-      - time: 1
+      - time: .681818187
         value: 14
         inSlope: 0
         outSlope: Infinity
@@ -64,7 +64,7 @@ AnimationClip:
     classID: 114
     script: {fileID: 11500000, guid: 2941ee0daf7f44661b89d6e399549388, type: 3}
   m_PPtrCurves: []
-  m_SampleRate: 15
+  m_SampleRate: 22
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -75,7 +75,7 @@ AnimationClip:
   m_AnimationClipSettings:
     serializedVersion: 2
     m_StartTime: 0
-    m_StopTime: 1
+    m_StopTime: .681818187
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -98,12 +98,12 @@ AnimationClip:
         inSlope: Infinity
         outSlope: -0
         tangentMode: 21
-      - time: .933333337
+      - time: .636363626
         value: 1
         inSlope: 0
         outSlope: -0
         tangentMode: 21
-      - time: 1
+      - time: .681818187
         value: 1
         inSlope: 0
         outSlope: Infinity
@@ -120,14 +120,14 @@ AnimationClip:
       - time: 0
         value: 0
         inSlope: Infinity
-        outSlope: 15
+        outSlope: 22
         tangentMode: 21
-      - time: .933333337
+      - time: .636363626
         value: 14
-        inSlope: 15
+        inSlope: 22
         outSlope: -0
         tangentMode: 21
-      - time: 1
+      - time: .681818187
         value: 14
         inSlope: 0
         outSlope: Infinity

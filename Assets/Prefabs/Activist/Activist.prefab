@@ -113,6 +113,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 53116deb154bf4827902b79ad6f85762, type: 3}
   - {fileID: 8300000, guid: 8ea7f9fa024264d6884d5e8ff66222a7, type: 3}
   - {fileID: 8300000, guid: c98a1d6dfc22844fe85dda70318cb9a8, type: 3}
+  sealPrefab: {fileID: 100002, guid: ef5797d628cda4791822840fd58d3929, type: 2}
   soundsOfDyingSeal1:
   - {fileID: 8300000, guid: 394534c46a4ef48c5955c69d4b1e912e, type: 3}
   - {fileID: 8300000, guid: 421b4638122b54939be09158629998a0, type: 3}
