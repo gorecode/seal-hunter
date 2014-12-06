@@ -9,7 +9,7 @@ public class Creature : FSMBehaviour<Creature.State> {
     protected Transform myParent;
     protected Animation myAnimation;
 
-    public void Awake()
+    protected void Awake()
     {
         AllowTransitionChain(State.Alive, State.Dying, State.Dead, State.Recycled);
 

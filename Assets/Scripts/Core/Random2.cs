@@ -5,7 +5,7 @@
             return UnityEngine.Random.Range(0, 100) < 50;
         }
 
-        public static T RandomArrayElement<T>(T[] values)
+        public static T RandomArrayElement<T>(params T[] values)
         {
             int index = UnityEngine.Random.Range(0, values.Length);
 

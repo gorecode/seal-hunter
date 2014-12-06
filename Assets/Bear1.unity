@@ -160,7 +160,7 @@ GameObject:
   m_Icon: {fileID: -2065832391, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &134496730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,11 +173,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnZoneY: 1.29999995
-  enemiesPerSecond: .200000003
+  enemiesPerSecond: 1
   enemiesPerSecondSpeed: 0
   dynamicObjects: {fileID: 754483847}
   enemyPrefabs:
-  - {fileID: 100002, guid: cbc801e40a70b4baaaa45d5c03328935, type: 2}
+  - {fileID: 100002, guid: ef5797d628cda4791822840fd58d3929, type: 2}
 --- !u!4 &134496731
 Transform:
   m_ObjectHideFlags: 0
@@ -727,7 +727,7 @@ GameObject:
   m_Icon: {fileID: -2065832391, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2106316358
 MonoBehaviour:
   m_ObjectHideFlags: 0
