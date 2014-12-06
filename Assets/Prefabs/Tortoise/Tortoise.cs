@@ -3,19 +3,13 @@ using UnityEngineExt;
 using System.Collections;
 using System;
 
-public class Tortoise : Creature {
+public class Tortoise : Creature2 {
     public enum AliveSubState {
         WALKING, HIDDING, HIDDEN, APPEARING
     }
 
     private const string HIDE = "Hide";
     private const string SHOW = "Show";
-
-    public float walkingSpeed = 0.5f;
-    public float currentSpeed;
-
-    public AudioClip[] soundsOfRessurection;
-    public AudioClip[] soundsOfDying;
 
     private FSM<AliveSubState> aliveSubState;
 
@@ -52,37 +46,29 @@ public class Tortoise : Creature {
         aliveSubState.RegisterState(AliveSubState.HIDDING, OnBecomeHiddingOrAppearing, OnHiddingOrAppearing);
         aliveSubState.RegisterState(AliveSubState.HIDDEN, OnBecomeHidden);
 
-        RegisterState(State.Alive, OnBecomeAlive, OnLiving);
-        RegisterState(State.Dying, OnBecomeDying, OnDying);
-        RegisterState(State.Dead, OnBecomeDead);
-
         hideAction = () => aliveSubState.Advance(AliveSubState.HIDDING, HIDE);
         showAction = () => aliveSubState.Advance(AliveSubState.APPEARING, SHOW);
     }
 
-    void OnEnable()
+    protected override void OnBecomeAlive(object param)
     {
-        ForceEnterState(State.Alive);
-    }
+        base.OnBecomeAlive(param);
 
-    private void OnBecomeAlive(object param)
-    {
-        collider2D.enabled = true;
-
-        mySpriteRenderer.sortingLayerID = SortingLayer.FOREGROUND;
-
-        AudioCenter.PlayRandomClipAtMainCamera(soundsOfRessurection);
+        walkingSpeed = UnityEngine.Random.Range(defaultWalkingSpeed, defaultWalkingSpeed + 0.5f);
 
         aliveSubState.ForceEnterState(AliveSubState.WALKING);
+
+        mySpriteAnimator.Update();
     }
 
     private void OnBecomeWalking(object param)
     {
-        currentSpeed = walkingSpeed;
-
         Invoke(hideAction.GetMethodName(), UnityEngine.Random.Range(1.0f, 4.0f));
 
-        animation.PlayImmediately("Walk");
+        currentSpeed = walkingSpeed;
+
+        myAnimation["Walk"].speed = currentSpeed / defaultWalkingSpeed;
+        myAnimation.PlayImmediately("Walk");
     }
 
     private void OnBecomeHidden(object param)
@@ -117,36 +103,19 @@ public class Tortoise : Creature {
         }
     }
 
-    private void OnLiving()
+    protected override void OnAlive()
     {
+        base.OnAlive();
+
         aliveSubState.Update();
 
         myParent.position += Vector3.right * Time.deltaTime * currentSpeed;
     }
 
-    private void OnBecomeDying(object param)
+    protected override void OnBecomeDying(object param)
     {
+        base.OnBecomeDying(param);
+
         CancelInvoke();
-
-        myAnimation.Play((string)param);
-
-        collider2D.enabled = false;
-        
-        mySpriteRenderer.sortingLayerID = SortingLayer.BACKGROUND;
-        
-        EventBus.OnBecomeDying(myParent.gameObject);
-    }
-
-    private void OnDying()
-    {
-        if (!myAnimation.isPlaying)
-        {
-            Advance(State.Dead);
-        }
-    }
-
-    private void OnBecomeDead(object param)
-    {
-        EventBus.OnBecomeDead(myParent.gameObject);
     }
 }

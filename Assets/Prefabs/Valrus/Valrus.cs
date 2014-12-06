@@ -57,6 +57,8 @@ public class Valrus : Creature {
         mySpriteRenderer.sortingLayerID = SortingLayer.FOREGROUND;
 
         CalmDown();
+
+        mySpriteAnimator.Update();
     }
 
     public void CalmDown()

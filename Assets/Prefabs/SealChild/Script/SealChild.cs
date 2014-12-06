@@ -27,6 +27,8 @@ public class SealChild : Creature2 {
 
         myAnimation["Walk"].speed = walkingSpeed / defaultWalkingSpeed;
         myAnimation.PlayImmediately("Walk");
+
+        mySpriteAnimator.Update();
     }
 
     protected override void OnAlive()

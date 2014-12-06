@@ -28,14 +28,9 @@ public class SpriteAnimator : MonoBehaviour {
         mySpriteRenderer.sprite = sprite;
     }
 
-    void Start()
+    void Awake()
     {
         mySpriteRenderer = GetComponent<SpriteRenderer>();
-    }
-
-    void OnEnable()
-    {
-        Update();
     }
 
     public void Update()

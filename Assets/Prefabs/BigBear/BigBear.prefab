@@ -99,9 +99,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fc479f8b85f74c72b094ffdd7694221, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkingSpeed: .200000003
-  runningSpeed: 1
   currentSpeed: 0
+  walkingSpeed: .349999994
+  runningSpeed: 1.5
+  defaultWalkingSpeed: .349999994
+  defaultRunningSpeed: 1.5
   soundsOfRessurection:
   - {fileID: 8300000, guid: 28243147066cf4746b03eaf6871f6744, type: 3}
   - {fileID: 8300000, guid: 8494a6a5ae9904a399a7afd4b2237cd8, type: 3}
@@ -137,6 +139,7 @@ MonoBehaviour:
     - {fileID: 21300006, guid: a513d283ea0584f47b5539b5bcdcf718, type: 3}
     - {fileID: 21300008, guid: a513d283ea0584f47b5539b5bcdcf718, type: 3}
     - {fileID: 21300010, guid: a513d283ea0584f47b5539b5bcdcf718, type: 3}
+    pivots: []
   - sprites:
     - {fileID: 21300000, guid: 3230e7dc94f204c2fa125517c5aa9dfc, type: 3}
     - {fileID: 21300002, guid: 3230e7dc94f204c2fa125517c5aa9dfc, type: 3}
@@ -144,6 +147,7 @@ MonoBehaviour:
     - {fileID: 21300006, guid: 3230e7dc94f204c2fa125517c5aa9dfc, type: 3}
     - {fileID: 21300008, guid: 3230e7dc94f204c2fa125517c5aa9dfc, type: 3}
     - {fileID: 21300010, guid: 3230e7dc94f204c2fa125517c5aa9dfc, type: 3}
+    pivots: []
   - sprites:
     - {fileID: 21300000, guid: 96245879c7cea40fa999b8ecc1f8a6d8, type: 3}
     - {fileID: 21300002, guid: 96245879c7cea40fa999b8ecc1f8a6d8, type: 3}
@@ -152,8 +156,10 @@ MonoBehaviour:
     - {fileID: 21300008, guid: 96245879c7cea40fa999b8ecc1f8a6d8, type: 3}
     - {fileID: 21300010, guid: 96245879c7cea40fa999b8ecc1f8a6d8, type: 3}
     - {fileID: 21300012, guid: 96245879c7cea40fa999b8ecc1f8a6d8, type: 3}
+    pivots: []
   - sprites:
     - {fileID: 21300000, guid: 3441596ef0367414da1c8ad7cdc35004, type: 3}
+    pivots: []
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

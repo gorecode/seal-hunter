@@ -24,9 +24,11 @@ public class EnemySpawner : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        SetUpNextSpawnTime();
-
         EventBus.OnBecomeDead += OnEnemyBecomeDead;
+
+        SpawnWithPooling();
+
+        SetUpNextSpawnTime();
     }
 
     void Update()
