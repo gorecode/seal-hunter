@@ -18,4 +18,22 @@ public class Creature : FSMBehaviour<Creature.State> {
         myParent = transform.parent;
         myAnimation = animation;
     }
+
+    public OnEnter delegatePlayAnimation(string clipName)
+    {
+        return delegate(object prop)
+        {
+            if (prop == null) prop = clipName;
+
+            myAnimation.Play((string)prop);
+        };
+    }
+
+    public OnUpdate delegateAdvanceAfterAnimation<T>(FSM<T> fsm, T nextState)
+    {
+        return delegate
+        {
+            if (!myAnimation.isPlaying) fsm.Advance(nextState);
+        };
+    }
 }

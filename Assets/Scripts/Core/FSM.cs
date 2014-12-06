@@ -86,16 +86,16 @@ public class FSM<S>
         }
     }
 
-    public void Advance(S nextState, object transitionParam = null)
+    public bool Advance(S nextState, object transitionParam = null)
     {
-        if (mCurrState.Equals(nextState)) return;
+        if (mCurrState.Equals(nextState)) return false;
 
         Transition<S> transition = new Transition<S>(mCurrState, nextState);
 
         if (!mTransitions.Contains(transition))
         {
             Debug.Log("[FSM] Cannot advance to " + nextState + " state, current state is " + mCurrState);
-            return;
+            return false;
         }
 
         StateDelegates oldStateDelegates = null;
@@ -117,6 +117,8 @@ public class FSM<S>
         {
             newStateDelegates.onEnter(transitionParam);
         }
+
+        return true;
     }
 
     public void RegisterState(S state, OnEnter onEnter = null, OnUpdate onUpdate = null, OnExit onExit = null)
