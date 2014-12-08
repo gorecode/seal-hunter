@@ -16,8 +16,6 @@ public class Valrus : Creature {
     private Action runAction;
     private Action eatAction;
 
-    private SpriteAnimator mySpriteAnimator;
-
     private Transform mouth;
 
     public override void OnTouch()
@@ -30,8 +28,6 @@ public class Valrus : Creature {
     public new void Awake()
     {
         base.Awake();
-
-        mySpriteAnimator = GetComponent<SpriteAnimator>();
 
         myRoot = myParent.gameObject;
 
@@ -66,8 +62,10 @@ public class Valrus : Creature {
         if (GetCurrentState() != State.Alive) return;
 
         currentSpeed = walkingSpeed;
-        
+
         animation.PlayImmediately("Walk");
+
+        mySpriteAnimator.Update();
 
         CancelInvoke();
 

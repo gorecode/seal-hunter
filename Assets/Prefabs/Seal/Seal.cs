@@ -82,6 +82,8 @@ public class Seal : Creature, ITouchable
         myAnimator.SetInteger("Dying", 0);
 
         aliveState.ForceEnterState(Alive_SubState.Walking);
+
+        mySpriteRenderer.sortingLayerID = SortingLayer.BACKGROUND;
     }
 
     private void OnBecomeWalking(object param)
@@ -122,7 +124,7 @@ public class Seal : Creature, ITouchable
 
         AudioCenter.PlayRandomClipAtMainCamera(soundsOfDying);
 
-        mySpriteRenderer.sortingLayerID = Layers.BACKGROUND;
+        mySpriteRenderer.sortingLayerID = SortingLayer.BACKGROUND;
 
         myAnimator.SetInteger("Dying", animatorParameter);
 

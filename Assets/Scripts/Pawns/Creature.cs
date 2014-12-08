@@ -4,19 +4,11 @@ using System.Collections;
 public class Creature : FSMBehaviour<Creature.State> {
     public enum State { Alive, Dying, Dead, Recycled }
 
-    protected SpriteRenderer mySpriteRenderer;
-    protected Animator myAnimator;
-    protected Transform myParent;
-    protected Animation myAnimation;
-
-    protected void Awake()
+    protected new void Awake()
     {
-        AllowTransitionChain(State.Alive, State.Dying, State.Dead, State.Recycled);
+        base.Awake();
 
-        myAnimator = GetComponent<Animator>();
-        mySpriteRenderer = GetComponent<SpriteRenderer>();
-        myParent = transform.parent;
-        myAnimation = animation;
+        AllowTransitionChain(State.Alive, State.Dying, State.Dead, State.Recycled);
     }
 
     public OnEnter delegatePlayAnimation(string clipName)

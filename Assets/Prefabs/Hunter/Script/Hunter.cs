@@ -31,7 +31,7 @@ public class Hunter : Creature2 {
 
     private bool HandleCharacterMovement()
     {
-        float f = 2.5f;
+        float f = walkingSpeed;
 
         bool result = false;
 
@@ -61,6 +61,8 @@ public class Hunter : Creature2 {
     protected override void OnBecomeAlive(object param)
     {
         base.OnBecomeAlive(param);
+
+        mySpriteRenderer.sortingLayerID = SortingLayer.PLAYER;
 
         aliveState.ForceEnterState(AliveState.IDLE);
     }

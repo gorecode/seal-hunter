@@ -71,6 +71,8 @@ public class Pinguin : Creature, ITouchable
         AudioCenter.PlayRandomClipAtMainCamera(soundsOfSpawning);
 
         aliveState.ForceEnterState(Alive_SubState.Walking);
+
+        mySpriteRenderer.sortingLayerID = SortingLayer.FOREGROUND;
     }
 
     private void OnContinueLiving()
@@ -121,6 +123,8 @@ public class Pinguin : Creature, ITouchable
         AudioCenter.PlayRandomClipAtMainCamera(soundsOfDying);
 
         myAnimator.SetInteger("DeathAnimationId", deathAnimationId);
+
+        mySpriteRenderer.sortingLayerID = SortingLayer.BACKGROUND;
 
         EventBus.OnBecomeDying(myParent.gameObject);
     }

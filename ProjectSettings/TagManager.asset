@@ -15,8 +15,8 @@ TagManager:
   Builtin Layer 7: 
   User Layer 8: Enemy
   User Layer 9: Enemy Corpses
-  User Layer 10: Weapons
-  User Layer 11: 
+  User Layer 10: Player
+  User Layer 11: Weapons
   User Layer 12: 
   User Layer 13: 
   User Layer 14: 
@@ -50,7 +50,11 @@ TagManager:
     userID: 2
     uniqueID: 4275951097
     locked: 0
-  - name: 
+  - name: Player
     userID: 4
     uniqueID: 1233141151
+    locked: 0
+  - name: Gun
+    userID: 3
+    uniqueID: 3011986383
     locked: 0

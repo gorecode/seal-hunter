@@ -42,6 +42,8 @@ public class BearController : Creature
 
         transform.position = Vector3.zero;
 
+        mySpriteRenderer.sortingLayerID = SortingLayer.FOREGROUND;
+
         StartCoroutine(Wait_Sniff_Walk_Coroutine());
     }
 
@@ -57,7 +59,7 @@ public class BearController : Creature
 
         myAnimator.Play(animatorStateName, 0, 0);
 
-        mySpriteRenderer.sortingLayerID = Layers.BACKGROUND;
+        mySpriteRenderer.sortingLayerID = SortingLayer.BACKGROUND;
         
         collider2D.enabled = false;
 

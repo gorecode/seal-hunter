@@ -11,13 +11,9 @@ public class Creature2 : Creature {
     public AudioClip[] soundsOfRessurection;
     public AudioClip[] soundsOfDying;
 
-    protected SpriteAnimator mySpriteAnimator;
-
     protected new void Awake()
     {
         base.Awake();
-
-        mySpriteAnimator = GetComponent<SpriteAnimator>();
 
         RegisterState(State.Alive, OnBecomeAlive, OnAlive);
         RegisterState(State.Dying, OnBecomeDying, OnDying);
