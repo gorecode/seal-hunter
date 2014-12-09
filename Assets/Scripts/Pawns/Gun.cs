@@ -41,9 +41,10 @@ public class Gun : FSMBehaviour<Gun.State> {
 
         if (hunter == null) hunter = transform.parent.gameObject;
 
-        muzzle = transform.FindChild("Muzzle").gameObject;
-
         firePoint = transform.FindChild("FirePoint");
+
+        muzzle = transform.FindChild("Muzzle").gameObject;
+        muzzle.transform.position = firePoint.position;
     }
 
     protected void Reload()
@@ -60,7 +61,7 @@ public class Gun : FSMBehaviour<Gun.State> {
         }
     }
 
-    protected void Fire()
+    public void Fire()
     {
         if (numBullets == 0 || GetCurrentState() != State.IDLE) return;
 

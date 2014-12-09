@@ -6,6 +6,9 @@ public class Hunter : Creature2 {
         IDLE, WALKING
     }
 
+    public EasyJoystick joystick;
+    public EasyButton fireButton;
+
     private Rigidbody2D rbody;
     private FSM<AliveState> aliveState;
 
@@ -23,17 +26,31 @@ public class Hunter : Creature2 {
 
     void FixedUpdate()
     {
-        if (HandleCharacterMovement())
+        if (HandleMoveInput())
             aliveState.Advance(AliveState.WALKING);
         else
             aliveState.Advance(AliveState.IDLE);
+
+        HandleFireInput();
     }
 
-    private bool HandleCharacterMovement()
+    private void HandleFireInput()
+    {
+        if (fireButton.buttonState == EasyButton.ButtonState.Down || fireButton.buttonState == EasyButton.ButtonState.Press)
+        {
+            Gun gun = myParent.gameObject.GetComponentInChildren<Gun>();
+
+            gun.Fire();
+        }
+    }
+
+    private bool HandleMoveInput()
     {
         float f = walkingSpeed;
 
         bool result = false;
+
+        Vector2 joystickValue = joystick.JoystickAxis;
 
         if (Input.GetKey(KeyCode.A))
         {
@@ -44,7 +61,7 @@ public class Hunter : Creature2 {
             rbody.AddForce(Vector2.right * f);
             result = true;
         }
-        
+
         if (Input.GetKey(KeyCode.W))
         {
             rbody.AddForce(Vector2.up * f);
@@ -53,6 +70,15 @@ public class Hunter : Creature2 {
         {
             rbody.AddForce(-Vector2.up * f);
             result = true;
+        }
+
+        if (!result)
+        {
+            if (Mathf.Abs(joystickValue.x) + Mathf.Abs(joystickValue.y) > 0.0f)
+            {
+                rbody.AddForce(joystickValue * f);
+                result = true;
+            }
         }
 
         return result;
