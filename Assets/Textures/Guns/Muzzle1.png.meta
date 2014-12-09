@@ -87,5 +87,5 @@ TextureImporter:
       alignment: 5
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-  spritePackingTag: guns
+  spritePackingTag: all
   userData: 

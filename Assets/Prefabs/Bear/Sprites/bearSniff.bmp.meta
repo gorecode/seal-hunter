@@ -69,5 +69,5 @@ TextureImporter:
       alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-  spritePackingTag: BigMob
+  spritePackingTag: all
   userData: 
