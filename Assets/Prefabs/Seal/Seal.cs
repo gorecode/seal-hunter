@@ -2,20 +2,10 @@ using UnityEngine;
 using UnityEngineExt;
 using System.Collections;
 
-public class Seal : Creature, ITouchable
+public class Seal : Creature2
 {
-    public const int ANIM_DYING_BY_HEADSHOT = 2;
-    public const int ANIM_DYING_BY_BODYSHOT = 1;
-    public const int ANIM_DYING_WHILE_CRAWLING = 1;
-
-    private static readonly int WALKING_STATE_HASH = Animator.StringToHash("Base Layer.Walk");
-
     public enum Alive_SubState { Walking, Falling, Crawling };
 
-    public float maximumSpeed;
-    public float currentSpeed;
-
-    public AudioClip[] soundsOfDying;
     public AudioClip[] soundsOfFalling;
 
     private FSM<Alive_SubState> aliveState;
@@ -24,23 +14,12 @@ public class Seal : Creature, ITouchable
     {
         base.Awake();
 
-        // General mob lifecycle.
-        RegisterState(State.Alive, OnBecomeAlive, OnLiving);
-        RegisterState(State.Dying, OnBecomeDying, OnDying);
-        RegisterState(State.Dead, OnBecomeDead);
-
-        // Seal living lifecycle.
         aliveState = new FSM<Alive_SubState>();
         aliveState.AllowTransitionChain(Alive_SubState.Walking, Alive_SubState.Falling, Alive_SubState.Crawling);
 
         aliveState.RegisterState(Alive_SubState.Walking, OnBecomeWalking);
-        aliveState.RegisterState(Alive_SubState.Falling, OnBecomeFalling);
+        aliveState.RegisterState(Alive_SubState.Falling, OnBecomeFalling, delegateAdvanceAfterAnimation(aliveState, Alive_SubState.Crawling));
         aliveState.RegisterState(Alive_SubState.Crawling, OnBecomeCrawling);
-    }
-
-    public void OnEnable()
-    {
-        ForceEnterState(State.Alive);
     }
 
     public override void OnTouch()
@@ -55,51 +34,40 @@ public class Seal : Creature, ITouchable
                     aliveState.Advance(Alive_SubState.Falling);
                 } else
                 {
-                    int animatorParamValue = (Random2.NextBool()) ? ANIM_DYING_BY_BODYSHOT : ANIM_DYING_BY_HEADSHOT;
-                    
-                    Advance(State.Dying, animatorParamValue);
+                    Advance(State.Dying, Random2.RandomArrayElement("DieByHeadshot", "DieFalling"));
                 }
                 break;
             case Alive_SubState.Crawling:
-                Advance(State.Dying, ANIM_DYING_WHILE_CRAWLING);
+            case Alive_SubState.Falling:
+                Advance(State.Dying, "DieCrawling");
                 break;
         }
     }
 
-    /// <summary>
-    /// Called from the StartCrawl animation clip.
-    /// </summary>
-    public void BecomeCrawling()
+    protected override void OnBecomeAlive(object param)
     {
-        aliveState.Advance(Alive_SubState.Crawling);
-    }
-
-    private void OnBecomeAlive(object param)
-    {
-        collider2D.enabled = true;
-
-        myAnimator.SetBool("Crawling", false);
-        myAnimator.SetInteger("Dying", 0);
+        base.OnBecomeAlive(param);
 
         aliveState.ForceEnterState(Alive_SubState.Walking);
+    }
 
-        mySpriteRenderer.sortingLayerID = SortingLayer.BACKGROUND;
+    protected override void OnAlive()
+    {
+        myParent.position += Vector3.right * currentSpeed * Time.deltaTime;
+        
+        aliveState.Update();
     }
 
     private void OnBecomeWalking(object param)
     {
-        myAnimator.Play(WALKING_STATE_HASH, 0, 0);
+        walkingSpeed = Random.Range(defaultWalkingSpeed, defaultWalkingSpeed * 2);
 
-        transform.position = Vector3.zero;
+        myAnimation["Walk"].speed = walkingSpeed / defaultWalkingSpeed;
+        myAnimation.PlayImmediately("Walk");
 
-        currentSpeed = maximumSpeed;
-    }
+        mySpriteAnimator.Update();
 
-    private void OnLiving()
-    {
-        myParent.position += Vector3.right * currentSpeed * Time.deltaTime;
-
-        aliveState.Update();
+        currentSpeed = walkingSpeed;
     }
 
     private void OnBecomeFalling(object param)
@@ -108,40 +76,13 @@ public class Seal : Creature, ITouchable
         
         AudioCenter.PlayRandomClipAtMainCamera(soundsOfFalling);
 
-        myAnimator.SetBool("Crawling", true);
+        myAnimation.Play("FallToCrawl");
     }
 
     private void OnBecomeCrawling(object param)
     {
-        currentSpeed = maximumSpeed / 2;
-    }
+        currentSpeed = walkingSpeed / 2;
 
-    private void OnBecomeDying(object param)
-    {
-        collider2D.enabled = false;
-
-        System.Int32 animatorParameter = (System.Int32)param;
-
-        AudioCenter.PlayRandomClipAtMainCamera(soundsOfDying);
-
-        mySpriteRenderer.sortingLayerID = SortingLayer.BACKGROUND;
-
-        myAnimator.SetInteger("Dying", animatorParameter);
-
-        EventBus.OnBecomeDying(myParent.gameObject);
-    }
-
-    private void OnDying()
-    {
-        AnimatorStateInfo info = myAnimator.GetCurrentAnimatorStateInfo(0);
-
-        if (info.IsTag("dying") && info.normalizedTime >= 1.0f) Advance(State.Dead);
-    }
-
-    private void OnBecomeDead(object param)
-    {
-        EventBus.OnBecomeDead(transform.parent.gameObject);
-
-        Advance(State.Recycled);
+        myAnimation.Play("Crawl");
     }
 }

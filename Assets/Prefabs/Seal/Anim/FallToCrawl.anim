@@ -5,7 +5,7 @@ AnimationClip:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Crawl
+  m_Name: FallToCrawl
   serializedVersion: 4
   m_AnimationType: 1
   m_Compressed: 0
@@ -21,15 +21,15 @@ AnimationClip:
       - time: 0
         value: 0
         inSlope: 0
-        outSlope: 3.75
+        outSlope: 11.916666
         tangentMode: 0
-      - time: .5
-        value: 3
-        inSlope: 1.875
-        outSlope: 1.875
+      - time: .800000012
+        value: 11
+        inSlope: 5.95833302
+        outSlope: 5.95833302
         tangentMode: 0
-      - time: .625
-        value: 3
+      - time: .866666675
+        value: 11
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -43,12 +43,12 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - time: 0
-        value: 0
+        value: 5
         inSlope: 0
         outSlope: 0
         tangentMode: 0
-      - time: .625
-        value: 0
+      - time: .866666675
+        value: 5
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -59,8 +59,8 @@ AnimationClip:
     classID: 114
     script: {fileID: 11500000, guid: 2941ee0daf7f44661b89d6e399549388, type: 3}
   m_PPtrCurves: []
-  m_SampleRate: 8
-  m_WrapMode: 2
+  m_SampleRate: 15
+  m_WrapMode: 1
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
@@ -70,7 +70,7 @@ AnimationClip:
   m_AnimationClipSettings:
     serializedVersion: 2
     m_StartTime: 0
-    m_StopTime: .625
+    m_StopTime: .866666675
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -91,15 +91,15 @@ AnimationClip:
       - time: 0
         value: 0
         inSlope: 0
-        outSlope: 3.75
+        outSlope: 11.916666
         tangentMode: 0
-      - time: .5
-        value: 3
-        inSlope: 1.875
-        outSlope: 1.875
+      - time: .800000012
+        value: 11
+        inSlope: 5.95833302
+        outSlope: 5.95833302
         tangentMode: 0
-      - time: .625
-        value: 3
+      - time: .866666675
+        value: 11
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -113,12 +113,12 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - time: 0
-        value: 0
+        value: 5
         inSlope: 0
         outSlope: 0
         tangentMode: 0
-      - time: .625
-        value: 0
+      - time: .866666675
+        value: 5
         inSlope: 0
         outSlope: 0
         tangentMode: 0

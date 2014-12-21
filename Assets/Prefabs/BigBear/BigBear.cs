@@ -31,7 +31,7 @@ public class BigBear : Creature2 {
 
         currentSpeed = walkingSpeed;
 
-        myAnimation["Walk"].time = walkingSpeed / defaultWalkingSpeed;
+        myAnimation["Walk"].speed = walkingSpeed / defaultWalkingSpeed;
         myAnimation.PlayImmediately("Walk");
 
         Invoke(BecomeRunningAction.GetMethodName(), 4.0f);
