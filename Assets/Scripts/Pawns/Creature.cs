@@ -11,7 +11,7 @@ public class Creature : FSMBehaviour<Creature.State> {
         AllowTransitionChain(State.Alive, State.Dying, State.Dead, State.Recycled);
     }
 
-    public OnEnter delegatePlayAnimation(string clipName)
+    public OnEnter Action_PlayAnimation(string clipName)
     {
         return delegate(object prop)
         {
@@ -21,7 +21,7 @@ public class Creature : FSMBehaviour<Creature.State> {
         };
     }
 
-    public OnUpdate delegateAdvanceAfterAnimation<T>(FSM<T> fsm, T nextState)
+    public OnUpdate Action_AdvanceAfterAnimation<T>(FSM<T> fsm, T nextState)
     {
         return delegate
         {

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngineExt;
 using System.Collections;
 
@@ -32,8 +32,8 @@ public class Activist : Creature2 {
         aliveState.AllowTransitionChain(AliveState.RUNNING, AliveState.START_RUNNING_WITHOUT_SEAL, AliveState.RUNNING_WITHOUT_SEAL);
         aliveState.RegisterState(AliveState.RUNNING);
         aliveState.RegisterState(AliveState.START_RUNNING_WITHOUT_SEAL,
-                                 delegatePlayAnimation("StartRunWithDeadSeal"),
-                                 delegateAdvanceAfterAnimation(aliveState, AliveState.RUNNING_WITHOUT_SEAL));
+                                 Action_PlayAnimation("StartRunWithDeadSeal"),
+                                 Action_AdvanceAfterAnimation(aliveState, AliveState.RUNNING_WITHOUT_SEAL));
         aliveState.RegisterState(AliveState.RUNNING_WITHOUT_SEAL, OnBecomeRunWithDeadSeal);
     }
 

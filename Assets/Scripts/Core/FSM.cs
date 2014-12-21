@@ -46,25 +46,40 @@ public delegate void OnEnter(object arg);
 public delegate void OnUpdate();
 public delegate void OnExit();
 
+public class FSMState {
+    public event OnEnter onEnter;
+    public event OnUpdate onUpdate;
+    public event OnExit onExit;
+    
+    public void InvokeOnEnter(object param)
+    {
+        if (onEnter != null) onEnter.Invoke(param);
+    }
+    
+    public void InvokeOnUpdate()
+    {
+        if (onUpdate != null) onUpdate.Invoke();
+    }
+    
+    public void InvokeOnExit()
+    {
+        if (onExit != null) onExit.Invoke();
+    }
+}
+
 public class FSM<S>
 {
-    class StateDelegates {
-        public OnEnter onEnter;
-        public OnUpdate onUpdate;
-        public OnExit onExit;
-    }
-
     private bool debug;
 
     private S mCurrState;
 
     private HashSet<Transition<S>> mTransitions;
-    private Dictionary<S, StateDelegates> mDelegates;
+    private Dictionary<S, FSMState> mDelegates;
 
     public FSM() 
     {
         mTransitions = new HashSet<Transition<S>>();
-        mDelegates = new Dictionary<S, StateDelegates>();
+        mDelegates = new Dictionary<S, FSMState>();
     }
 
     public void SetDebugOutput(bool debug)
@@ -76,13 +91,13 @@ public class FSM<S>
     {
         mCurrState = s;
 
-        StateDelegates delegates = null;
+        FSMState delegates = null;
 
         if (debug) Debug.Log("ForceEnterState(" + s + ")");
 
-        if (mDelegates.TryGetValue(mCurrState, out delegates) && delegates.onEnter != null)
+        if (mDelegates.TryGetValue(mCurrState, out delegates))
         {
-            delegates.onEnter(null);
+            delegates.InvokeOnEnter(null);
         }
     }
 
@@ -98,38 +113,43 @@ public class FSM<S>
             return false;
         }
 
-        StateDelegates oldStateDelegates = null;
-        StateDelegates newStateDelegates = null;
+        FSMState oldStateDelegates = null;
+        FSMState newStateDelegates = null;
 
         mDelegates.TryGetValue(mCurrState, out oldStateDelegates);
         mDelegates.TryGetValue(nextState, out newStateDelegates);
 
-        if (oldStateDelegates != null && oldStateDelegates.onExit != null)
+        if (oldStateDelegates != null)
         {
-            oldStateDelegates.onExit();
+            oldStateDelegates.InvokeOnExit();
         }
 
         mCurrState = nextState;
 
         if (debug) Debug.Log("EnterState(" + nextState + ")");
 
-        if (newStateDelegates != null && newStateDelegates.onEnter != null)
+        if (newStateDelegates != null)
         {
-            newStateDelegates.onEnter(transitionParam);
+            newStateDelegates.InvokeOnEnter(transitionParam);
         }
 
         return true;
     }
 
-    public void RegisterState(S state, OnEnter onEnter = null, OnUpdate onUpdate = null, OnExit onExit = null)
+    public FSMState RegisterState(S state, OnEnter onEnter = null, OnUpdate onUpdate = null, OnExit onExit = null)
     {
-        StateDelegates delegates = new StateDelegates();
-        
-        delegates.onEnter = onEnter;
-        delegates.onUpdate = onUpdate;
-        delegates.onExit = onExit;
+        FSMState delegates = new FSMState();
+
+        if (onEnter != null)
+            delegates.onEnter += onEnter;
+        if (onUpdate != null)
+            delegates.onUpdate += onUpdate;
+        if (onExit != null)
+            delegates.onExit += onExit;
 
         mDelegates.Add(state, delegates);
+
+        return delegates;
     }
 
     public void AllowTransitionChain(params S[] states)
@@ -158,11 +178,11 @@ public class FSM<S>
     {
         if (mCurrState == null) return;
 
-        StateDelegates delegates = null;
+        FSMState delegates = null;
 
-        if (mDelegates.TryGetValue(mCurrState, out delegates) && delegates.onUpdate != null)
+        if (mDelegates.TryGetValue(mCurrState, out delegates))
         {
-            delegates.onUpdate();
+            delegates.InvokeOnUpdate();
         }
     }
 

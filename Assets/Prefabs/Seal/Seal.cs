@@ -18,7 +18,7 @@ public class Seal : Creature2
         aliveState.AllowTransitionChain(Alive_SubState.Walking, Alive_SubState.Falling, Alive_SubState.Crawling);
 
         aliveState.RegisterState(Alive_SubState.Walking, OnBecomeWalking);
-        aliveState.RegisterState(Alive_SubState.Falling, OnBecomeFalling, delegateAdvanceAfterAnimation(aliveState, Alive_SubState.Crawling));
+        aliveState.RegisterState(Alive_SubState.Falling, OnBecomeFalling, Action_AdvanceAfterAnimation(aliveState, Alive_SubState.Crawling));
         aliveState.RegisterState(Alive_SubState.Crawling, OnBecomeCrawling);
     }
 
