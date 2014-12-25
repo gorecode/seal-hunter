@@ -12,6 +12,10 @@ public class SpriteList
     /// The pivots. XY = position of sprite, Z = index of sprite.
     /// </summary>
     public Vector3[] pivots;
+    /// <summary>
+    /// Name of sprite sheet, just for visualization.
+    /// </summary>
+    public string name;
 }
 
 [ExecuteInEditMode]

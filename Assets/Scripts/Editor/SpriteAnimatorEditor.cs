@@ -27,21 +27,22 @@ public class SpriteAnimationEditor : Editor {
 
         for (int i = 0; i < selection.Length; i++)
         {
-            Object obj = selection[i];
+            Object texture = selection[i];
 
             sheets[i] = new SpriteList();
             sheets[i].pivots = new Vector3[1];
             sheets[i].pivots[0] = Vector3.zero;
 
-            string textureAssetPath = AssetDatabase.GetAssetPath(obj);
+            string textureAssetPath = AssetDatabase.GetAssetPath(texture);
 
             Sprite[] sprites = AssetDatabase.LoadAllAssetsAtPath(textureAssetPath).OfType<Sprite>().ToArray();
 
             sheets[i].sprites = sprites;
+            sheets[i].name = texture.name;
 
             AnimationClip clip = new AnimationClip();
             
-            clip.name = obj.name;
+            clip.name = texture.name;
             clip.frameRate = sprites.Length + 1;
             clip.wrapMode = WrapMode.Once;
             

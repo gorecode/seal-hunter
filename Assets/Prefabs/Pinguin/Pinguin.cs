@@ -2,23 +2,13 @@ using UnityEngine;
 using UnityEngineExt;
 using System.Collections;
 
-public class Pinguin : Creature, ITouchable
+public class Pinguin : Creature2
 {
     enum Alive_SubState { Walking, Sliding }
 
-    private const int DEATH_HEADSHOT = 2;
-    private const int DEATH_BODYSHOT = 1;
-
-    private static readonly int WALKING_STATE_HASH = Animator.StringToHash("Base Layer.Walking");
-
-    public float slidingSpeed;
-    public float walkingSpeed = 0.3f;
-    public float currentSpeed;
     public float friction = 0.02f;
     public float delayBeforeSliding = 1;
-
-    public AudioClip[] soundsOfDying;
-    public AudioClip[] soundsOfSpawning;
+    public float slidingSpeed;
 
     private Vector3 direction = Vector3.right;
 
@@ -31,10 +21,10 @@ public class Pinguin : Creature, ITouchable
         switch (aliveState.GetCurrentState())
         {
             case Alive_SubState.Walking:
-                Advance(State.Dying, Random2.NextBool() ? DEATH_BODYSHOT : DEATH_HEADSHOT);
+                Advance(State.Dying, Random2.RandomArrayElement("Bodyshot", "Headshot"));
                 break;
             case Alive_SubState.Sliding:
-                Advance(State.Dying, Random.Range(1, 3));
+                Advance(State.Dying, Random2.RandomArrayElement("Corpse1", "Corpse2", "Corpse_RotatingWithoutHead1", "Corpse_RotatingWithoutHead2"));
                 break;
         }
     }
@@ -43,39 +33,24 @@ public class Pinguin : Creature, ITouchable
     {
         base.Awake();
 
-        RegisterState(State.Alive, OnBecomeAlive, OnContinueLiving);
-        RegisterState(State.Dying, OnBecomeDying, OnDying);
-        RegisterState(State.Dead, OnBecomeDead);
-
         aliveState = new FSM<Alive_SubState>();
         aliveState.AllowTransitionChain(Alive_SubState.Walking, Alive_SubState.Sliding);
         aliveState.RegisterState(Alive_SubState.Walking, OnBecomeWalking);
         aliveState.RegisterState(Alive_SubState.Sliding, OnBecomeSliding);
     }
 
-    public void OnEnable()
+    protected override void OnBecomeAlive(object param)
     {
-        ForceEnterState(State.Alive);
-    }
-
-    private void OnBecomeAlive(object param)
-    {
-        myAnimator.speed = 1;
-        myAnimator.SetInteger("DeathAnimationId", 0);
-        myAnimator.SetBool("Sliding", false);
+        base.OnBecomeAlive(param);
 
         direction = Vector3.right;
 
-        collider2D.enabled = true;
-
-        AudioCenter.PlayRandomClipAtMainCamera(soundsOfSpawning);
-
         aliveState.ForceEnterState(Alive_SubState.Walking);
 
-        mySpriteRenderer.sortingLayerID = SortingLayer.FOREGROUND;
+        mySpriteAnimator.Update();
     }
 
-    private void OnContinueLiving()
+    protected override void OnAlive()
     {
         myParent.position += direction * currentSpeed * Time.deltaTime;
 
@@ -84,9 +59,7 @@ public class Pinguin : Creature, ITouchable
 
     private void OnBecomeWalking(object param)
     {
-        myAnimator.Play(WALKING_STATE_HASH, 0, 0);
-
-        transform.position = Vector3.zero;
+        myAnimation.PlayImmediately("Walk");
 
         currentSpeed = walkingSpeed;
 
@@ -109,48 +82,33 @@ public class Pinguin : Creature, ITouchable
         direction = Quaternion.Euler(0, 0, Random.Range(-30, 30)) * direction;
         direction.Normalize();
 
-        myAnimator.SetBool("Sliding", true);
+        myAnimation.Play("StartSlide");
     }
 
-    private void OnBecomeDying(object param)
+    protected override void OnBecomeDying(object param)
     {
+        base.OnBecomeDying(param);
+
         StopAllCoroutines();
-
-        collider2D.enabled = false;
-
-        System.Int32 deathAnimationId = (System.Int32)param;
-
-        AudioCenter.PlayRandomClipAtMainCamera(soundsOfDying);
-
-        myAnimator.SetInteger("DeathAnimationId", deathAnimationId);
-
-        mySpriteRenderer.sortingLayerID = SortingLayer.BACKGROUND;
-
-        EventBus.OnBecomeDying(myParent.gameObject);
     }
 
-    private void OnDying()
+    protected override void OnDying()
     {
         switch (aliveState.GetCurrentState())
         {
             case Alive_SubState.Walking:
-                if (myAnimator.IsFinishedPlayingAnimationWithTag("Dying")) Advance(State.Dead);
+                if (!myAnimation.isPlaying) Advance(State.Dead);
                 break;
             case Alive_SubState.Sliding:
                 myParent.position += direction * currentSpeed * Time.deltaTime;
 
                 currentSpeed = Mathf.Max(0.0f, currentSpeed - friction * Time.deltaTime);
 
-                myAnimator.speed = 1.0f - (slidingSpeed - currentSpeed) / slidingSpeed;
+                myAnimation.GetCurrentAnimationState().speed = 1.0f - (slidingSpeed - currentSpeed) / slidingSpeed;
 
-                if (currentSpeed == 0.0f) Advance(State.Dead);
+                if (currentSpeed < 0.01f) Advance(State.Dead);
 
                 break;
         }
-    }
-
-    private void OnBecomeDead(object param)
-    {
-        EventBus.OnBecomeDead(transform.parent.gameObject);
     }
 }
