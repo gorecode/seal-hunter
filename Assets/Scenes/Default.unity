@@ -331,7 +331,7 @@ MonoBehaviour:
   enemiesPerSecondSpeed: 0
   dynamicObjects: {fileID: 754483847}
   enemyPrefabs:
-  - {fileID: 0}
+  - {fileID: 100002, guid: ecdb20d0eab5b7844aae40aadc792d34, type: 2}
 --- !u!4 &134496731
 Transform:
   m_ObjectHideFlags: 0

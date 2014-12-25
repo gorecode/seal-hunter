@@ -2,92 +2,36 @@ using UnityEngine;
 using UnityEngineExt;
 using System.Collections;
 
-public class BearController : Creature
+public class BearController : Creature2
 {
-    private const string ANIM_WALKING = "Base.Walk";
-    private const string ANIM_DEATH_FROM_EYESHOT = "Base.EyeShot";
-    private const string ANIM_DEATH_FROM_BODYSHOT = "Base.HeadExplosion";
-
-    public float walkingSpeed = 0.01f;
-    public float currentSpeed;
-
-    public AudioClip[] soundsOfDying;
-
     public override void OnTouch()
     {
-        Advance(State.Dying, Random2.NextBool() ? ANIM_DEATH_FROM_EYESHOT : ANIM_DEATH_FROM_BODYSHOT);
+        Advance(State.Dying, Random2.RandomArrayElement("HeadExplosion", "Eyeshot"));
     }
 
-    public new void Awake()
+    protected override void OnBecomeAlive(object param)
     {
-        base.Awake();
-
-        RegisterState(State.Alive, OnBecomeAlive);
-        RegisterState(State.Dying, OnBecomeDying);
-        RegisterState(State.Dead, OnBecomeDead);
-    }
-
-    void OnEnable()
-    {
-        ForceEnterState(State.Alive);
-    }
-
-    private void OnBecomeAlive(object param)
-    {
-        collider2D.enabled = true;
+        base.OnBecomeAlive(param);
 
         currentSpeed = walkingSpeed;
 
-        myAnimator.Play(ANIM_WALKING, 0, 0);
+        myAnimation.PlayImmediately("Walk");
 
-        transform.position = Vector3.zero;
-
-        mySpriteRenderer.sortingLayerID = SortingLayer.FOREGROUND;
+        mySpriteAnimator.Update();
 
         StartCoroutine(Wait_Sniff_Walk_Coroutine());
     }
 
-    private void OnBecomeDying(object param)
+    protected override void OnBecomeDying(object param)
     {
+        base.OnBecomeDying(param);
+
         StopAllCoroutines();
-
-        string animatorStateName = param as string;
-
-        AudioClip audioClip = ANIM_DEATH_FROM_EYESHOT.Equals(animatorStateName) ? soundsOfDying[0] : soundsOfDying[1];
-
-        AudioCenter.PlayClipAtMainCamera(audioClip);
-
-        myAnimator.Play(animatorStateName, 0, 0);
-
-        mySpriteRenderer.sortingLayerID = SortingLayer.BACKGROUND;
-        
-        collider2D.enabled = false;
-
-        EventBus.OnBecomeDying(myParent.gameObject);
     }
 
-    private void OnBecomeDead(object param)
+    protected override void OnAlive()
     {
-        EventBus.OnBecomeDead(transform.parent.gameObject);
-    }
-
-    new void Update()
-    {
-        base.Update();
-
-        switch (GetCurrentState())
-        {
-            case State.Alive:
-                transform.parent.position += Vector3.right * currentSpeed * Time.deltaTime;
-
-                myAnimator.SetFloat("Speed", currentSpeed);
-
-                break;
-            case State.Dying:
-                if (myAnimator.IsFinishedPlayingAnimationWithTag("Dying")) Advance(State.Dead);
-                break;
-
-        }
+        transform.parent.position += Vector3.right * currentSpeed * Time.deltaTime;
     }
 
     IEnumerator Wait_Sniff_Walk_Coroutine()
@@ -95,8 +39,10 @@ public class BearController : Creature
         yield return new WaitForSeconds(1 + Random.value * 4);
         float oldSpeed = currentSpeed;
         currentSpeed = 0.0f;
+        myAnimation.Play("Sniff");
         yield return new WaitForSeconds(1 + Random.value * 3);
         currentSpeed = oldSpeed;
+        myAnimation.Play("Walk");
         yield return null;
     }
 }
