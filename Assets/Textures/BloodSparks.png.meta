@@ -1,0 +1,388 @@
+fileFormatVersion: 2
+guid: 68e671b1c3c144c7e857d2c3ea4c7424
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: BloodSparks_0
+    21300002: BloodSparks_1
+    21300004: BloodSparks_2
+    21300006: BloodSparks_3
+    21300008: BloodSparks_4
+    21300010: BloodSparks_5
+    21300012: BloodSparks_6
+    21300014: BloodSparks_7
+    21300016: BloodSparks_8
+    21300018: BloodSparks_9
+    21300020: BloodSparks_10
+    21300022: BloodSparks_11
+    21300024: BloodSparks_12
+    21300026: BloodSparks_13
+    21300028: BloodSparks_14
+    21300030: BloodSparks_15
+    21300032: BloodSparks_16
+    21300034: BloodSparks_17
+    21300036: BloodSparks_18
+    21300038: BloodSparks_19
+    21300040: BloodSparks_20
+    21300042: BloodSparks_21
+    21300044: BloodSparks_22
+    21300046: BloodSparks_23
+    21300048: BloodSparks_24
+    21300050: BloodSparks_25
+    21300052: BloodSparks_26
+    21300054: BloodSparks_27
+    21300056: BloodSparks_28
+    21300058: BloodSparks_29
+    21300060: BloodSparks_30
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: BloodSparks_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 123
+        width: 3
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BloodSparks_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 119
+        width: 3
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BloodSparks_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 115
+        width: 3
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BloodSparks_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 111
+        width: 3
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BloodSparks_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 107
+        width: 3
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BloodSparks_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 103
+        width: 3
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BloodSparks_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 99
+        width: 3
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BloodSparks_7
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 95
+        width: 3
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BloodSparks_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 91
+        width: 3
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BloodSparks_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 87
+        width: 3
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BloodSparks_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 83
+        width: 3
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BloodSparks_11
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 79
+        width: 3
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BloodSparks_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 75
+        width: 3
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BloodSparks_13
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 71
+        width: 3
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BloodSparks_14
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 67
+        width: 3
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BloodSparks_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 63
+        width: 3
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BloodSparks_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 59
+        width: 3
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BloodSparks_17
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 55
+        width: 3
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BloodSparks_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 51
+        width: 3
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BloodSparks_19
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 47
+        width: 3
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BloodSparks_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 43
+        width: 3
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BloodSparks_21
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 39
+        width: 3
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BloodSparks_22
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 35
+        width: 3
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BloodSparks_23
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 31
+        width: 3
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BloodSparks_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 27
+        width: 3
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BloodSparks_25
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 23
+        width: 3
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BloodSparks_26
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 19
+        width: 3
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BloodSparks_27
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 15
+        width: 3
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BloodSparks_28
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 11
+        width: 3
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BloodSparks_29
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 7
+        width: 3
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BloodSparks_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3
+        width: 3
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: all
+  userData: 

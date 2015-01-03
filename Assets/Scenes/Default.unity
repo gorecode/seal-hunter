@@ -331,7 +331,7 @@ MonoBehaviour:
   enemiesPerSecondSpeed: 0
   dynamicObjects: {fileID: 754483847}
   enemyPrefabs:
-  - {fileID: 100002, guid: ecdb20d0eab5b7844aae40aadc792d34, type: 2}
+  - {fileID: 100002, guid: 543907ba2c8722643abd41e2c459330a, type: 2}
 --- !u!4 &134496731
 Transform:
   m_ObjectHideFlags: 0
@@ -343,7 +343,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
 --- !u!1 &189890919
 GameObject:
   m_ObjectHideFlags: 0
@@ -384,7 +384,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
 --- !u!114 &189890922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -442,7 +442,7 @@ Transform:
   - {fileID: 59218635}
   - {fileID: 1007337808}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
 --- !u!50 &319807318
 Rigidbody2D:
   m_ObjectHideFlags: 0
@@ -458,6 +458,46 @@ Rigidbody2D:
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
+--- !u!1 &322607483
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 322607485}
+  - 114: {fileID: 322607484}
+  m_Layer: 10
+  m_Name: Managers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &322607484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 322607483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91f8610c5a88c44618be82e24df98521, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bloodSparksPrefab: {fileID: 100000, guid: 941598cd5ea6c43de928a70ef0b0939f, type: 2}
+--- !u!4 &322607485
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 322607483}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
 --- !u!1 &358737921
 GameObject:
   m_ObjectHideFlags: 0
@@ -531,7 +571,7 @@ AudioSource:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 456859972}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_audioClip: {fileID: 8300000, guid: 46911f23360a5204f94182dd87512dc8, type: 3}
   m_PlayOnAwake: 1
@@ -647,7 +687,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
 --- !u!114 &456859980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -712,7 +752,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
 --- !u!1 &495671563
 GameObject:
   m_ObjectHideFlags: 0
@@ -792,7 +832,7 @@ Transform:
   - {fileID: 116673172}
   - {fileID: 1240496015}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
 --- !u!1 &498907933
 GameObject:
   m_ObjectHideFlags: 0
@@ -1055,7 +1095,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
 --- !u!1 &598763116
 GameObject:
   m_ObjectHideFlags: 0
@@ -1106,7 +1146,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
 --- !u!114 &598763119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1145,7 +1185,7 @@ Transform:
   m_Children:
   - {fileID: 797841244}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
 --- !u!1 &797841243
 GameObject:
   m_ObjectHideFlags: 0
@@ -1599,7 +1639,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
 --- !u!1 &2016194542
 GameObject:
   m_ObjectHideFlags: 0
@@ -1785,4 +1825,4 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7

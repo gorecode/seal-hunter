@@ -93,7 +93,15 @@ public class Gun : FSMBehaviour<Gun.State> {
         if (hit.collider != null)
         {
             Component t = hit.transform.gameObject.GetComponent(typeof(ITouchable));
-            if (t != null) (t as ITouchable).OnTouch();
+
+            if (t != null) 
+            {
+                (t as ITouchable).OnTouch();
+
+                GameObject bloodSparksPrefab = PrefabLocator.INSTANCE.bloodSparksPrefab;
+                GameObject bloodSparks = GameObjectPool.Instance.Instantiate(bloodSparksPrefab, hit.point.ToVector3(), Quaternion.identity);
+                bloodSparks.GetComponent<BloodSparks>().Emit();
+            }
         }
     }
 
