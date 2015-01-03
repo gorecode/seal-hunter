@@ -13,7 +13,7 @@ public class BloodSparksEditor : Editor {
 
         if (GUILayout.Button("Emit"))
         {
-            myScript.particleSystem.Play();
+            myScript.Emit(44);
         }
     }
 }

@@ -26,7 +26,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .372999996, y: .338999987, z: 1}
+  m_LocalPosition: {x: .0356338918, y: -.230844349, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -54,14 +54,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11da4dbac1bbc4a44aed4474c0a6d5ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myParticleSystem: {fileID: 0}
+  minVelocity: {x: .75, y: .200000003}
+  maxVelocity: {x: 1.5, y: .75}
 --- !u!198 &19800000
 ParticleSystem:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  lengthInSec: .400000006
+  lengthInSec: 1
   startDelay: 0
   speed: 1
   randomSeed: 0
@@ -297,9 +298,9 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
       minMaxState: 0
-    gravityModifier: 1
+    gravityModifier: .400000006
     inheritVelocity: 0
-    maxNumParticles: 20
+    maxNumParticles: 100
   ShapeModule:
     serializedVersion: 2
     enabled: 1
@@ -314,7 +315,7 @@ ParticleSystem:
     m_Mesh: {fileID: 0}
     randomDirection: 1
   EmissionModule:
-    enabled: 1
+    enabled: 0
     m_Type: 0
     rate:
       scalar: 200
@@ -566,7 +567,7 @@ ParticleSystem:
     cycles: 1
     randomRow: 1
   VelocityModule:
-    enabled: 1
+    enabled: 0
     x:
       scalar: -2
       maxCurve:
@@ -601,7 +602,7 @@ ParticleSystem:
         m_PostInfinity: 2
       minMaxState: 0
     y:
-      scalar: .5
+      scalar: 0
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1128,7 +1129,7 @@ ParticleSystemRenderer:
   m_SortingLayerID: 4275951097
   m_SortingOrder: 0
   m_RenderMode: 0
-  m_MaxParticleSize: .0199999996
+  m_MaxParticleSize: .0399999991
   m_CameraVelocityScale: 0
   m_VelocityScale: 0
   m_LengthScale: 2

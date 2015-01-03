@@ -100,7 +100,7 @@ public class Gun : FSMBehaviour<Gun.State> {
 
                 GameObject bloodSparksPrefab = PrefabLocator.INSTANCE.bloodSparksPrefab;
                 GameObject bloodSparks = GameObjectPool.Instance.Instantiate(bloodSparksPrefab, hit.point.ToVector3(), Quaternion.identity);
-                bloodSparks.GetComponent<BloodSparks>().Emit();
+                bloodSparks.GetComponent<BloodSparks>().Emit(Random.Range(15, 35));
             }
         }
     }

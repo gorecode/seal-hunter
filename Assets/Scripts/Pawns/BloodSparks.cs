@@ -1,22 +1,34 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[ExecuteInEditMode]
 public class BloodSparks : MonoBehaviour {
-    private ParticleSystem myParticleSystem;
+    ParticleSystem.Particle[] particles;
 
-    void Awake()
-    {
-        myParticleSystem = transform.particleSystem;
-    }
+    public Vector2 minVelocity;
+    public Vector2 maxVelocity;
 
-    public void Emit()
+    public void Emit(int count)
     {
-        myParticleSystem.Play();
+        particleSystem.Emit(count);
+        particles = new ParticleSystem.Particle[count];
+        particleSystem.GetParticles(particles);
+        
+        for (int i = 0; i < particles.Length; i++)
+        {
+            Vector3 velolicty = Vector3.left * Random.Range(minVelocity.x, maxVelocity.x);
+
+            velolicty.y = Random.Range(minVelocity.y, maxVelocity.y);
+            
+            particles[i].velocity = velolicty;
+        }
+        
+        transform.particleSystem.SetParticles(particles, particles.Length);
     }
 
     void LateUpdate()
     {
-        if (!myParticleSystem.IsAlive()) 
+        if (Application.isPlaying && !particleSystem.IsAlive()) 
         {
             GameObjectPool.Instance.Recycle(gameObject);
         }
