@@ -6,8 +6,8 @@ public class SlaughterLayerRenderer : MonoBehaviour
 {
     private RenderTexture renderTexture;
 
-    public Texture2D staticBackgroundTexture;
-    public Transform dynamicBackgroundObject;
+    public Texture2D backgroundTexture;
+    public Transform backgroundObject;
     public Camera renderTextureCamera;
 
     private List<GameObject> objectsToRender = new List<GameObject>();
@@ -15,25 +15,25 @@ public class SlaughterLayerRenderer : MonoBehaviour
     void Start()
     {
         renderTexture = new RenderTexture(640, 480, 24, RenderTextureFormat.ARGB32);
-        renderTexture.anisoLevel = 0;
+        renderTexture.anisoLevel = 1;
+		renderTexture.generateMips = false;
+		renderTexture.useMipMap = false;
+		renderTexture.antiAliasing = 1;
         renderTexture.filterMode = FilterMode.Point;
         renderTexture.Create();
 
-        dynamicBackgroundObject.GetComponent<MeshRenderer>().material.mainTexture = staticBackgroundTexture;
-        int oldLayer = dynamicBackgroundObject.gameObject.layer;
-        dynamicBackgroundObject.gameObject.layer = Layers.ENEMY_CORPSES;
-
+		// XXX: Workaround unity issue, with non working CameraClearFlags.Nothing flag.
+		renderTextureCamera.clearFlags = CameraClearFlags.SolidColor;
         renderTextureCamera.targetTexture = renderTexture;
-        renderTextureCamera.gameObject.SetActive(true);
-        renderTextureCamera.clearFlags = CameraClearFlags.SolidColor;
-        renderTextureCamera.Render();
-        renderTextureCamera.gameObject.SetActive(false);
-        renderTextureCamera.clearFlags = CameraClearFlags.Nothing;
+		renderTextureCamera.Render ();
+		renderTextureCamera.clearFlags = CameraClearFlags.Nothing;
+		renderTextureCamera.enabled = false;
 
-        EventBus.OnBecomeDead += OnEnemyDied;
+		Graphics.Blit (backgroundTexture, renderTexture);
 
-        dynamicBackgroundObject.gameObject.layer = oldLayer;
-        dynamicBackgroundObject.GetComponent<MeshRenderer>().material.mainTexture = renderTexture;
+        backgroundObject.GetComponent<MeshRenderer>().material.mainTexture = renderTexture;
+
+		EventBus.OnBecomeDead += OnEnemyDied;
     }
 
     private void OnEnemyDied(GameObject enemy)
@@ -45,37 +45,45 @@ public class SlaughterLayerRenderer : MonoBehaviour
     {
         if (objectsToRender.Count > 0)
         {
+			Debug.Log("Render " + objectsToRender.Count + " dead enemies");
+
             for (int i = 0; i < objectsToRender.Count; i++)
-            {
-                GameObject go = objectsToRender[i];
-                while (go.transform.parent != null) go = go.transform.parent.gameObject;
-                SetLayerRecursively(go, LayerMask.NameToLayer("Enemy Corpses"));
-                renderTextureCamera.gameObject.SetActive(true);
-                renderTextureCamera.Render();
-                renderTextureCamera.gameObject.SetActive(false);
-                GameObjects.DestroyRoot(go);
-            }
+				SetLayerRecursively(objectsToRender[i], Layers.ENEMY_CORPSES);
+
+			renderTextureCamera.enabled = true;
+			renderTextureCamera.Render();
+			renderTextureCamera.enabled = false;
+
+			for (int i = 0; i < objectsToRender.Count; i++)
+			{
+				SetLayerRecursively(objectsToRender[i], Layers.ENEMY);
+
+				Creature2 creatureScript = objectsToRender[i].GetComponentInChildren(typeof(Creature2)) as Creature2;
+
+				creatureScript.Advance(Creature2.State.Recycled);
+			}
+
             objectsToRender.Clear();
         }
     }
 
-    void SetLayerRecursively(GameObject obj, int newLayer)
-    {
-        if (null == obj)
-        {
-            return;
-        }
-
-        obj.layer = newLayer;
-
-        foreach (Transform child in obj.transform)
-        {
-            if (null == child)
-            {
-                continue;
-            }
-
-            SetLayerRecursively(child.gameObject, newLayer);
-        }
-    }
+	void SetLayerRecursively(GameObject obj, int newLayer)
+	{
+		if (null == obj)
+		{
+			return;
+		}
+		
+		obj.layer = newLayer;
+		
+		foreach (Transform child in obj.transform)
+		{
+			if (null == child)
+			{
+				continue;
+			}
+			
+			SetLayerRecursively(child.gameObject, newLayer);
+		}
+	}
 }

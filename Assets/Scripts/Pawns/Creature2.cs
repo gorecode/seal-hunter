@@ -18,6 +18,7 @@ public class Creature2 : Creature {
         RegisterState(State.Alive, OnBecomeAlive, OnAlive);
         RegisterState(State.Dying, OnBecomeDying, OnDying);
         RegisterState(State.Dead, OnBecomeDead);
+		RegisterState(State.Recycled, OnBecomeRecycled);
     }
 
     protected void OnEnable()
@@ -63,4 +64,12 @@ public class Creature2 : Creature {
     {
         EventBus.OnBecomeDead(myParent.gameObject);
     }
+
+	protected virtual void OnBecomeRecycled(object param)
+	{
+		if (!GameObjectPool.Instance.Recycle(myParent.gameObject))
+		{
+			GameObject.Destroy(myParent.gameObject);
+		}
+	}
 }

@@ -59,10 +59,10 @@ public class EnemySpawner : MonoBehaviour
 
     private void OnEnemyBecomeDead(GameObject enemy)
     {
-        if (!GameObjectPool.Instance.Recycle(enemy))
-        {
-            GameObject.Destroy(enemy);
-        }
+//		if (!GameObjectPool.Instance.Recycle(enemy))
+//		{
+//			GameObject.Destroy(enemy);
+//		}
     }
 
     private void SetUpNextSpawnTime()
