@@ -67,9 +67,5 @@ public class Creature2 : Creature {
 
 	protected virtual void OnBecomeRecycled(object param)
 	{
-		if (!GameObjectPool.Instance.Recycle(myParent.gameObject))
-		{
-			GameObject.Destroy(myParent.gameObject);
-		}
 	}
 }

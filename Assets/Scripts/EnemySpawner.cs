@@ -15,22 +15,34 @@ public class EnemySpawner : MonoBehaviour
 
     private float nextSpawnTime;
 
+    private ArrayList recycleList;
+    private bool recycleOnNextFrame;
+    
     void onDrawGizmos()
     {
         Gizmos.color = Color.white;
         Gizmos.DrawLine(transform.position + transform.up * spawnZoneY, transform.position - transform.up * spawnZoneY);
     }
 
-    // Use this for initialization
     void Start()
     {
-        EventBus.OnBecomeDead += OnEnemyBecomeDead;
-
+        recycleList = new ArrayList();
+        
         SpawnWithPooling();
 
         SetUpNextSpawnTime();
     }
 
+    void OnEnable()
+    {
+        EventBus.OnBecomeDead += RecycleLater;
+    }
+    
+    void OnDisable()
+    {
+        EventBus.OnBecomeDead -= RecycleLater;
+    }
+    
     void Update()
     {
         if (Time.time >= nextSpawnTime)
@@ -41,6 +53,37 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
+    void LateUpdate()
+    {
+        int count = recycleList.Count;
+        
+        if (count > 0)
+        {
+            if (!recycleOnNextFrame)
+            {
+                recycleOnNextFrame = true;
+                return;
+            }
+        } else
+        {
+            return;
+        }
+        
+        for (int i = 0; i < count; i++)
+        {
+            GameObject go = recycleList[i] as GameObject;
+            
+            if (!GameObjectPool.Instance.Recycle(go))
+            {
+                GameObject.Destroy(go);
+            }
+        }
+        
+        recycleList.Clear();
+        
+        recycleOnNextFrame = false;
+    }
+    
     void SpawnWithPooling()
     {
         if (enemyPrefabs.Length > 0)
@@ -57,12 +100,9 @@ public class EnemySpawner : MonoBehaviour
         enemiesPerSecond += Time.fixedDeltaTime * enemiesPerSecondSpeed;
     }
 
-    private void OnEnemyBecomeDead(GameObject enemy)
+    private void RecycleLater(GameObject enemy)
     {
-//		if (!GameObjectPool.Instance.Recycle(enemy))
-//		{
-//			GameObject.Destroy(enemy);
-//		}
+        recycleList.Add(enemy);
     }
 
     private void SetUpNextSpawnTime()
