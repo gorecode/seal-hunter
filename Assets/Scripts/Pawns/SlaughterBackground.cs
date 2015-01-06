@@ -16,6 +16,8 @@ public class SlaughterBackground : MonoBehaviour
 
     void Start()
     {
+        PrefabLocator.INSTANCE.slaughterBackgroundController = this;
+
         objectsToRenderLayersMap = new Dictionary<GameObject, int>();
         
         renderTexture = new RenderTexture(640, 480, 24, RenderTextureFormat.ARGB32);
@@ -47,17 +49,19 @@ public class SlaughterBackground : MonoBehaviour
     {
         EventBus.OnBecomeDead -= RenderToTextureLater;
     }
-    
-    private void RenderToTextureLater(GameObject enemy)
+  
+    public void RenderToTextureLater(GameObject go)
     {
-        objectsToRender.Add(enemy);
+        objectsToRender.Add(GameObjectPool.Instance.Retain(go));
     }
 
     void Update()
     {
-        if (objectsToRender.Count > 0)
+        int count = objectsToRender.Count;
+
+        if (count > 0)
         {
-            for (int i = 0; i < objectsToRender.Count; i++) {
+            for (int i = 0; i < count; i++) {
                 CallForEach(objectsToRender[i], SaveLayer);
                 
 				SetLayerRecursively(objectsToRender[i], Layers.ENEMY_CORPSES);
@@ -67,9 +71,11 @@ public class SlaughterBackground : MonoBehaviour
 			renderTextureCamera.Render();
 			renderTextureCamera.enabled = false;
 
-			for (int i = 0; i < objectsToRender.Count; i++)
+			for (int i = 0; i < count; i++)
 			{
                 CallForEach(objectsToRender[i], RestoreLayer);
+
+                GameObjectPool.Instance.Release(objectsToRender[i]);
         	}
 
             objectsToRenderLayersMap.Clear();

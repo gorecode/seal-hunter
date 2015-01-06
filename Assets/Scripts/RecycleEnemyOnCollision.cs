@@ -5,6 +5,6 @@ public class RecycleEnemyOnCollision : MonoBehaviour
 {
     void OnTriggerEnter2D(Collider2D collider)
     {
-        GameObjectPool.Instance.Recycle(collider.transform.parent.gameObject);
+        GameObjectPool.Instance.Release(collider.transform.parent.gameObject);
     }
 }

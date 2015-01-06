@@ -15,8 +15,8 @@ public class EnemySpawner : MonoBehaviour
 
     private float nextSpawnTime;
 
-    private ArrayList recycleList;
-    private bool recycleOnNextFrame;
+    private ArrayList releaseList;
+    private bool releaseOnNextFrame;
     
     void onDrawGizmos()
     {
@@ -26,7 +26,7 @@ public class EnemySpawner : MonoBehaviour
 
     void Start()
     {
-        recycleList = new ArrayList();
+        releaseList = new ArrayList();
         
         SpawnWithPooling();
 
@@ -55,13 +55,13 @@ public class EnemySpawner : MonoBehaviour
 
     void LateUpdate()
     {
-        int count = recycleList.Count;
+        int count = releaseList.Count;
         
         if (count > 0)
         {
-            if (!recycleOnNextFrame)
+            if (!releaseOnNextFrame)
             {
-                recycleOnNextFrame = true;
+                releaseOnNextFrame = true;
                 return;
             }
         } else
@@ -71,17 +71,13 @@ public class EnemySpawner : MonoBehaviour
         
         for (int i = 0; i < count; i++)
         {
-            GameObject go = recycleList[i] as GameObject;
+            GameObject go = releaseList[i] as GameObject;
             
-            if (!GameObjectPool.Instance.Recycle(go))
-            {
-                GameObject.Destroy(go);
-            }
+            GameObjectPool.Instance.Release(go);
         }
         
-        recycleList.Clear();
-        
-        recycleOnNextFrame = false;
+        releaseList.Clear();
+        releaseOnNextFrame = false;
     }
     
     void SpawnWithPooling()
@@ -102,7 +98,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void RecycleLater(GameObject enemy)
     {
-        recycleList.Add(enemy);
+        releaseList.Add(enemy);
     }
 
     private void SetUpNextSpawnTime()

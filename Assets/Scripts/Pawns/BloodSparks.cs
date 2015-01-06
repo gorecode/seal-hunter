@@ -3,34 +3,49 @@ using System.Collections;
 
 [ExecuteInEditMode]
 public class BloodSparks : MonoBehaviour {
-    ParticleSystem.Particle[] particles;
-
     public Vector2 minVelocity;
     public Vector2 maxVelocity;
 
+    private float originalStartLifetime;
+    private ParticleSystem.Particle[] particles;
+
+    void Start()
+    {
+        originalStartLifetime = particleSystem.startLifetime;
+
+        particleSystem.startLifetime = originalStartLifetime * 10;
+    }
+
     public void Emit(int count)
     {
+        if (particles == null || particles.Length != count) particles = new ParticleSystem.Particle[count];
+
+        particleSystem.Stop();
+        particleSystem.time = 0;
         particleSystem.Emit(count);
-        particles = new ParticleSystem.Particle[count];
         particleSystem.GetParticles(particles);
         
         for (int i = 0; i < particles.Length; i++)
         {
             Vector3 velolicty = Vector3.left * Random.Range(minVelocity.x, maxVelocity.x);
-
             velolicty.y = Random.Range(minVelocity.y, maxVelocity.y);
-            
             particles[i].velocity = velolicty;
         }
         
-        transform.particleSystem.SetParticles(particles, particles.Length);
+        particleSystem.SetParticles(particles, particles.Length);
     }
 
     void LateUpdate()
     {
-        if (Application.isPlaying && !particleSystem.IsAlive()) 
+        float ttl = originalStartLifetime - particleSystem.time;
+
+        if (Application.isPlaying && ttl <= 0f) 
         {
-            GameObjectPool.Instance.Recycle(gameObject);
+            particleSystem.Pause();
+
+            PrefabLocator.INSTANCE.slaughterBackgroundController.RenderToTextureLater(gameObject);
+
+            GameObjectPool.Instance.Release(gameObject);
         }
     }
 }
