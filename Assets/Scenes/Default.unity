@@ -134,7 +134,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &47291340
 Transform:
   m_ObjectHideFlags: 0
@@ -160,8 +160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e56d878fd92345ec95a2ccee0efc10b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reloadSounds:
-  - {fileID: 8300000, guid: 11ffb3cf750dbaf4da41eadeea529196, type: 3}
+  reloadSounds: []
   fireSounds:
   - {fileID: 8300000, guid: 2fae51d9693353046957901b96ce53cd, type: 3}
   numBullets: 0
@@ -211,7 +210,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &59218635
 Transform:
   m_ObjectHideFlags: 0
@@ -260,10 +259,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reloadSounds:
-  - {fileID: 8300000, guid: 16d0cde474f7b954e8af5ea4d330612f, type: 3}
-  - {fileID: 8300000, guid: 1a9205ca692f78d428d25cd5284f4f19, type: 3}
-  - {fileID: 8300000, guid: 48971163879176841b06e1f469c8917d, type: 3}
-  - {fileID: 8300000, guid: f0f327d590ffc254ab7f81391945eb96, type: 3}
+  - {fileID: 8300000, guid: 3d5700f045cab2142884b13c7f476deb, type: 3}
   fireSounds:
   - {fileID: 8300000, guid: 3b62371d35cfc4e43b42139b1549f95b, type: 3}
   - {fileID: 8300000, guid: b237bfb41ce5377459fb8115b89f1d72, type: 3}
