@@ -7,8 +7,8 @@ public class Gun : FSMBehaviour<Gun.State> {
         IDLE, FIRE, RELOAD
     }
 
-    public AudioClip reloadSound;
-    public AudioClip fireSound;
+    public AudioClip[] reloadSounds;
+    public AudioClip[] fireSounds;
 
     public int numBullets;
 
@@ -57,7 +57,7 @@ public class Gun : FSMBehaviour<Gun.State> {
 
             reloadCompletitionTime = Time.fixedTime + reloadTime;
 
-            if (reloadSound != null) AudioCenter.PlayClipAtMainCamera(reloadSound);
+            if (reloadSounds != null) AudioCenter.PlayRandomClipAtMainCamera(reloadSounds);
         }
     }
 
@@ -75,7 +75,7 @@ public class Gun : FSMBehaviour<Gun.State> {
 
         readyToFireTime = Time.fixedTime + 1.0f / rateOfFire;
 
-        if (fireSound != null) AudioCenter.PlayClipAtMainCamera(fireSound);
+        if (fireSounds != null) AudioCenter.PlayRandomClipAtMainCamera(fireSounds);
 
         muzzle.SetActive(true);
 
