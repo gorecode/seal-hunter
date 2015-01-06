@@ -1,7 +1,10 @@
 fileFormatVersion: 2
-guid: 07ed5980ef2161847a1fa320b7a94897
+guid: 611ffdac10f5c465b9ae49e1df75830f
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: Shotgun_0
+    21300002: Shotgun_1
+    21300004: Shotgun_2
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -31,10 +34,10 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 8
+  alignment: 0
   spritePivot: {x: .5, y: .5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
@@ -42,6 +45,36 @@ TextureImporter:
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites: []
+    sprites:
+    - name: Shotgun_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 28
+        width: 19
+        height: 14
+      alignment: 8
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Shotgun_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 14
+        width: 19
+        height: 14
+      alignment: 8
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Shotgun_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 19
+        height: 14
+      alignment: 8
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: all
   userData: 

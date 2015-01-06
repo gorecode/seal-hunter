@@ -67,8 +67,6 @@ public class Gun : FSMBehaviour<Gun.State> {
 
         numBullets--;
 
-        Debug.Log("Fire, bullets left = " + numBullets);
-
         hunter.rigidbody2D.AddForce(Vector2.right * feedbackImpulse, ForceMode2D.Impulse);
 
         Advance(State.FIRE);
@@ -79,16 +77,36 @@ public class Gun : FSMBehaviour<Gun.State> {
 
         muzzle.SetActive(true);
 
-        SpawnBullet();
+        if ("Shotgun".Equals(gameObject.name) || "BigShotgun".Equals(gameObject.name))
+        {
+            bool isSmallShotgun = "Shotgun".Equals(gameObject.name);
+
+            int bulletCount = isSmallShotgun ? 7 : 15;
+            int angleAbs = isSmallShotgun ? 10 : 15;
+            
+            for (int i = -angleAbs; i <= angleAbs; i += (angleAbs * 2) / bulletCount) {
+                float deviation = -1 + Random.value * 2;
+                float angle = i + deviation;
+
+                SpawnBullet(angle);
+            }
+
+            if (isSmallShotgun) numBullets = 0;
+        } else
+        {
+            SpawnBullet(0);
+        }
     }
 
-    protected void SpawnBullet()
+    protected void SpawnBullet(float angle)
     {
         Vector2 position = firePoint.position.ToVector2();
 
         int layerMask = 1 << Layers.ENEMY;
 
-        RaycastHit2D hit = Physics2D.Raycast(position, -Vector2.right, 100, layerMask);
+        Vector2 dir = -Vector2.right.Rotate(angle);
+
+        RaycastHit2D hit = Physics2D.Raycast(position, dir, 100, layerMask);
 
         if (hit.collider != null)
         {
