@@ -53,8 +53,6 @@ public class Gun : FSMBehaviour<Gun.State> {
 
         if (Advance(State.RELOAD))
         {
-            Debug.Log("Start Reload");
-
             reloadCompletitionTime = Time.fixedTime + reloadTime;
 
             if (reloadSounds != null) AudioCenter.PlayRandomClipAtMainCamera(reloadSounds);
@@ -153,8 +151,6 @@ public class Gun : FSMBehaviour<Gun.State> {
             case State.RELOAD:
                 if (Time.fixedTime >= reloadCompletitionTime)
                 {
-                    Debug.Log("Reload complete");
-
                     numBullets = clipSize;
 
                     Advance(State.IDLE);

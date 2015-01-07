@@ -103,7 +103,7 @@ Transform:
   - {fileID: 61433652}
   - {fileID: 1552264027}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
 --- !u!114 &7708080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -577,7 +577,7 @@ GameObject:
   - 4: {fileID: 134496731}
   - 114: {fileID: 134496730}
   m_Layer: 0
-  m_Name: Enemy Spawn Zone (Debug)
+  m_Name: Enemy Spawn Zone (Debug, Single)
   m_TagString: Untagged
   m_Icon: {fileID: -2065832391, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -924,7 +924,7 @@ Transform:
   - {fileID: 47291340}
   - {fileID: 393828479}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
 --- !u!50 &319807318
 Rigidbody2D:
   m_ObjectHideFlags: 0
@@ -1145,7 +1145,7 @@ AudioSource:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 456859972}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_audioClip: {fileID: 8300000, guid: 46911f23360a5204f94182dd87512dc8, type: 3}
   m_PlayOnAwake: 1
@@ -1326,7 +1326,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
 --- !u!1 &495671563
 GameObject:
   m_ObjectHideFlags: 0
@@ -1406,7 +1406,7 @@ Transform:
   - {fileID: 116673172}
   - {fileID: 1240496015}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
 --- !u!1 &498907933
 GameObject:
   m_ObjectHideFlags: 0
@@ -1676,7 +1676,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
 --- !u!1 &583443421
 GameObject:
   m_ObjectHideFlags: 0
@@ -1717,7 +1717,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
 --- !u!1 &598763116
 GameObject:
   m_ObjectHideFlags: 0
@@ -1834,7 +1834,7 @@ Transform:
   m_Children:
   - {fileID: 797841244}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
 --- !u!1 &797841243
 GameObject:
   m_ObjectHideFlags: 0
@@ -2014,6 +2014,88 @@ Transform:
   m_Children: []
   m_Father: {fileID: 59218635}
   m_RootOrder: 0
+--- !u!1 &930308224
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 930308226}
+  - 114: {fileID: 930308225}
+  m_Layer: 0
+  m_Name: Enemy Spawn Zone (Single Player)
+  m_TagString: Untagged
+  m_Icon: {fileID: -2065832391, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!114 &930308225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 930308224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f2e69584fadc18469f68e05e3a91e0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnZoneY: 1.5
+  dynamicObjects: {fileID: 754483847}
+  levels:
+  - duration: 60
+    mobs:
+    - prefab: {fileID: 100002, guid: 543907ba2c8722643abd41e2c459330a, type: 2}
+      count: 30
+  - duration: 60
+    mobs:
+    - prefab: {fileID: 100002, guid: 543907ba2c8722643abd41e2c459330a, type: 2}
+      count: 15
+    - prefab: {fileID: 100000, guid: 88a0e6eb9e1284b98961e8a553eb5fde, type: 2}
+      count: 9
+  - duration: 60
+    mobs:
+    - prefab: {fileID: 100002, guid: 543907ba2c8722643abd41e2c459330a, type: 2}
+      count: 20
+    - prefab: {fileID: 100000, guid: 88a0e6eb9e1284b98961e8a553eb5fde, type: 2}
+      count: 13
+    - prefab: {fileID: 100002, guid: 3d9fa03033681465aacf525b2a8b5ade, type: 2}
+      count: 12
+  - duration: 60
+    mobs:
+    - prefab: {fileID: 100002, guid: 543907ba2c8722643abd41e2c459330a, type: 2}
+      count: 14
+    - prefab: {fileID: 100000, guid: 88a0e6eb9e1284b98961e8a553eb5fde, type: 2}
+      count: 14
+    - prefab: {fileID: 100002, guid: 3d9fa03033681465aacf525b2a8b5ade, type: 2}
+      count: 13
+    - prefab: {fileID: 100002, guid: ecdb20d0eab5b7844aae40aadc792d34, type: 2}
+      count: 3
+  - duration: 60
+    mobs:
+    - prefab: {fileID: 100002, guid: 543907ba2c8722643abd41e2c459330a, type: 2}
+      count: 10
+    - prefab: {fileID: 100000, guid: 88a0e6eb9e1284b98961e8a553eb5fde, type: 2}
+      count: 17
+    - prefab: {fileID: 100002, guid: 3d9fa03033681465aacf525b2a8b5ade, type: 2}
+      count: 16
+    - prefab: {fileID: 100002, guid: ecdb20d0eab5b7844aae40aadc792d34, type: 2}
+      count: 4
+    - prefab: {fileID: 100000, guid: b36c181b99d9f47a2829890d96fe3ace, type: 2}
+      count: 3
+--- !u!4 &930308226
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 930308224}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.67000008, y: -.00999999978, z: -.0500000007}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
 --- !u!1 &1007337807
 GameObject:
   m_ObjectHideFlags: 0
@@ -3162,12 +3244,12 @@ GameObject:
   - 4: {fileID: 2106316359}
   - 114: {fileID: 2106316358}
   m_Layer: 0
-  m_Name: Enemy Spawn Zone
+  m_Name: Enemy Spawn Zone (Debug, All)
   m_TagString: Untagged
   m_Icon: {fileID: -2065832391, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2106316358
 MonoBehaviour:
   m_ObjectHideFlags: 0

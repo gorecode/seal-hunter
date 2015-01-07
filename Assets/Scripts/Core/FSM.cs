@@ -109,7 +109,7 @@ public class FSM<S>
 
         if (!mTransitions.Contains(transition))
         {
-            Debug.Log("[FSM] Cannot advance to " + nextState + " state, current state is " + mCurrState);
+            if (debug) Debug.Log("[FSM] Cannot advance to " + nextState + " state, current state is " + mCurrState);
             return false;
         }
 
