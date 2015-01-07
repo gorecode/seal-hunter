@@ -94,21 +94,27 @@ public class Gun : FSMBehaviour<Gun.State> {
             if (isSmallShotgun) numBullets = 0;
         } else
         {
-            SpawnBullet(0);
+            float angle = -dispersion + Random.value * dispersion * 2;
+
+            SpawnBullet(angle);
         }
     }
 
     protected void SpawnBullet(float angle)
     {
+        float maxDistance = 100f;
+
         Vector2 position = firePoint.position.ToVector2();
 
         int layerMask = 1 << Layers.ENEMY;
 
         Vector2 dir = -Vector2.right.Rotate(angle);
 
-        RaycastHit2D hit = Physics2D.Raycast(position, dir, 100, layerMask);
+        RaycastHit2D hit = Physics2D.Raycast(position, dir, maxDistance, layerMask);
 
-        if (hit.collider != null)
+        bool hasHit = hit.collider != null;
+
+        if (hasHit)
         {
             Component t = hit.transform.gameObject.GetComponent(typeof(ITouchable));
 
@@ -121,6 +127,15 @@ public class Gun : FSMBehaviour<Gun.State> {
                 bloodSparks.GetComponent<BloodSparks>().Emit(Random.Range(15, 35));
             }
         }
+
+        float distance = maxDistance;
+
+        if (hasHit) distance = hit.distance;
+
+        GameObject bullet = GameObjectPool.Instance.Instantiate(PrefabLocator.INSTANCE.bulletPrefab, Vector3.zero, Quaternion.identity);
+        LineRenderer lr = bullet.GetComponent<LineRenderer>();
+        lr.SetPosition(0, firePoint.position);
+        lr.SetPosition(1, firePoint.position + (dir * distance).ToVector3());
     }
 
     protected void FixedUpdate()

@@ -134,7 +134,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &47291340
 Transform:
   m_ObjectHideFlags: 0
@@ -210,7 +210,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &59218635
 Transform:
   m_ObjectHideFlags: 0
@@ -832,6 +832,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bloodSparksPrefab: {fileID: 100000, guid: 941598cd5ea6c43de928a70ef0b0939f, type: 2}
+  bulletPrefab: {fileID: 100000, guid: 1513cf90d3ac8e74cb31dc4b7a66d4b6, type: 2}
   slaughterBackgroundController: {fileID: 0}
 --- !u!4 &322607485
 Transform:
