@@ -91,7 +91,7 @@ public class Gun : FSMBehaviour<Gun.State> {
                 SpawnBullet(angle);
             }
 
-            if (isSmallShotgun) numBullets = 0;
+            if ("BigShotgun".Equals(gameObject.name)) numBullets = 0;
         } else
         {
             float angle = -dispersion + Random.value * dispersion * 2;
