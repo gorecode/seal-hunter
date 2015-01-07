@@ -99,6 +99,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67777327eb1ba45b295a5b5fb2e8c936, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 10
+  maxHealthIncrementByLevel: 5
   currentSpeed: 0
   walkingSpeed: .200000003
   runningSpeed: 0
@@ -132,6 +134,7 @@ MonoBehaviour:
     - {fileID: 21300010, guid: 081a77a7e02884505897a18b521269fe, type: 3}
     pivots:
     - {x: 0, y: 0, z: 0}
+    name: 
   - sprites:
     - {fileID: 21300000, guid: 91e1d9fd3262b486daf795c1c4a52f3d, type: 3}
     - {fileID: 21300002, guid: 91e1d9fd3262b486daf795c1c4a52f3d, type: 3}
@@ -150,6 +153,7 @@ MonoBehaviour:
     - {x: -.119999997, y: -.0900000036, z: 5}
     - {x: -.119999997, y: -.100000001, z: 6}
     - {x: -.119999997, y: -.109999999, z: 7}
+    name: 
   - sprites:
     - {fileID: 21300000, guid: 18ea596a8459b4c288edde00c63c2e2d, type: 3}
     - {fileID: 21300002, guid: 18ea596a8459b4c288edde00c63c2e2d, type: 3}
@@ -159,6 +163,7 @@ MonoBehaviour:
     - {fileID: 21300010, guid: 18ea596a8459b4c288edde00c63c2e2d, type: 3}
     pivots:
     - {x: -.860000014, y: -.0500000007, z: 0}
+    name: 
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

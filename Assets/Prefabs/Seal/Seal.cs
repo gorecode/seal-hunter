@@ -22,25 +22,28 @@ public class Seal : Creature2
         aliveState.RegisterState(Alive_SubState.Crawling, OnBecomeCrawling);
     }
 
-    public override void OnTouch()
+    public override void Damage(float damage)
     {
+        base.Damage(damage);
+
         if (!State.Alive.Equals(GetCurrentState())) return;
 
-        switch (aliveState.GetCurrentState())
+        if (health > 0 && health < maxHealth / 2)
         {
-            case Alive_SubState.Walking:
-                if (Random2.NextBool())
-                {
-                    aliveState.Advance(Alive_SubState.Falling);
-                } else
-                {
+            aliveState.Advance(Alive_SubState.Falling);
+        }
+        else if (health <= 0)
+        {
+            switch (aliveState.GetCurrentState())
+            {
+                case Alive_SubState.Walking:
                     Advance(State.Dying, Random2.RandomArrayElement("DieByHeadshot", "DieFalling"));
-                }
-                break;
-            case Alive_SubState.Crawling:
-            case Alive_SubState.Falling:
-                Advance(State.Dying, "DieCrawling");
-                break;
+                    break;
+                case Alive_SubState.Crawling:
+                case Alive_SubState.Falling:
+                    Advance(State.Dying, "DieCrawling");
+                    break;
+            }
         }
     }
 

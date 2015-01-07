@@ -102,6 +102,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1f8dd09518ce417d967547eefb247e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 26
+  maxHealthIncrementByLevel: 21
   currentSpeed: 0
   walkingSpeed: 0
   runningSpeed: 0
@@ -139,6 +141,7 @@ MonoBehaviour:
     - {fileID: 21300006, guid: ac6c45628416aaa4f805c34e252a9989, type: 3}
     pivots:
     - {x: -.00999999978, y: -.0199999996, z: 0}
+    name: 
   - sprites:
     - {fileID: 21300000, guid: 60c4178196d5fc34f838e9b3af35f53c, type: 3}
     - {fileID: 21300002, guid: 60c4178196d5fc34f838e9b3af35f53c, type: 3}
@@ -150,6 +153,7 @@ MonoBehaviour:
     - {fileID: 21300014, guid: 60c4178196d5fc34f838e9b3af35f53c, type: 3}
     pivots:
     - {x: -.0799999982, y: -.0399999991, z: 0}
+    name: 
   - sprites:
     - {fileID: 21300000, guid: aac179ede30e4bb4ca5ce2bdb3a4a623, type: 3}
     - {fileID: 21300002, guid: aac179ede30e4bb4ca5ce2bdb3a4a623, type: 3}
@@ -159,6 +163,7 @@ MonoBehaviour:
     - {fileID: 21300010, guid: aac179ede30e4bb4ca5ce2bdb3a4a623, type: 3}
     pivots:
     - {x: 0, y: 0, z: 0}
+    name: 
   - sprites:
     - {fileID: 21300000, guid: bc44f1f4f086c344288e324ed0bb96e1, type: 3}
     - {fileID: 21300002, guid: bc44f1f4f086c344288e324ed0bb96e1, type: 3}
@@ -171,6 +176,7 @@ MonoBehaviour:
     - {fileID: 21300016, guid: bc44f1f4f086c344288e324ed0bb96e1, type: 3}
     pivots:
     - {x: -.620000005, y: -.0399999991, z: 0}
+    name: 
   - sprites:
     - {fileID: 21300000, guid: 05f08154b70ac104b8bd7a4ef6817350, type: 3}
     - {fileID: 21300002, guid: 05f08154b70ac104b8bd7a4ef6817350, type: 3}
@@ -185,6 +191,7 @@ MonoBehaviour:
     - {fileID: 21300020, guid: 05f08154b70ac104b8bd7a4ef6817350, type: 3}
     pivots:
     - {x: -.0199999996, y: -.0299999993, z: 0}
+    name: 
   - sprites:
     - {fileID: 21300000, guid: 3e2514916d680774abd5e2e245c97aa8, type: 3}
     - {fileID: 21300002, guid: 3e2514916d680774abd5e2e245c97aa8, type: 3}
@@ -200,6 +207,7 @@ MonoBehaviour:
     - {fileID: 21300022, guid: 3e2514916d680774abd5e2e245c97aa8, type: 3}
     pivots:
     - {x: -.00999999978, y: -.0199999996, z: 0}
+    name: 
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

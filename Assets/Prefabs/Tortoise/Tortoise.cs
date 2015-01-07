@@ -16,22 +16,22 @@ public class Tortoise : Creature2 {
     private Action hideAction;
     private Action showAction;
 
-    public override void OnTouch()
+    public override void Damage(float damage)
     {
-        base.OnTouch();
+        if (GetCurrentState() != State.Alive || health > 0) return;
+        if (aliveSubState.GetCurrentState() == AliveSubState.HIDDEN) return;
 
-        if (GetCurrentState() == State.Alive)
+        base.Damage(damage);
+
+        switch (aliveSubState.GetCurrentState())
         {
-            switch (aliveSubState.GetCurrentState())
-            {
-                case AliveSubState.WALKING:
-                    Advance(State.Dying, "Die1");
-                    break;
-                case AliveSubState.APPEARING:
-                case AliveSubState.HIDDING:
-                    Advance(State.Dying, "Die2");
-                    break;
-            }
+            case AliveSubState.WALKING:
+                Advance(State.Dying, "Die1");
+                break;
+            case AliveSubState.APPEARING:
+            case AliveSubState.HIDDING:
+                Advance(State.Dying, "Die2");
+                break;
         }
     }
 

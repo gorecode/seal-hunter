@@ -14,9 +14,11 @@ public class Pinguin : Creature2
 
     private FSM<Alive_SubState> aliveState;
 
-    public override void OnTouch()
+    public override void Damage(float damage)
     {
-        if (!State.Alive.Equals(GetCurrentState())) return;
+        base.Damage(damage);
+
+        if (health > 0) return;
 
         switch (aliveState.GetCurrentState())
         {

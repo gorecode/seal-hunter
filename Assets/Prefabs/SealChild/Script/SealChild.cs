@@ -10,11 +10,11 @@ public class SealChild : Creature2 {
         defaultWalkingSpeed = 0.2f;
     }
 
-    public override void OnTouch()
+    public override void Damage(float damage)
     {
-        base.OnTouch();
-        
-        if (GetCurrentState() == State.Alive) Advance(State.Dying, Random2.RandomArrayElement("Die1", "Die2"));
+        base.Damage(damage);
+
+        if (health <= 0) Advance(State.Dying, Random2.RandomArrayElement("Die1", "Die2"));
     }
 
     protected override void OnBecomeAlive(object param)

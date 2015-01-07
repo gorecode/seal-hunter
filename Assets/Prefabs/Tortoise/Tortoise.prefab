@@ -109,6 +109,7 @@ MonoBehaviour:
     - {fileID: 21300004, guid: 8c4fed1640359415389d7314a23f86c0, type: 3}
     pivots:
     - {x: 0, y: 0, z: 0}
+    name: 
   - sprites:
     - {fileID: 21300004, guid: 25c7577a1cf084f47811b5adefc4ffa9, type: 3}
     - {fileID: 21300002, guid: 25c7577a1cf084f47811b5adefc4ffa9, type: 3}
@@ -117,6 +118,7 @@ MonoBehaviour:
     pivots:
     - {x: 0, y: .00999999978, z: 0}
     - {x: .0199999996, y: .0299999993, z: 3}
+    name: 
   - sprites:
     - {fileID: 21300000, guid: c8b05a4ee9bda4f4d865105b4deb3f7e, type: 3}
     - {fileID: 21300002, guid: c8b05a4ee9bda4f4d865105b4deb3f7e, type: 3}
@@ -128,6 +130,7 @@ MonoBehaviour:
     - {fileID: 21300014, guid: c8b05a4ee9bda4f4d865105b4deb3f7e, type: 3}
     pivots:
     - {x: 0, y: -.0599999987, z: 0}
+    name: 
   - sprites:
     - {fileID: 21300000, guid: 61945f59196514b03b6bf758469f9ad4, type: 3}
     - {fileID: 21300002, guid: 61945f59196514b03b6bf758469f9ad4, type: 3}
@@ -137,6 +140,7 @@ MonoBehaviour:
     - {fileID: 21300010, guid: 61945f59196514b03b6bf758469f9ad4, type: 3}
     pivots:
     - {x: -.209999993, y: -.310000002, z: 0}
+    name: 
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -148,6 +152,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d49a9d503af54dd3b8c85a42cc04a51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 2500
+  maxHealthIncrementByLevel: 0
   currentSpeed: 0
   walkingSpeed: .200000003
   runningSpeed: 0

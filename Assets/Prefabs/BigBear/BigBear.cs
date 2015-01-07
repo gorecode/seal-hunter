@@ -8,9 +8,11 @@ public class BigBear : Creature2 {
 
     private Action BecomeRunningAction;
 
-    public override void OnTouch()
+    public override void Damage(float damage)
     {
-        base.OnTouch();
+        base.Damage(damage);
+
+        if (health > 0) return;
 
         Advance(State.Dying, "Die");
     }

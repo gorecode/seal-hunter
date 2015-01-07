@@ -16,9 +16,13 @@ public class AudioCenter : MonoBehaviour {
         clipsWasPlayedNow = new HashSet<AudioClip>();
     }
 
+    public static void PlayRandomClipAtMainCamera2(params AudioClip[] clips)
+    {
+        PlayRandomClipAtMainCamera(clips);
+    }
+
     public static void PlayRandomClipAtMainCamera(AudioClip[] clips)
     {
-        
         if (clips == null || clips.Length == 0) return;
         AudioClip clip = clips[Random.Range(0, clips.Length - 1)];
         if (clip != null) Singleton<AudioCenter>.Instance.PlayOneShot(clip);

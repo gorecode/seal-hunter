@@ -116,15 +116,18 @@ public class Gun : FSMBehaviour<Gun.State> {
 
         if (hasHit)
         {
-            Component t = hit.transform.gameObject.GetComponent(typeof(ITouchable));
+            Creature2 mob = hit.transform.gameObject.GetComponent(typeof(Creature2)) as Creature2;
 
-            if (t != null) 
+            if (mob != null) 
             {
-                (t as ITouchable).OnTouch();
+                mob.Damage(damage);
 
                 GameObject bloodSparksPrefab = PrefabLocator.INSTANCE.bloodSparksPrefab;
                 GameObject bloodSparks = GameObjectPool.Instance.Instantiate(bloodSparksPrefab, hit.point.ToVector3(), Quaternion.identity);
                 bloodSparks.GetComponent<BloodSparks>().Emit(Random.Range(15, 35));
+            } else
+            {
+                hasHit = false;
             }
         }
 

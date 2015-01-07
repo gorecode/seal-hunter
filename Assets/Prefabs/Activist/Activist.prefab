@@ -103,6 +103,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cd5695c05af14c5a81370e0a4866540, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 30
+  maxHealthIncrementByLevel: 35
   currentSpeed: 0
   walkingSpeed: 0
   runningSpeed: 0
@@ -141,6 +143,7 @@ MonoBehaviour:
     - {fileID: 21300006, guid: 2ab489d677997403da80fd5ead69a681, type: 3}
     pivots:
     - {x: 0, y: 0, z: 0}
+    name: 
   - sprites:
     - {fileID: 21300000, guid: e6183d9dfe15c49de81a1a5bc2fab14a, type: 3}
     - {fileID: 21300002, guid: e6183d9dfe15c49de81a1a5bc2fab14a, type: 3}
@@ -159,6 +162,7 @@ MonoBehaviour:
     - {fileID: 21300028, guid: e6183d9dfe15c49de81a1a5bc2fab14a, type: 3}
     pivots:
     - {x: 0, y: 0, z: 0}
+    name: 
   - sprites:
     - {fileID: 21300000, guid: 03f60eb60f741438bb213221638fa9fe, type: 3}
     - {fileID: 21300002, guid: 03f60eb60f741438bb213221638fa9fe, type: 3}
@@ -166,6 +170,7 @@ MonoBehaviour:
     - {fileID: 21300006, guid: 03f60eb60f741438bb213221638fa9fe, type: 3}
     pivots:
     - {x: 0, y: 0, z: 0}
+    name: 
   - sprites:
     - {fileID: 21300000, guid: 51b5c27dd37d4478ca59bb893f979235, type: 3}
     - {fileID: 21300002, guid: 51b5c27dd37d4478ca59bb893f979235, type: 3}
@@ -181,6 +186,7 @@ MonoBehaviour:
     - {fileID: 21300022, guid: 51b5c27dd37d4478ca59bb893f979235, type: 3}
     pivots:
     - {x: -.189999998, y: -.0299999993, z: 0}
+    name: 
   - sprites:
     - {fileID: 21300000, guid: 1bae9a3d7a622410e80d7ad2deb3b00d, type: 3}
     - {fileID: 21300002, guid: 1bae9a3d7a622410e80d7ad2deb3b00d, type: 3}
@@ -196,6 +202,7 @@ MonoBehaviour:
     - {fileID: 21300022, guid: 1bae9a3d7a622410e80d7ad2deb3b00d, type: 3}
     pivots:
     - {x: .0299999993, y: -.0299999993, z: 0}
+    name: 
   - sprites:
     - {fileID: 21300000, guid: cc8094426c5004e4f95575a7dc2eb634, type: 3}
     - {fileID: 21300002, guid: cc8094426c5004e4f95575a7dc2eb634, type: 3}
@@ -211,6 +218,7 @@ MonoBehaviour:
     - {fileID: 21300022, guid: cc8094426c5004e4f95575a7dc2eb634, type: 3}
     pivots:
     - {x: -.198167697, y: -.0299999993, z: 0}
+    name: 
   - sprites:
     - {fileID: 21300000, guid: 61a20ada3f9d04fccad3fe397ad8cf82, type: 3}
     - {fileID: 21300002, guid: 61a20ada3f9d04fccad3fe397ad8cf82, type: 3}
@@ -226,6 +234,7 @@ MonoBehaviour:
     - {fileID: 21300022, guid: 61a20ada3f9d04fccad3fe397ad8cf82, type: 3}
     pivots:
     - {x: .02239847, y: -.0299999993, z: 0}
+    name: 
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

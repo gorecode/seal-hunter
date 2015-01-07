@@ -4,9 +4,11 @@ using System.Collections;
 
 public class BearController : Creature2
 {
-    public override void OnTouch()
+    public override void Damage(float damage)
     {
-        Advance(State.Dying, Random2.RandomArrayElement("HeadExplosion", "Eyeshot"));
+        base.Damage(damage);
+
+        if (health <= 0) Advance(State.Dying, Random2.RandomArrayElement("HeadExplosion", "Eyeshot"));
     }
 
     protected override void OnBecomeAlive(object param)

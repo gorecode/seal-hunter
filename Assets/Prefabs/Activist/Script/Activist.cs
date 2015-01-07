@@ -18,10 +18,6 @@ public class Activist : Creature2 {
 
     private FSM<AliveState> aliveState;
 
-    // XXX: Flag to make activist temporary immortal not to kill him right after
-    // he drop the seal to test it.
-    private bool immortal;
-
     private DropDownState dropDownState;
 
     protected new void Awake()
@@ -37,34 +33,43 @@ public class Activist : Creature2 {
         aliveState.RegisterState(AliveState.RUNNING_WITHOUT_SEAL, OnBecomeRunWithDeadSeal);
     }
 
-    public override void OnTouch()
+    public override void Damage(float damage)
     {
-        if (GetCurrentState() != State.Alive || immortal) return;
+        if (GetCurrentState() != State.Alive) return;
 
-        switch (aliveState.GetCurrentState())
+        base.Damage(damage);
+
+        if (health > 0 && health <= maxHealth / 2)
         {
-            case AliveState.RUNNING:
-                if (Random2.NextBool())
-                {
-                    if (Advance(State.Dying, Random2.RandomArrayElement("DieAndDropDown1", "DieAndDropDown2")))
+            if (aliveState.Advance(AliveState.START_RUNNING_WITHOUT_SEAL))
+            {
+                AudioCenter.PlayRandomClipAtMainCamera(soundsOfDyingSeal1);
+                AudioCenter.PlayRandomClipAtMainCamera(soundsOfDyingSeal2);
+            }
+        } else if (health <= 0)
+        {
+            switch (aliveState.GetCurrentState())
+            {
+                case AliveState.RUNNING:
+                    // Die and drop seal with 50% chance.
+                    if (Random2.NextBool())
                     {
-                        dropDownState = DropDownState.IN_PROGRESS;
+                        if (Advance(State.Dying, Random2.RandomArrayElement("DieAndDropDown1", "DieAndDropDown2")))
+                        {
+                            dropDownState = DropDownState.IN_PROGRESS;
+                        }
                     }
-                }
-                else
-                {
-                    if (aliveState.Advance(AliveState.START_RUNNING_WITHOUT_SEAL))
+                    // Die with seal with 50% chance.
+                    else
                     {
-                        immortal = true;
-
-                        AudioCenter.PlayRandomClipAtMainCamera(soundsOfDyingSeal1);
-                        AudioCenter.PlayRandomClipAtMainCamera(soundsOfDyingSeal2);
+                        Advance(State.Dying, Random2.RandomArrayElement("DieWithoutSeal1", "DieWithoutSeal2"));
                     }
-                }
-                break;
-            default:
-                Advance(State.Dying, Random2.RandomArrayElement("DieWithoutSeal1", "DieWithoutSeal2"));
-                break;
+                    break;
+                case AliveState.RUNNING_WITHOUT_SEAL:
+                case AliveState.START_RUNNING_WITHOUT_SEAL:
+                    Advance(State.Dying, Random2.RandomArrayElement("DieWithoutSeal1", "DieWithoutSeal2"));
+                    break;
+            }
         }
     }
 
@@ -82,16 +87,12 @@ public class Activist : Creature2 {
 
         mySpriteAnimator.Update();
 
-        immortal = false;
-
         dropDownState = DropDownState.NONE;
     }
 
     protected void OnBecomeRunWithDeadSeal(object param)
     {
         myAnimation.Play("RunWithDeadSeal");
-
-        immortal = false;
     }
 
     protected override void OnAlive()

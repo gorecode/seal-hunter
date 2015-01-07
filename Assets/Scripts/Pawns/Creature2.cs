@@ -2,6 +2,9 @@
 using System.Collections;
 
 public class Creature2 : Creature {
+    public float maxHealth;
+    public float maxHealthIncrementByLevel;
+
     public float currentSpeed;
     public float walkingSpeed;
     public float runningSpeed;
@@ -10,6 +13,15 @@ public class Creature2 : Creature {
 
     public AudioClip[] soundsOfRessurection;
     public AudioClip[] soundsOfDying;
+
+    protected float health;
+
+    protected Level currentLevel;
+
+    public virtual void Damage(float damage)
+    {
+        health -= damage;
+    }
 
     protected new void Awake()
     {
@@ -21,6 +33,11 @@ public class Creature2 : Creature {
 		RegisterState(State.Recycled, OnBecomeRecycled);
     }
 
+    protected void Start()
+    {
+        currentLevel = PrefabLocator.INSTANCE.gameObject.GetComponent<Level>();
+    }
+
     protected void OnEnable()
     {
         ForceEnterState(State.Alive);
@@ -28,6 +45,8 @@ public class Creature2 : Creature {
 
     protected virtual void OnBecomeAlive(object param)
     {
+        health = maxHealth + 1 * maxHealthIncrementByLevel;
+
         collider2D.enabled = true;
         
         mySpriteRenderer.sortingLayerID = SortingLayer.FOREGROUND;

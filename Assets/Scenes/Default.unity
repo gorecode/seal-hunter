@@ -134,7 +134,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &47291340
 Transform:
   m_ObjectHideFlags: 0
@@ -582,7 +582,7 @@ GameObject:
   m_Icon: {fileID: -2065832391, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &134496730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -949,6 +949,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 322607485}
   - 114: {fileID: 322607484}
+  - 114: {fileID: 322607486}
   m_Layer: 10
   m_Name: Managers
   m_TagString: Untagged
@@ -982,6 +983,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &322607486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 322607483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33680f4566ae34d4b87e9db22e9c178e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  current: 1
 --- !u!1 &358737921
 GameObject:
   m_ObjectHideFlags: 0
@@ -2837,7 +2850,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1899031949
 Transform:
   m_ObjectHideFlags: 0
@@ -3128,6 +3141,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a2b49b12aef848b2bde03ede4f7ea50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 0
+  maxHealthIncrementByLevel: 0
   currentSpeed: 0
   walkingSpeed: 4
   runningSpeed: 0
@@ -3152,7 +3167,7 @@ GameObject:
   m_Icon: {fileID: -2065832391, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2106316358
 MonoBehaviour:
   m_ObjectHideFlags: 0
