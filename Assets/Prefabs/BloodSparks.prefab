@@ -42,7 +42,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 060e804438e274e31aa49d4e976cad02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sortingLayerName: Foreground
+  sortingLayerName: Player
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
