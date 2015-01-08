@@ -18,20 +18,21 @@ public class Tortoise : Creature2 {
 
     public override void Damage(float damage)
     {
-        if (GetCurrentState() != State.Alive || health > 0) return;
+        if (GetCurrentState() != State.Alive) return;
         if (aliveSubState.GetCurrentState() == AliveSubState.HIDDEN) return;
 
         base.Damage(damage);
 
+        if (health > 0) return;
         switch (aliveSubState.GetCurrentState())
         {
-            case AliveSubState.WALKING:
-                Advance(State.Dying, "Die1");
-                break;
-            case AliveSubState.APPEARING:
-            case AliveSubState.HIDDING:
-                Advance(State.Dying, "Die2");
-                break;
+        case AliveSubState.WALKING:
+            Advance(State.Dying, "Die1");
+            break;
+        case AliveSubState.APPEARING:
+        case AliveSubState.HIDDING:
+            Advance(State.Dying, "Die2");
+            break;
         }
     }
 

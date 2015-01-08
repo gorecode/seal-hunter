@@ -62,7 +62,7 @@ public class SinglePlayerGameController : MonoBehaviour
         mobSpawnTimeline = new float[level.mobs.Length][];
         for (int i = 0; i < mobSpawnTimeline.Length; i++)
         {
-            mobSpawnTimeline[i] = CreateSpawnTimeArray(level.duration, level.mobs[i].count);
+            mobSpawnTimeline[i] = CreateSpawnTimeArray(level.duration - 5.0f, level.mobs[i].count);
         }
 
         mobSpawnTimelineOffsets = new int[mobSpawnTimeline.Length];
