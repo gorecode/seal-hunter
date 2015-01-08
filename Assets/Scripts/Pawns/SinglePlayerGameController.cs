@@ -54,7 +54,6 @@ public class SinglePlayerGameController : MonoBehaviour
 
         levelIndex = current;
         level = levels[current];
-        level.duration = 15;
 
         levelStartTime = Time.fixedTime;
 

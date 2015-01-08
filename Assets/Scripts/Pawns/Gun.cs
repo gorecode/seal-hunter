@@ -108,30 +108,37 @@ public class Gun : FSMBehaviour<Gun.State> {
 
         Vector2 dir = -Vector2.right.Rotate(angle);
 
-        RaycastHit2D hit = Physics2D.Raycast(position, dir, maxDistance, layerMask);
+        RaycastHit2D[] hits = Physics2D.RaycastAll(position, dir, maxDistance, layerMask);
 
-        bool hasHit = hit.collider != null;
+        float damage = this.damage;
 
-        if (hasHit)
+        RaycastHit2D? lastHit = null;
+
+        for (int i = 0; i < hits.Length; i++)
         {
+            RaycastHit2D hit = hits[i];
+
             Creature2 mob = hit.transform.gameObject.GetComponent(typeof(Creature2)) as Creature2;
 
             if (mob != null) 
             {
+                if (damage < 1) break;
+
                 mob.Damage(damage);
 
                 GameObject bloodSparksPrefab = PrefabLocator.INSTANCE.bloodSparksPrefab;
                 GameObject bloodSparks = GameObjectPool.Instance.Instantiate(bloodSparksPrefab, hit.point.ToVector3(), Quaternion.identity);
                 bloodSparks.GetComponent<BloodSparks>().Emit(Random.Range(15, 35));
-            } else
-            {
-                hasHit = false;
+
+                damage = (damage * pierce) / 100f;
+
+                lastHit = hit;
             }
         }
 
         float distance = maxDistance;
 
-        if (hasHit) distance = hit.distance;
+        if (lastHit != null && damage < 1) distance = lastHit.Value.distance;
 
         GameObject bullet = GameObjectPool.Instance.Instantiate(PrefabLocator.INSTANCE.bulletPrefab, Vector3.zero, Quaternion.identity);
         LineRenderer lr = bullet.GetComponent<LineRenderer>();
