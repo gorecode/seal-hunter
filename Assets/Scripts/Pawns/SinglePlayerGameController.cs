@@ -2,11 +2,17 @@
 using System.Collections;
 using System.Collections.Generic;
 
+public enum BossSpawnCondition {
+    TIME_IS_OUT,
+    TIME_IS_OUT_AND_MOBS_ARE_DEAD
+}
+
 [System.Serializable]
 public class LevelDescriptor
 {
     public float duration;
     public MobCountDescriptor[] mobs;
+    public BossSpawnCondition bossSpawnCondition = BossSpawnCondition.TIME_IS_OUT;
 }
 
 [System.Serializable]
@@ -15,6 +21,7 @@ public class MobCountDescriptor
     public GameObject prefab;
     public int count;
 }
+
 
 public class SinglePlayerGameController : MonoBehaviour
 {

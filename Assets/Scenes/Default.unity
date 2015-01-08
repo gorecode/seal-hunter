@@ -2048,12 +2048,14 @@ MonoBehaviour:
     mobs:
     - prefab: {fileID: 100002, guid: 543907ba2c8722643abd41e2c459330a, type: 2}
       count: 30
+    bossSpawnCondition: 0
   - duration: 60
     mobs:
     - prefab: {fileID: 100002, guid: 543907ba2c8722643abd41e2c459330a, type: 2}
       count: 15
     - prefab: {fileID: 100000, guid: 88a0e6eb9e1284b98961e8a553eb5fde, type: 2}
       count: 9
+    bossSpawnCondition: 1
   - duration: 60
     mobs:
     - prefab: {fileID: 100002, guid: 543907ba2c8722643abd41e2c459330a, type: 2}
@@ -2062,6 +2064,7 @@ MonoBehaviour:
       count: 13
     - prefab: {fileID: 100002, guid: 3d9fa03033681465aacf525b2a8b5ade, type: 2}
       count: 12
+    bossSpawnCondition: 1
   - duration: 60
     mobs:
     - prefab: {fileID: 100002, guid: 543907ba2c8722643abd41e2c459330a, type: 2}
@@ -2072,6 +2075,7 @@ MonoBehaviour:
       count: 13
     - prefab: {fileID: 100002, guid: ecdb20d0eab5b7844aae40aadc792d34, type: 2}
       count: 3
+    bossSpawnCondition: 0
   - duration: 60
     mobs:
     - prefab: {fileID: 100002, guid: 543907ba2c8722643abd41e2c459330a, type: 2}
@@ -2084,19 +2088,20 @@ MonoBehaviour:
       count: 4
     - prefab: {fileID: 100000, guid: b36c181b99d9f47a2829890d96fe3ace, type: 2}
       count: 3
+    bossSpawnCondition: 1
   spawnCurve:
     serializedVersion: 2
     m_Curve:
     - time: 0
       value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 10
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
     - time: 1
       value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 10
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
 --- !u!4 &930308226
