@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngineExt;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -13,6 +14,7 @@ public class LevelDescriptor
     public float duration;
     public MobCountDescriptor[] mobs;
     public BossSpawnCondition bossSpawnCondition = BossSpawnCondition.TIME_IS_OUT;
+    public GameObject bossPrefab;
 }
 
 [System.Serializable]
@@ -21,7 +23,6 @@ public class MobCountDescriptor
     public GameObject prefab;
     public int count;
 }
-
 
 public class SinglePlayerGameController : MonoBehaviour
 {
@@ -42,6 +43,9 @@ public class SinglePlayerGameController : MonoBehaviour
     private float[][] mobSpawnTimeline;
     private int[] mobSpawnTimelineOffsets;
 
+    private List<Creature2> currentBosses = new List<Creature2>();
+    private GameObjectPool bossPool = new GameObjectPool();
+
     public void SetLevelIndex(int current)
     {
         Debug.Log("Set Level to " + current);
@@ -59,6 +63,8 @@ public class SinglePlayerGameController : MonoBehaviour
         }
 
         mobSpawnTimelineOffsets = new int[mobSpawnTimeline.Length];
+
+        currentBosses.Clear();
     }
 
     void onDrawGizmos()
@@ -71,7 +77,7 @@ public class SinglePlayerGameController : MonoBehaviour
     {
         releaseList = new ArrayList();
 
-        SetLevelIndex(0);
+        SetLevelIndex(1);
     }
 
     void OnEnable()
@@ -105,19 +111,104 @@ public class SinglePlayerGameController : MonoBehaviour
             }
         }
 
-        if (ft - levelStartTime >= level.duration)
+        bool levelTimeout = ft - levelStartTime >= level.duration;
+
+        if (levelTimeout)
         {
-            levelIndex++;
-            if (levelIndex >= levels.Length) levelIndex = 0;
-            SetLevelIndex(levelIndex);
+            if (currentBosses.Count > 0)
+            {
+                NextLevelIfBossComplete();
+            } else
+            {
+                if (level.bossPrefab != null)
+                {
+                    SpawnBossForCurrentLevel();
+                } else 
+                {
+                    NextLevel();
+                }
+            }
         }
     }
 
-    void Spawn(GameObject prefab)
+    void SpawnBossForCurrentLevel()
+    {
+        currentBosses.Clear();
+
+        Debug.Log("Spawn boss for level " + levelIndex);
+
+        switch (levelIndex)
+        {
+            case 0:
+                GameObject bearObj = SpawnInactiveBoss(level.bossPrefab);
+                BearController bear = bearObj.GetComponentInChildren<BearController>();
+                bear.maxHealth = 1250;
+                bear.maxHealthIncrementByLevel = 0;
+                bear.ForceEnterState(Creature2.State.Alive);
+                break;
+            case 1:
+                int count = 7;
+
+                for (int i = 0; i < count; i++)
+                {
+                    GameObject pinguinObj = SpawnInactiveBoss(level.bossPrefab);
+
+                    Vector3 pinguinPosition = transform.position;
+                    pinguinPosition.y += Mathf.Lerp(-spawnZoneY, spawnZoneY, (float)i / count);
+                    pinguinObj.transform.position = pinguinPosition;
+
+                    Pinguin pinguinScript = pinguinObj.GetComponentInChildren<Pinguin>();
+                    pinguinScript.delayBeforeSliding = Random.Range(3.5f, 4.0f);
+                    pinguinScript.ForceEnterState(Pinguin.State.Alive);
+                }
+                break;
+            case 2:
+                GameObject bigBearObj = SpawnInactiveBoss(level.bossPrefab);
+                BigBear bigBearScript = bigBearObj.GetComponentInChildren<BigBear>();
+                bigBearScript.maxHealth = 2000;
+                bigBearScript.ForceEnterState(BigBear.State.Alive);
+                break;
+            case 3:
+            case 4:
+                GameObject boss = SpawnInactiveBoss(level.bossPrefab);
+                (boss.GetComponentInChildren(typeof(Creature2)) as Creature2).ForceEnterState(Creature2.State.Alive);
+                break;
+        }
+    }
+
+    void NextLevelIfBossComplete()
+    {
+        int count = currentBosses.Count;
+        
+        for (int i = 0; i < count; i++)
+        {
+            if (currentBosses[i].GetCurrentState() != Creature2.State.Dead) return;
+        }
+        
+        NextLevel();
+    }
+    
+    void NextLevel()
+    {
+        if (++levelIndex == levels.Length) levelIndex = 0;
+        
+        SetLevelIndex(levelIndex);
+    }
+
+    GameObject SpawnInactiveBoss(GameObject prefab)
+    {
+        GameObject boss = bossPool.Instantiate(prefab, transform.position, Quaternion.identity);
+        currentBosses.Add(boss.GetComponentInChildren(typeof(Creature2)) as Creature2);
+        return boss;
+    }
+
+    GameObject Spawn(GameObject prefab)
     {
         GameObject go = GameObjectPool.Instance.Instantiate(prefab, transform.position, Quaternion.identity) as GameObject;
         go.transform.parent = dynamicObjects.transform;
         go.transform.position += Vector3.up * ((Random.value * 2.0f) - 1.0f) * spawnZoneY;
+        (go.GetComponentInChildren(typeof(Creature2)) as Creature2).ForceEnterState(Creature2.State.Alive);
+        return go;
     }
 
     void LateUpdate()
@@ -140,7 +231,7 @@ public class SinglePlayerGameController : MonoBehaviour
         {
             GameObject go = releaseList[i] as GameObject;
             
-            GameObjectPool.Instance.Release(go);
+            go.Release();
         }
         
         releaseList.Clear();

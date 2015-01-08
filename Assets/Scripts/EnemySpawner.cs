@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngineExt;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -73,7 +74,7 @@ public class EnemySpawner : MonoBehaviour
         {
             GameObject go = releaseList[i] as GameObject;
             
-            GameObjectPool.Instance.Release(go);
+            go.Release();
         }
         
         releaseList.Clear();

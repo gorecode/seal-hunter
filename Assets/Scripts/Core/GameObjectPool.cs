@@ -7,26 +7,6 @@ public class GameObjectPool {
 
     private Dictionary<GameObject, LinkedList<GameObject>> map = new Dictionary<GameObject, LinkedList<GameObject>>();
 
-    public static GameObjectPoolItem GetPoolItemComponent(GameObject go)
-    {
-        // TODO: Add Caching.
-        return go.GetComponent<GameObjectPoolItem>();
-    }
-    
-    public void Release(GameObject go)
-    {
-        if (--GetPoolItemComponent(go).referenceCount < 0) {
-            Recycle(go);
-        }
-    }
-
-    public GameObject Retain(GameObject go)
-    {
-        GetPoolItemComponent(go).referenceCount++;
-
-        return go;
-    }
-
     public GameObject Instantiate(GameObject prefab, Vector3 position, Quaternion rotation)
     {
         LinkedList<GameObject> recycled = GetRecycledObjects(prefab);
@@ -38,6 +18,7 @@ public class GameObjectPool {
 
             GameObjectPoolItem marker = newObject.GetComponent<GameObjectPoolItem>();
             marker.prefab = prefab;
+            marker.pool = this;
             marker.referenceCount = 0;
 
             return newObject;

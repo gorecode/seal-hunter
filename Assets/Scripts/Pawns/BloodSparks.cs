@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngineExt;
 using System.Collections;
 
 [ExecuteInEditMode]
@@ -45,7 +46,7 @@ public class BloodSparks : MonoBehaviour {
 
             PrefabLocator.INSTANCE.slaughterBackgroundController.RenderToTextureLater(gameObject);
 
-            GameObjectPool.Instance.Release(gameObject);
+            gameObject.Release();
         }
     }
 }

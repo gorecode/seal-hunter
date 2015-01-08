@@ -65,10 +65,11 @@ public class Pinguin : Creature2
 
         currentSpeed = walkingSpeed;
 
-        StartCoroutine(StartSlidingAfterDelay(delayBeforeSliding));
+        StopCoroutine("SlideAfterDelayCoroutine");
+        StartCoroutine(SlideAfterDelayCoroutine(delayBeforeSliding));
     }
 
-    private IEnumerator StartSlidingAfterDelay(float delay)
+    private IEnumerator SlideAfterDelayCoroutine(float delay)
     {
         yield return new WaitForSeconds(delay);
 

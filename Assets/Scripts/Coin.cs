@@ -37,6 +37,6 @@ public class Coin : MonoBehaviour {
 
     void Recycle()
     {
-        GameObjectPool.Instance.Recycle(gameObject);
+        gameObject.Release();
     }
 }

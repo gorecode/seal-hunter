@@ -211,7 +211,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &59218635
 Transform:
   m_ObjectHideFlags: 0
@@ -2049,6 +2049,7 @@ MonoBehaviour:
     - prefab: {fileID: 100002, guid: 543907ba2c8722643abd41e2c459330a, type: 2}
       count: 30
     bossSpawnCondition: 0
+    bossPrefab: {fileID: 100002, guid: ecdb20d0eab5b7844aae40aadc792d34, type: 2}
   - duration: 60
     mobs:
     - prefab: {fileID: 100002, guid: 543907ba2c8722643abd41e2c459330a, type: 2}
@@ -2056,6 +2057,7 @@ MonoBehaviour:
     - prefab: {fileID: 100000, guid: 88a0e6eb9e1284b98961e8a553eb5fde, type: 2}
       count: 9
     bossSpawnCondition: 1
+    bossPrefab: {fileID: 100002, guid: 3d9fa03033681465aacf525b2a8b5ade, type: 2}
   - duration: 60
     mobs:
     - prefab: {fileID: 100002, guid: 543907ba2c8722643abd41e2c459330a, type: 2}
@@ -2065,6 +2067,7 @@ MonoBehaviour:
     - prefab: {fileID: 100002, guid: 3d9fa03033681465aacf525b2a8b5ade, type: 2}
       count: 12
     bossSpawnCondition: 1
+    bossPrefab: {fileID: 100000, guid: b36c181b99d9f47a2829890d96fe3ace, type: 2}
   - duration: 60
     mobs:
     - prefab: {fileID: 100002, guid: 543907ba2c8722643abd41e2c459330a, type: 2}
@@ -2076,6 +2079,7 @@ MonoBehaviour:
     - prefab: {fileID: 100002, guid: ecdb20d0eab5b7844aae40aadc792d34, type: 2}
       count: 3
     bossSpawnCondition: 0
+    bossPrefab: {fileID: 100002, guid: cbc801e40a70b4baaaa45d5c03328935, type: 2}
   - duration: 60
     mobs:
     - prefab: {fileID: 100002, guid: 543907ba2c8722643abd41e2c459330a, type: 2}
@@ -2089,6 +2093,7 @@ MonoBehaviour:
     - prefab: {fileID: 100000, guid: b36c181b99d9f47a2829890d96fe3ace, type: 2}
       count: 3
     bossSpawnCondition: 1
+    bossPrefab: {fileID: 0}
   spawnCurve:
     serializedVersion: 2
     m_Curve:
@@ -3030,7 +3035,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1960579327
 MonoBehaviour:
   m_ObjectHideFlags: 0

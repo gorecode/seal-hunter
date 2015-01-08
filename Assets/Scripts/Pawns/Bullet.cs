@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngineExt;
 using System.Collections;
 
 public class Bullet : MonoBehaviour {
@@ -13,6 +14,6 @@ public class Bullet : MonoBehaviour {
 
     void Update()
     {
-        if (framesToLive-- == 0) GameObjectPool.Instance.Release(gameObject);
+        if (framesToLive-- == 0) gameObject.Release();
     }
 }

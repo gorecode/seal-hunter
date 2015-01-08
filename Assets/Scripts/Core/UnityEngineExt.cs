@@ -3,6 +3,34 @@ using System.Collections;
 
 namespace UnityEngineExt {
     public static class UnityEngineExt {
+        public static GameObjectPoolItem GetPoolItemComponent(this GameObject go)
+        {
+            // TODO: Add Caching.
+            return go.GetComponent<GameObjectPoolItem>();
+        }
+
+        public static bool Recycle(this GameObject go)
+        {
+            GameObjectPoolItem item = GetPoolItemComponent(go);
+            return item.pool.Recycle(go);
+        }
+
+        public static void Release(this GameObject go)
+        {
+            GameObjectPoolItem item = GetPoolItemComponent(go);
+
+            if (--item.referenceCount < 0) {
+                item.pool.Recycle(go);
+            }
+        }
+        
+        public static GameObject Retain(this GameObject go)
+        {
+            GetPoolItemComponent(go).referenceCount++;
+            
+            return go;
+        }
+
         public static Vector2 Rotate(this Vector2 v, float degrees) {
             float sin = Mathf.Sin(degrees * Mathf.Deg2Rad);
             float cos = Mathf.Cos(degrees * Mathf.Deg2Rad);

@@ -38,11 +38,6 @@ public class Creature2 : Creature {
         currentLevel = PrefabLocator.INSTANCE.gameObject.GetComponent<Level>();
     }
 
-    protected void OnEnable()
-    {
-        ForceEnterState(State.Alive);
-    }
-
     protected virtual void OnBecomeAlive(object param)
     {
         health = maxHealth + 1 * maxHealthIncrementByLevel;

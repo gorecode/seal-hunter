@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngineExt;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -52,7 +53,7 @@ public class SlaughterBackground : MonoBehaviour
   
     public void RenderToTextureLater(GameObject go)
     {
-        objectsToRender.Add(GameObjectPool.Instance.Retain(go));
+        objectsToRender.Add(go.Retain());
     }
 
     void Update()
@@ -75,7 +76,7 @@ public class SlaughterBackground : MonoBehaviour
 			{
                 CallForEach(objectsToRender[i], RestoreLayer);
 
-                GameObjectPool.Instance.Release(objectsToRender[i]);
+                objectsToRender[i].Release();
         	}
 
             objectsToRenderLayersMap.Clear();
