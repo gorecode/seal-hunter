@@ -46,6 +46,7 @@ public class SinglePlayerGameController : MonoBehaviour
     private int[] mobSpawnTimelineOffsets;
 
     private List<Creature2> currentBosses = new List<Creature2>();
+    private List<Creature2> currentEnemies = new List<Creature2>();
     private GameObjectPool bossPool = new GameObjectPool();
 
     private LevelCompletionBar bar;
@@ -68,6 +69,7 @@ public class SinglePlayerGameController : MonoBehaviour
         mobSpawnTimelineOffsets = new int[mobSpawnTimeline.Length];
 
         currentBosses.Clear();
+        currentEnemies.Clear();
     }
 
     void onDrawGizmos()
@@ -136,29 +138,41 @@ public class SinglePlayerGameController : MonoBehaviour
             }
         }
 
-        bool levelTimeout = ft - levelStartTime >= level.duration;
-
-        if (levelTimeout)
+        if (currentBosses.Count > 0)
         {
-            if (currentBosses.Count > 0)
+            NextLevelIfBossComplete();
+        } else
+        {
+            bool levelTimeout = ft - levelStartTime >= level.duration;
+
+            if (levelTimeout)
             {
-                NextLevelIfBossComplete();
-            } else
-            {
-                if (level.bossPrefab != null)
-                {
-                    SpawnBossForCurrentLevel();
-                } else 
-                {
-                    NextLevel();
-                }
+                bool nextStage = false;
+
+                if (level.bossSpawnCondition == BossSpawnCondition.TIME_IS_OUT) nextStage = true;
+                if (level.bossSpawnCondition == BossSpawnCondition.TIME_IS_OUT_AND_MOBS_ARE_DEAD && AreAllEnemiesAreDead()) nextStage = true;
+
+                if (nextStage)
+                    if (level.bossPrefab != null)
+                        SpawnBossForCurrentLevel();
+                    else 
+                        NextLevel();
             }
         }
+    }
+
+    bool AreAllEnemiesAreDead()
+    {
+        for (int i = 0; i < currentEnemies.Count; i++)
+            if (currentEnemies[i].GetCurrentState() != Creature2.State.Dead)
+                return false;
+        return true;
     }
 
     void SpawnBossForCurrentLevel()
     {
         currentBosses.Clear();
+        currentEnemies.Clear();
 
         Debug.Log("Spawn boss for level " + levelIndex);
 
@@ -209,8 +223,8 @@ public class SinglePlayerGameController : MonoBehaviour
         {
             if (currentBosses[i].GetCurrentState() != Creature2.State.Dead) return;
         }
-        
-        NextLevel();
+
+        if (AreAllEnemiesAreDead()) NextLevel();
     }
     
     void NextLevel()
@@ -232,7 +246,9 @@ public class SinglePlayerGameController : MonoBehaviour
         GameObject go = GameObjectPool.Instance.Instantiate(prefab, transform.position, Quaternion.identity) as GameObject;
         go.transform.parent = dynamicObjects.transform;
         go.transform.position += Vector3.up * ((Random.value * 2.0f) - 1.0f) * spawnZoneY;
-        (go.GetComponentInChildren(typeof(Creature2)) as Creature2).ForceEnterState(Creature2.State.Alive);
+        Creature2 mob = (go.GetComponentInChildren(typeof(Creature2)) as Creature2);
+        mob.ForceEnterState(Creature2.State.Alive);
+        currentEnemies.Add(mob);
         return go;
     }
 
