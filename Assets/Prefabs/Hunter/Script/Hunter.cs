@@ -32,6 +32,8 @@ public class Hunter : Creature2 {
             aliveState.Advance(AliveState.IDLE);
 
         HandleFireInput();
+
+        ClampToBattleField();
     }
 
     private void HandleFireInput()
@@ -82,6 +84,42 @@ public class Hunter : Creature2 {
         }
 
         return result;
+    }
+
+    private void ClampToBattleField()
+    {
+        float minX = -3.2f;
+        float maxX = 3.2f;
+        float minY = -2.4f;
+        float maxY = 2.4f;
+
+        Rigidbody2D r2d = myParent.rigidbody2D;
+
+        Vector2 cp = r2d.position;
+        Vector2 v = r2d.velocity;
+
+        cp.x = Mathf.Clamp(cp.x, minX, maxX);
+        cp.y = Mathf.Clamp(cp.y, minY, maxY);
+
+        bool clampX = false;
+        bool clampY = false;
+
+        if (cp.x <= minX && v.x <= 0) clampX = true;
+        if (cp.x >= maxX && v.x >= 0) clampX = true;
+        if (cp.y <= minY && v.y <= 0) clampY = true;
+        if (cp.y >= maxY && v.y >= 0) clampY = true;
+
+        if (clampX || clampY)
+        {
+            Vector2 np = r2d.position;
+            Vector2 oppositeVelocity = Vector2.zero;
+
+            if (clampX) { v.x = 0; np.x = cp.x; }
+            if (clampY) { v.y = 0; np.y = cp.y; }
+
+            r2d.velocity = v;
+            r2d.position = np;
+        }
     }
 
     protected override void OnBecomeAlive(object param)
