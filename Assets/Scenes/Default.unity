@@ -2084,6 +2084,21 @@ MonoBehaviour:
       count: 4
     - prefab: {fileID: 100000, guid: b36c181b99d9f47a2829890d96fe3ace, type: 2}
       count: 3
+  spawnCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 10
+    - time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 10
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!4 &930308226
 Transform:
   m_ObjectHideFlags: 0

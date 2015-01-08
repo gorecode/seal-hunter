@@ -22,6 +22,7 @@ public class SinglePlayerGameController : MonoBehaviour
 
     public GameObject dynamicObjects;
     public LevelDescriptor[] levels;
+    public AnimationCurve spawnCurve;
 
     private LevelDescriptor currentLevel;
     private float levelStartTime;
@@ -148,15 +149,18 @@ public class SinglePlayerGameController : MonoBehaviour
     {
         float ct = Time.fixedTime;
 
-        float[] y = new float[count];
+        EquationSolver.EquationFunc enemiesCountFromTimeFunc = delegate(float x) {
+            return spawnCurve.Evaluate(x / duration) * (float)count;
+        };
 
-        float maxY = 0;
+        float[] t = new float[count];
 
-        for (int x = 0; x < count; x++)
+        for (int i = 0; i < count; i++)
         {
-            y[x] = ct + x * duration / count;
+            t[i] = ct + EquationSolver.Dihotomy(enemiesCountFromTimeFunc, i + 1, 0f, duration);
+            //Debug.Log("i = " + i + ", t = " + t[i]);
         }
 
-        return y;
+        return t;
     }
 }
