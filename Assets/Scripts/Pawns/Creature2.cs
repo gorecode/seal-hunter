@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Creature2 : Creature {
+public class Creature2 : FSMBehaviour<Creature2.State> {
+    public enum State { Alive, Dying, Dead }
+
     public float maxHealth;
     public float maxHealthIncrementByLevel;
 
@@ -32,10 +34,11 @@ public class Creature2 : Creature {
     {
         base.Awake();
 
+        AllowTransitionChain(State.Alive, State.Dying, State.Dead);
+
         RegisterState(State.Alive, OnBecomeAlive, OnAlive);
         RegisterState(State.Dying, OnBecomeDying, OnDying);
         RegisterState(State.Dead, OnBecomeDead);
-		RegisterState(State.Recycled, OnBecomeRecycled);
     }
 
     protected void Start()
@@ -84,7 +87,21 @@ public class Creature2 : Creature {
         EventBus.OnBecomeDead(myParent.gameObject);
     }
 
-	protected virtual void OnBecomeRecycled(object param)
-	{
-	}
+    public OnEnter Action_PlayAnimation(string clipName)
+    {
+        return delegate(object prop)
+        {
+            if (prop == null) prop = clipName;
+            
+            myAnimation.Play((string)prop);
+        };
+    }
+    
+    public OnUpdate Action_AdvanceAfterAnimation<T>(FSM<T> fsm, T nextState)
+    {
+        return delegate
+        {
+            if (!myAnimation.isPlaying) fsm.Advance(nextState);
+        };
+    }
 }
