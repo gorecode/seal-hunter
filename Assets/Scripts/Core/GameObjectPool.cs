@@ -45,9 +45,7 @@ public class GameObjectPool {
 
         if (marker == null)
         {
-            Debug.LogError("PrefabField component is required to use GameObjectPool.");
-            GameObject.Destroy(gameObject);
-            return false;
+            throw new System.Exception("Cannot recycle element that was not instantiated with GameObjectPool");
         }
 
         LinkedList<GameObject> recycled = GetRecycledObjects(marker.prefab);

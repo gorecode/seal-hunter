@@ -18,6 +18,11 @@ public class Creature2 : Creature {
 
     protected Level currentLevel;
 
+    public void Kill()
+    {
+        Damage(health);
+    }
+
     public virtual void Damage(float damage)
     {
         health -= damage;
@@ -63,7 +68,7 @@ public class Creature2 : Creature {
 
         AudioCenter.PlayRandomClipAtMainCamera(soundsOfDying);
 
-        myAnimation.Play((string)param);
+        if (param != null) myAnimation.Play((string)param);
     }
 
     protected virtual void OnDying()

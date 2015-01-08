@@ -6,8 +6,7 @@ public class RecycleEnemyOnCollision : MonoBehaviour
 {
     void OnTriggerEnter2D(Collider2D collider)
     {
-        (collider.transform.parent.GetComponentInChildren(typeof(Creature2)) as Creature2).ForceEnterState(Creature2.State.Dead);
-
-        collider.transform.parent.gameObject.Release();
+        Creature2 c = (collider.transform.parent.GetComponentInChildren(typeof(Creature2)) as Creature2);
+        c.Kill();
     }
 }

@@ -32,6 +32,8 @@ public class SinglePlayerGameController : MonoBehaviour
     public LevelDescriptor[] levels;
     public AnimationCurve spawnCurve;
 
+    public int initialLevel;
+
     private LevelDescriptor currentLevel;
     private float levelStartTime;
 
@@ -77,7 +79,7 @@ public class SinglePlayerGameController : MonoBehaviour
     {
         releaseList = new ArrayList();
 
-        SetLevelIndex(1);
+        SetLevelIndex(initialLevel);
     }
 
     void OnEnable()

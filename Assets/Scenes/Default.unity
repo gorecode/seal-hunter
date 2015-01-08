@@ -1145,7 +1145,7 @@ AudioSource:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 456859972}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_audioClip: {fileID: 8300000, guid: 46911f23360a5204f94182dd87512dc8, type: 3}
   m_PlayOnAwake: 1
@@ -2093,7 +2093,7 @@ MonoBehaviour:
     - prefab: {fileID: 100000, guid: b36c181b99d9f47a2829890d96fe3ace, type: 2}
       count: 3
     bossSpawnCondition: 1
-    bossPrefab: {fileID: 0}
+    bossPrefab: {fileID: 100002, guid: ba03e9789c529457b9e27113fddc02b9, type: 2}
   spawnCurve:
     serializedVersion: 2
     m_Curve:
@@ -2109,6 +2109,7 @@ MonoBehaviour:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+  initialLevel: 4
 --- !u!4 &930308226
 Transform:
   m_ObjectHideFlags: 0

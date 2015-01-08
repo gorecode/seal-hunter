@@ -1,23 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &100000
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 400000}
-  - 61: {fileID: 6100000}
-  - 114: {fileID: 11400002}
-  - 50: {fileID: 5000000}
-  m_Layer: 10
-  m_Name: Mouth
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &100002
 GameObject:
   m_ObjectHideFlags: 0
@@ -53,18 +35,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &400000
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .453824401, y: .206411272, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 400004}
-  m_RootOrder: 0
 --- !u!4 &400002
 Transform:
   m_ObjectHideFlags: 1
@@ -72,7 +42,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100002}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -.632812798, y: -.660326362, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400004}
@@ -87,36 +57,9 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: .0399999991, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 400000}
+  m_Children: []
   m_Father: {fileID: 400002}
   m_RootOrder: 0
---- !u!50 &5000000
-Rigidbody2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: .0500000007
-  m_GravityScale: 1
-  m_FixedAngle: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
---- !u!61 &6100000
-BoxCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
-  m_Enabled: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Size: {x: .119999997, y: .219999999}
-  m_Center: {x: 0, y: 0}
 --- !u!61 &6100002
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -155,20 +98,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29b3a9dc296d845f7936bbc0a54d8973, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 15000
+  maxHealthIncrementByLevel: 0
   currentSpeed: 0
   walkingSpeed: .300000012
   runningSpeed: 1.5
---- !u!114 &11400002
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 958c19ab2b5c4492c813b8c39ff89f5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  defaultWalkingSpeed: 0
+  defaultRunningSpeed: 0
+  soundsOfRessurection: []
+  soundsOfDying: []
 --- !u!114 &11400004
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -189,14 +127,17 @@ MonoBehaviour:
     - {fileID: 21300004, guid: 3b336e7c11e3042688958da92d108216, type: 3}
     pivots:
     - {x: 0, y: 0, z: 0}
+    name: 
   - sprites:
     - {fileID: 21300000, guid: d80700f1030934d2ea0b06317eed97f3, type: 3}
     pivots:
     - {x: 0, y: .0399999991, z: 0}
+    name: 
   - sprites:
     - {fileID: 21300000, guid: 2e3f8c8fc68d04a57959cd8b788473eb, type: 3}
     pivots:
     - {x: 0, y: .0399999991, z: 0}
+    name: 
   - sprites:
     - {fileID: 21300000, guid: d5eb77682821440878c29ddf0e19964c, type: 3}
     - {fileID: 21300002, guid: d5eb77682821440878c29ddf0e19964c, type: 3}
@@ -216,6 +157,7 @@ MonoBehaviour:
     - {fileID: 21300030, guid: d5eb77682821440878c29ddf0e19964c, type: 3}
     pivots:
     - {x: -.140000001, y: -.0399999991, z: 0}
+    name: 
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

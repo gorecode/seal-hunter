@@ -3,54 +3,31 @@ using UnityEngineExt;
 using System.Collections;
 using System;
 
-public class Valrus : Creature {
+public class Valrus : Creature2 {
     private const int SHEET_RUSH_WITH_OPENED_MOUTH = 2;
     private const int SHEET_RUSH = 1;
 
-    public float currentSpeed;
-    public float walkingSpeed = 0.3f;
-    public float runningSpeed = 1.5f;
-
-    private GameObject myRoot;
-
     private Action runAction;
     private Action eatAction;
-
-    private Transform mouth;
-
-    public override void OnTouch()
-    {
-        base.OnTouch();
-        
-        if (GetCurrentState() == State.Alive) Advance(State.Dying);
-    }
 
     public new void Awake()
     {
         base.Awake();
 
-        myRoot = myParent.gameObject;
-
-        RegisterState(State.Alive, OnBecomeAlive, Alive);
-        RegisterState(State.Dying, OnBecomeDying, Dying);
-        RegisterState(State.Dead, OnBecomeDead);
-
         runAction = () => StartRun();
         eatAction = () => OpenMouth();
-
-        mouth = transform.FindChild("Mouth");
     }
 
-    void OnEnable()
+    public override void Damage(float damage)
     {
-        ForceEnterState(State.Alive);
+        base.Damage(damage);
+
+        if (health <= 0) Advance(State.Dying);
     }
 
-    private void OnBecomeAlive(object param)
+    protected override void OnBecomeAlive(object param)
     {
-        collider2D.enabled = true;
-        
-        mySpriteRenderer.sortingLayerID = SortingLayer.FOREGROUND;
+        base.OnBecomeAlive(param);
 
         CalmDown();
 
@@ -70,11 +47,9 @@ public class Valrus : Creature {
         CancelInvoke();
 
         Invoke(runAction.GetMethodName(), 2.0f);
-        
-        mouth.gameObject.SetActive(false);
     }
 
-    private void Alive()
+    protected override void OnAlive()
     {
         myParent.position += Vector3.right * Time.deltaTime * currentSpeed;
     }
@@ -95,33 +70,15 @@ public class Valrus : Creature {
     {
         mySpriteAnimator.index = 0;
         mySpriteAnimator.sheet = SHEET_RUSH_WITH_OPENED_MOUTH;
-
-        mouth.gameObject.SetActive(true);
     }
 
-    private void OnBecomeDying(object param)
+    protected override void OnBecomeDying(object param)
     {
-        mouth.gameObject.SetActive(false);
+        base.OnBecomeDying(param);
 
         CancelInvoke();
 
         animation.Play("Die");
-
-        collider2D.enabled = false;
-        
-        mySpriteRenderer.sortingLayerID = SortingLayer.BACKGROUND;
-
-        EventBus.OnBecomeDying(myRoot);
-    }
-
-    private void Dying()
-    {
-        if (!animation.isPlaying) Advance(State.Dead);
-    }
-
-    private void OnBecomeDead(object param)
-    {
-        EventBus.OnBecomeDead(myRoot);
     }
 
     private bool IsMouthOpened()
