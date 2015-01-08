@@ -115,7 +115,8 @@ public class Activist : Creature2 {
                 Vector3 position = myParent.transform.position;
                 position.x += 0.14f;
 
-                GameObjectPool.Instance.Instantiate(sealPrefab, position, Quaternion.identity);
+                GameObject go = GameObjectPool.Instance.Instantiate(sealPrefab, position, Quaternion.identity);
+                (go.GetComponentInChildren(typeof(Creature2)) as Creature2).ForceEnterState(State.Alive);
 
                 dropDownState = DropDownState.DONE;
             }
