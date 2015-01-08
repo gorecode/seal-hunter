@@ -48,6 +48,8 @@ public class SinglePlayerGameController : MonoBehaviour
     private List<Creature2> currentBosses = new List<Creature2>();
     private GameObjectPool bossPool = new GameObjectPool();
 
+    private LevelCompletionBar bar;
+
     public void SetLevelIndex(int current)
     {
         Debug.Log("Set Level to " + current);
@@ -78,6 +80,8 @@ public class SinglePlayerGameController : MonoBehaviour
     {
         releaseList = new ArrayList();
 
+        bar = GetComponentInChildren<LevelCompletionBar>();
+
         SetLevelIndex(initialLevel);
     }
 
@@ -89,6 +93,26 @@ public class SinglePlayerGameController : MonoBehaviour
     void OnDisable()
     {
         EventBus.OnBecomeDead -= RecycleLater;
+    }
+
+    void Update()
+    {
+        if (currentBosses.Count > 0) 
+        {
+            float maxHealth = 0;
+            float health = 0;
+
+            for (int i = 0; i < currentBosses.Count; i++)
+            {
+                maxHealth += currentBosses[i].GetInitialHealth();
+                health += Mathf.Max(0f, currentBosses[i].GetHealth());
+            }
+
+            bar.progress = health / maxHealth;
+        } else
+        {
+            bar.progress = Mathf.Min(1.0f, (Time.fixedTime - levelStartTime) / level.duration);
+        }
     }
 
     void FixedUpdate()

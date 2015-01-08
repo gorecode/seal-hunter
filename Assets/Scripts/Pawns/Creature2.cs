@@ -18,6 +18,8 @@ public class Creature2 : FSMBehaviour<Creature2.State> {
 
     protected float health;
 
+    private float initialHealth;
+
     protected Level currentLevel;
 
     public void Kill()
@@ -28,6 +30,16 @@ public class Creature2 : FSMBehaviour<Creature2.State> {
     public virtual void Damage(float damage)
     {
         health -= damage;
+    }
+
+    public float GetHealth()
+    {
+        return health;
+    }
+
+    public float GetInitialHealth()
+    {
+        return initialHealth;
     }
 
     protected new void Awake()
@@ -48,7 +60,7 @@ public class Creature2 : FSMBehaviour<Creature2.State> {
 
     protected virtual void OnBecomeAlive(object param)
     {
-        health = maxHealth + 1 * maxHealthIncrementByLevel;
+        health = initialHealth = maxHealth + 1 * maxHealthIncrementByLevel;
 
         collider2D.enabled = true;
         
