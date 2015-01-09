@@ -46,7 +46,7 @@ public class SinglePlayerGameController : MonoBehaviour
     private int[] mobSpawnTimelineOffsets;
 
     private List<Creature2> currentBosses = new List<Creature2>();
-    private List<Creature2> currentEnemies = new List<Creature2>();
+    private int numAliveEnemies;
     private GameObjectPool bossPool = new GameObjectPool();
 
     private LevelCompletionBar bar;
@@ -57,7 +57,6 @@ public class SinglePlayerGameController : MonoBehaviour
 
         levelIndex = current;
         level = levels[current];
-
         levelStartTime = Time.fixedTime;
 
         mobSpawnTimeline = new float[level.mobs.Length][];
@@ -69,7 +68,6 @@ public class SinglePlayerGameController : MonoBehaviour
         mobSpawnTimelineOffsets = new int[mobSpawnTimeline.Length];
 
         currentBosses.Clear();
-        currentEnemies.Clear();
     }
 
     void onDrawGizmos()
@@ -89,12 +87,14 @@ public class SinglePlayerGameController : MonoBehaviour
 
     void OnEnable()
     {
-        EventBus.OnBecomeDead += RecycleLater;
+        EventBus.OnBecomeDead += OnEnemyDeath;
+        EventBus.OnBecomeAlive += OnEnemyAlive;
     }
     
     void OnDisable()
     {
-        EventBus.OnBecomeDead -= RecycleLater;
+        EventBus.OnBecomeDead -= OnEnemyDeath;
+        EventBus.OnBecomeDead -= OnEnemyAlive;
     }
 
     void Update()
@@ -163,16 +163,12 @@ public class SinglePlayerGameController : MonoBehaviour
 
     bool AreAllEnemiesAreDead()
     {
-        for (int i = 0; i < currentEnemies.Count; i++)
-            if (currentEnemies[i].GetCurrentState() != Creature2.State.Dead)
-                return false;
-        return true;
+        return numAliveEnemies == 0;
     }
 
     void SpawnBossForCurrentLevel()
     {
         currentBosses.Clear();
-        currentEnemies.Clear();
 
         Debug.Log("Spawn boss for level " + levelIndex);
 
@@ -248,7 +244,6 @@ public class SinglePlayerGameController : MonoBehaviour
         go.transform.position += Vector3.up * ((Random.value * 2.0f) - 1.0f) * spawnZoneY;
         Creature2 mob = (go.GetComponentInChildren(typeof(Creature2)) as Creature2);
         mob.ForceEnterState(Creature2.State.Alive);
-        currentEnemies.Add(mob);
         return go;
     }
 
@@ -279,9 +274,16 @@ public class SinglePlayerGameController : MonoBehaviour
         releaseOnNextFrame = false;
     }
 
-    private void RecycleLater(GameObject enemy)
+    private void OnEnemyAlive(GameObject enemy)
+    {
+        numAliveEnemies++;
+    }
+
+    private void OnEnemyDeath(GameObject enemy)
     {
         releaseList.Add(enemy);
+
+        numAliveEnemies--;
     }
 
     private float[] CreateSpawnTimeArray(float duration, int count)
@@ -297,7 +299,6 @@ public class SinglePlayerGameController : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             t[i] = ct + EquationSolver.Dihotomy(enemiesCountFromTimeFunc, i + 1, 0f, duration);
-            //Debug.Log("i = " + i + ", t = " + t[i]);
         }
 
         return t;

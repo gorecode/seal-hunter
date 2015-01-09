@@ -60,6 +60,8 @@ public class Creature2 : FSMBehaviour<Creature2.State> {
 
     protected virtual void OnBecomeAlive(object param)
     {
+        EventBus.OnBecomeAlive(myParent.gameObject);
+
         health = initialHealth = maxHealth + 1 * maxHealthIncrementByLevel;
 
         collider2D.enabled = true;
