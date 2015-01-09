@@ -39,7 +39,7 @@ public class Gun : FSMBehaviour<Gun.State> {
 
         numBullets = clipSize;
 
-        if (hunter == null) hunter = transform.parent.gameObject;
+        if (hunter == null) hunter = transform.parent.parent.gameObject;
 
         firePoint = transform.FindChild("FirePoint");
 

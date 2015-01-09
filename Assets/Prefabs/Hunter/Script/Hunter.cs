@@ -112,7 +112,6 @@ public class Hunter : Creature2 {
         if (clampX || clampY)
         {
             Vector2 np = r2d.position;
-            Vector2 oppositeVelocity = Vector2.zero;
 
             if (clampX) { v.x = 0; np.x = cp.x; }
             if (clampY) { v.y = 0; np.y = cp.y; }

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SSBehaviour : MonoBehaviour, ITouchable {
+public class SSBehaviour : MonoBehaviour {
     protected Transform myParent;
     protected SpriteRenderer mySpriteRenderer;
     protected SpriteAnimator mySpriteAnimator;
@@ -25,9 +25,5 @@ public class SSBehaviour : MonoBehaviour, ITouchable {
         collider2D.enabled = false;
 
         Destroy(rigidbody2D);
-    }
-
-    public virtual void OnTouch() 
-    {
     }
 }
