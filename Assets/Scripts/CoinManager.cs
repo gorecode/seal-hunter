@@ -9,13 +9,9 @@ public class CoinManager : MonoBehaviour {
     public GameObject coinPrefab;
 
     private int coins;
-    private StringBuilder coinsStr;
 
     void Start()
     {
-        coinsStr = new StringBuilder("Coins: XXX");
-
-        UpdateCoinsStr();
     }
 
     void OnEnable()
@@ -26,12 +22,6 @@ public class CoinManager : MonoBehaviour {
     void OnDisable()
     {
         EventBus.OnBecomeDying -= OnBecomeDying;
-    }
-
-    void OnGUI () 
-    {
-        GUI.color = Color.red;
-        GUILayout.Label(coinsStr.ToString());
     }
 
     private void OnBecomeDying(GameObject enemy)
@@ -46,14 +36,5 @@ public class CoinManager : MonoBehaviour {
         newCoin.transform.position += new Vector3(bb.center[0], bb.center[1], 0);
 
         coins++;
-
-        UpdateCoinsStr();
-    }
-
-    private void UpdateCoinsStr()
-    {
-        coinsStr.Remove(0, coinsStr.Length);
-        coinsStr.Append("Coins: ");
-        coinsStr.Append(coins.ToStringLookup());
     }
 }

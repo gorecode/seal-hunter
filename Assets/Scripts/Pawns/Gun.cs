@@ -28,6 +28,8 @@ public class Gun : FSMBehaviour<Gun.State> {
     private Transform firePoint;
     private GameObject muzzle;
 
+    private UISprite bulletBar;
+
     public new void Awake()
     {
         base.Awake();
@@ -45,6 +47,8 @@ public class Gun : FSMBehaviour<Gun.State> {
 
         muzzle = transform.FindChild("Muzzle").gameObject;
         muzzle.transform.position = firePoint.position;
+
+        bulletBar = GameObject.Find("BulletBar").GetComponent<UISprite>();
     }
 
     protected void Reload()
@@ -96,6 +100,25 @@ public class Gun : FSMBehaviour<Gun.State> {
 
             SpawnBullet(angle);
         }
+    }
+
+    new void Update()
+    {
+        base.Update();
+
+        float fillAmount = 0f;
+
+        if (GetCurrentState() == State.RELOAD)
+        {
+            float reloadStartTime = reloadCompletitionTime - reloadTime;
+
+            fillAmount = (Time.fixedTime - reloadStartTime) / reloadTime;
+        } else
+        {
+            fillAmount = numBullets / (float)clipSize;
+        }
+
+        bulletBar.fillAmount = fillAmount;
     }
 
     protected void SpawnBullet(float angle)

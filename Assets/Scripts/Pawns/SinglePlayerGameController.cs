@@ -32,6 +32,8 @@ public class SinglePlayerGameController : MonoBehaviour
     public LevelDescriptor[] levels;
     public AnimationCurve spawnCurve;
 
+    public UISprite levelProgressBar;
+
     public int initialLevel;
 
     private LevelDescriptor currentLevel;
@@ -48,8 +50,6 @@ public class SinglePlayerGameController : MonoBehaviour
     private List<Creature2> currentBosses = new List<Creature2>();
     private int numAliveEnemies;
     private GameObjectPool bossPool = new GameObjectPool();
-
-    private LevelCompletionBar bar;
 
     public void SetLevelIndex(int current)
     {
@@ -68,6 +68,8 @@ public class SinglePlayerGameController : MonoBehaviour
         mobSpawnTimelineOffsets = new int[mobSpawnTimeline.Length];
 
         currentBosses.Clear();
+
+        levelProgressBar.spriteName = "Timebar";
     }
 
     void onDrawGizmos()
@@ -79,8 +81,6 @@ public class SinglePlayerGameController : MonoBehaviour
     void Start()
     {
         releaseList = new ArrayList();
-
-        bar = GetComponentInChildren<LevelCompletionBar>();
 
         SetLevelIndex(initialLevel);
     }
@@ -110,10 +110,10 @@ public class SinglePlayerGameController : MonoBehaviour
                 health += Mathf.Max(0f, currentBosses[i].GetHealth());
             }
 
-            bar.progress = health / maxHealth;
+            levelProgressBar.fillAmount = health / maxHealth;
         } else
         {
-            bar.progress = Mathf.Min(1.0f, (Time.fixedTime - levelStartTime) / level.duration);
+            levelProgressBar.fillAmount = Mathf.Min(1.0f, (Time.fixedTime - levelStartTime) / level.duration);
         }
     }
 
@@ -171,6 +171,8 @@ public class SinglePlayerGameController : MonoBehaviour
         currentBosses.Clear();
 
         Debug.Log("Spawn boss for level " + levelIndex);
+
+        levelProgressBar.spriteName = "Lifebar";
 
         switch (levelIndex)
         {
