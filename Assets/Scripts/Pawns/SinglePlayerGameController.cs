@@ -36,6 +36,8 @@ public class SinglePlayerGameController : MonoBehaviour
 
     public int initialLevel;
 
+    public UILabel levelLabel;
+
     private LevelDescriptor currentLevel;
     private float levelStartTime;
 
@@ -77,6 +79,17 @@ public class SinglePlayerGameController : MonoBehaviour
         currentBosses.Clear();
 
         levelProgressBar.spriteName = "Timebar";
+
+        ShowAndHideLevelLabel("Level " + (levelIndex + 1));
+    }
+
+    void ShowAndHideLevelLabel(string text)
+    {
+        levelLabel.text = text;
+        levelLabel.color = Color.clear;
+        TweenColor.Begin(levelLabel.gameObject, 2.0f, Color.black).AddOnFinished(delegate {
+            TweenColor.Begin(levelLabel.gameObject, 2.0f, Color.clear);
+        });
     }
 
     void onDrawGizmos()
@@ -224,6 +237,8 @@ public class SinglePlayerGameController : MonoBehaviour
                 (boss.GetComponentInChildren(typeof(Creature2)) as Creature2).ForceEnterState(Creature2.State.Alive);
                 break;
         }
+
+        ShowAndHideLevelLabel("Boss");
     }
 
     void NextLevelIfBossComplete()
