@@ -60,6 +60,8 @@ public class MoneyController : MonoBehaviour {
                 break;
         }
 
+        if (creature.CompareTag(Tags.BOSS_SUPPORT)) reward /= 4;
+
         amount += reward;
 
         UpdateUi();

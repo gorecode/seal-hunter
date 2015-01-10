@@ -51,6 +51,13 @@ public class SinglePlayerGameController : MonoBehaviour
     private int numAliveEnemies;
     private GameObjectPool bossPool = new GameObjectPool();
 
+    private TortoiseSupport tortoiseSupport;
+
+    void Awake()
+    {
+        tortoiseSupport = GetComponent<TortoiseSupport>();
+    }
+
     public void SetLevelIndex(int current)
     {
         Debug.Log("Set Level to " + current);
@@ -154,10 +161,15 @@ public class SinglePlayerGameController : MonoBehaviour
                 if (level.bossSpawnCondition == BossSpawnCondition.TIME_IS_OUT_AND_MOBS_ARE_DEAD && AreAllEnemiesAreDead()) nextStage = true;
 
                 if (nextStage)
+                {
                     if (level.bossPrefab != null)
+                    {
                         SpawnBossForCurrentLevel();
-                    else 
-                        NextLevel();
+
+                        if (levelIndex == 3) tortoiseSupport.enabled = true;
+                    }
+                    else NextLevel();
+                }
             }
         }
     }
@@ -224,7 +236,12 @@ public class SinglePlayerGameController : MonoBehaviour
             if (currentBosses[i].GetCurrentState() != Creature2.State.Dead) return;
         }
 
-        if (AreAllEnemiesAreDead()) NextLevel();
+        if (levelIndex == 3) tortoiseSupport.enabled = false;
+
+        if (AreAllEnemiesAreDead())
+        {
+            NextLevel();
+        }
     }
     
     void NextLevel()
@@ -241,13 +258,16 @@ public class SinglePlayerGameController : MonoBehaviour
         return boss;
     }
 
-    GameObject Spawn(GameObject prefab)
+    public GameObject Spawn(GameObject prefab, bool makeAlive = true)
     {
         GameObject go = GameObjectPool.Instance.Instantiate(prefab, transform.position, Quaternion.identity) as GameObject;
         go.transform.parent = dynamicObjects.transform;
         go.transform.position += Vector3.up * ((Random.value * 2.0f) - 1.0f) * spawnZoneY;
+
         Creature2 mob = (go.GetComponentInChildren(typeof(Creature2)) as Creature2);
+        mob.tag = "";
         mob.ForceEnterState(Creature2.State.Alive);
+
         return go;
     }
 
