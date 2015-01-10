@@ -3733,7 +3733,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
   levelProgressBar: {fileID: 1432626029}
-  initialLevel: 3
+  initialLevel: 0
 --- !u!4 &930308226
 Transform:
   m_ObjectHideFlags: 0
