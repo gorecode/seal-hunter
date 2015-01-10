@@ -57,6 +57,7 @@ public class SinglePlayerGameController : MonoBehaviour
 
         levelIndex = current;
         level = levels[current];
+        level.duration = 15f;
         levelStartTime = Time.fixedTime;
 
         mobSpawnTimeline = new float[level.mobs.Length][];
