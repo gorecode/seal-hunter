@@ -24,7 +24,14 @@ public class Tortoise : Creature2 {
     public override void Damage(float damage)
     {
         if (GetCurrentState() != State.Alive) return;
-        if (aliveSubState.GetCurrentState() == AliveSubState.HIDDEN) return;
+
+        if (aliveSubState.GetCurrentState() == AliveSubState.HIDDEN)
+        {
+            Vector3 position = myParent.position;
+            position.x -= 0.01f;
+            myParent.position = position;
+            return;
+        }
 
         base.Damage(damage);
 
