@@ -14,6 +14,11 @@ public class Pinguin : Creature2
 
     private FSM<Alive_SubState> aliveState;
 
+    public override MobType GetMobType()
+    {
+        return MobType.Pinguin;
+    }
+
     public override void Damage(float damage)
     {
         base.Damage(damage);

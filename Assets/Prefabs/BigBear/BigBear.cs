@@ -17,6 +17,11 @@ public class BigBear : Creature2 {
         Advance(State.Dying, "Die");
     }
 
+    public override MobType GetMobType()
+    {
+        return MobType.BigBear;
+    }
+
     protected new void Awake()
     {
         base.Awake();

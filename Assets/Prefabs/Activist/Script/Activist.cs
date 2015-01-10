@@ -33,6 +33,16 @@ public class Activist : Creature2 {
         aliveState.RegisterState(AliveState.RUNNING_WITHOUT_SEAL, OnBecomeRunWithDeadSeal);
     }
 
+    public bool HasDroppedSealChild()
+    {
+        return dropDownState != DropDownState.NONE;
+    }
+
+    public override MobType GetMobType()
+    {
+        return MobType.Activist;
+    }
+
     public override void Damage(float damage)
     {
         if (GetCurrentState() != State.Alive) return;

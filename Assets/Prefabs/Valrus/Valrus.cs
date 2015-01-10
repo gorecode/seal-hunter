@@ -18,6 +18,11 @@ public class Valrus : Creature2 {
         eatAction = () => OpenMouth();
     }
 
+    public override MobType GetMobType()
+    {
+        return MobType.Valrus;
+    }
+
     public override void Damage(float damage)
     {
         base.Damage(damage);

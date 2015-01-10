@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class Creature2 : FSMBehaviour<Creature2.State> {
+    public enum MobType { Seal, Bear, Activist, Pinguin, SealChild, BigBear, Tortoise, Valrus, Unknown }
     public enum State { Alive, Dying, Dead }
 
     public float maxHealth;
@@ -25,6 +26,11 @@ public class Creature2 : FSMBehaviour<Creature2.State> {
     public void Kill()
     {
         Damage(health);
+    }
+
+    public virtual MobType GetMobType()
+    {
+        return MobType.Unknown;
     }
 
     public virtual void Damage(float damage)

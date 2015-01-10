@@ -10,6 +10,11 @@ public class Seal : Creature2
 
     private FSM<Alive_SubState> aliveState;
 
+    public override MobType GetMobType()
+    {
+        return MobType.Seal;
+    }
+
     public new void Awake()
     {
         base.Awake();

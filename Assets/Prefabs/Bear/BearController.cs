@@ -11,6 +11,11 @@ public class BearController : Creature2
         if (health <= 0) Advance(State.Dying, Random2.RandomArrayElement("HeadExplosion", "Eyeshot"));
     }
 
+    public override MobType GetMobType()
+    {
+        return MobType.Bear;
+    }
+
     protected override void OnBecomeAlive(object param)
     {
         base.OnBecomeAlive(param);

@@ -16,6 +16,11 @@ public class Tortoise : Creature2 {
     private Action hideAction;
     private Action showAction;
 
+    public override MobType GetMobType()
+    {
+        return MobType.Tortoise;
+    }
+
     public override void Damage(float damage)
     {
         if (GetCurrentState() != State.Alive) return;

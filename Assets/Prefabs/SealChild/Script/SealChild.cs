@@ -10,6 +10,11 @@ public class SealChild : Creature2 {
         defaultWalkingSpeed = 0.2f;
     }
 
+    public override MobType GetMobType()
+    {
+        return MobType.SealChild;
+    }
+
     public override void Damage(float damage)
     {
         base.Damage(damage);
