@@ -48,8 +48,8 @@ public class MoneyController : MonoBehaviour {
                 reward = 25;
                 break;
             case Creature2.MobType.Bear:
-                reward = 200;
-                // TODO: 400 for boss.
+                BearController bear = creature as BearController;
+                reward = bear.isBoss ? 400 : 200;
                 break;
             case Creature2.MobType.BigBear:
             case Creature2.MobType.Tortoise:

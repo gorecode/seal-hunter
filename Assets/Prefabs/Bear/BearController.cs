@@ -4,6 +4,8 @@ using System.Collections;
 
 public class BearController : Creature2
 {
+    public bool isBoss;
+
     public override void Damage(float damage)
     {
         base.Damage(damage);
