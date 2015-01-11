@@ -141,6 +141,14 @@ public class Gun : FSMBehaviour<Gun.State> {
         {
             RaycastHit2D hit = hits[i];
 
+            /*
+             * Do not allow to kill offscreen enemies cause
+             * 1) it's not fair.
+             * 2) all enemies have Animation set to "Based on Renderers", so if enemy will die offscreen - level glitches.
+             */
+
+            if (hit.point.x < Consts.BF_L) continue;
+
             Creature2 mob = hit.transform.gameObject.GetComponent(typeof(Creature2)) as Creature2;
 
             if (mob != null) 

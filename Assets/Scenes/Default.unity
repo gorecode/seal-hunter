@@ -160,6 +160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e56d878fd92345ec95a2ccee0efc10b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  readonlyState: 0
   reloadSounds:
   - {fileID: 8300000, guid: 43e88666b62ee8f42bfdebd573fc2f87, type: 3}
   fireSounds:
@@ -362,6 +363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e56d878fd92345ec95a2ccee0efc10b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  readonlyState: 0
   reloadSounds:
   - {fileID: 8300000, guid: 3d5700f045cab2142884b13c7f476deb, type: 3}
   fireSounds:
@@ -1522,6 +1524,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e56d878fd92345ec95a2ccee0efc10b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  readonlyState: 0
   reloadSounds:
   - {fileID: 8300000, guid: 0c64903ac8dba8f4da4662d8af5f262b, type: 3}
   fireSounds:
@@ -3781,6 +3784,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e56d878fd92345ec95a2ccee0efc10b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  readonlyState: 0
   reloadSounds:
   - {fileID: 8300000, guid: a025b0b8e6002d14bb3e3983e383dfe3, type: 3}
   fireSounds:
@@ -4225,6 +4229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e56d878fd92345ec95a2ccee0efc10b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  readonlyState: 0
   reloadSounds:
   - {fileID: 8300000, guid: 4042ad60b63d2b74fa73f4b805e8a642, type: 3}
   fireSounds:
@@ -4324,6 +4329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e56d878fd92345ec95a2ccee0efc10b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  readonlyState: 0
   reloadSounds:
   - {fileID: 8300000, guid: 8860cb9f5d72c49f3886ad67c0904e1e, type: 3}
   fireSounds:
@@ -4767,6 +4773,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e56d878fd92345ec95a2ccee0efc10b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  readonlyState: 0
   reloadSounds:
   - {fileID: 8300000, guid: 4266f816bf32f467984a7cd9fceefc1c, type: 3}
   fireSounds:
@@ -6819,6 +6826,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e56d878fd92345ec95a2ccee0efc10b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  readonlyState: 0
   reloadSounds:
   - {fileID: 8300000, guid: bb312b0029bc38244a4ce91f4a4c329a, type: 3}
   fireSounds:
@@ -7184,6 +7192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e56d878fd92345ec95a2ccee0efc10b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  readonlyState: 0
   reloadSounds:
   - {fileID: 8300000, guid: 9548177ea573e794db294b7c57af4d51, type: 3}
   fireSounds:
@@ -7385,6 +7394,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a2b49b12aef848b2bde03ede4f7ea50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  readonlyState: 0
   maxHealth: 0
   maxHealthIncrementByLevel: 0
   currentSpeed: 0
