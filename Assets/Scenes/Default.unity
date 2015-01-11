@@ -103,7 +103,7 @@ Transform:
   - {fileID: 61433652}
   - {fileID: 1552264027}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
 --- !u!114 &7708080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1305,7 +1305,7 @@ Transform:
   - {fileID: 2016194545}
   - {fileID: 481831659}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
 --- !u!50 &319807318
 Rigidbody2D:
   m_ObjectHideFlags: 0
@@ -1331,6 +1331,7 @@ GameObject:
   - 4: {fileID: 322607485}
   - 114: {fileID: 322607484}
   - 114: {fileID: 322607486}
+  - 114: {fileID: 322607487}
   m_Layer: 10
   m_Name: Managers
   m_TagString: Untagged
@@ -1346,12 +1347,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 322607483}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91f8610c5a88c44618be82e24df98521, type: 3}
+  m_Script: {fileID: 11500000, guid: ae9a9d0c9a019492f9a7b906fd4221f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   bloodSparksPrefab: {fileID: 100000, guid: 941598cd5ea6c43de928a70ef0b0939f, type: 2}
   bulletPrefab: {fileID: 100000, guid: 1513cf90d3ac8e74cb31dc4b7a66d4b6, type: 2}
-  slaughterBackgroundController: {fileID: 0}
+  slaughterBackgroundController: {fileID: 7708080}
 --- !u!4 &322607485
 Transform:
   m_ObjectHideFlags: 0
@@ -1376,6 +1377,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   current: 1
+--- !u!114 &322607487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 322607483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bcc785f38a5245b594dc41ca31e2151, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dynamicObjects: {fileID: 754483848}
+  coinPrefab: {fileID: 100000, guid: 78192a17c08094a2d8ab9c433fb0e276, type: 2}
 --- !u!1 &343656513
 GameObject:
   m_ObjectHideFlags: 0
@@ -1904,47 +1918,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dynamicObjects: {fileID: 797841244}
   oneShotAudioPrefab: {fileID: 100000, guid: 27525f51330f84a21a5e5ad0ad75de3c, type: 2}
---- !u!1 &480291358
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 480291360}
-  - 114: {fileID: 480291359}
-  m_Layer: 0
-  m_Name: Managers
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &480291359
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 480291358}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bcc785f38a5245b594dc41ca31e2151, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dynamicObjects: {fileID: 754483848}
-  coinPrefab: {fileID: 100000, guid: 78192a17c08094a2d8ab9c433fb0e276, type: 2}
---- !u!4 &480291360
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 480291358}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.98847342, y: -.0137124658, z: -.0545196533}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
 --- !u!1 &481831658
 GameObject:
   m_ObjectHideFlags: 0
@@ -2060,7 +2033,7 @@ Transform:
   - {fileID: 116673172}
   - {fileID: 1240496015}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
 --- !u!1 &498907933
 GameObject:
   m_ObjectHideFlags: 0
@@ -2624,7 +2597,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
 --- !u!1 &583443421
 GameObject:
   m_ObjectHideFlags: 0
@@ -2665,7 +2638,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
 --- !u!1 &596179287
 GameObject:
   m_ObjectHideFlags: 0
@@ -3340,7 +3313,7 @@ Transform:
   - {fileID: 928979070}
   - {fileID: 1091188603}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 12
 --- !u!1001 &787236479
 Prefab:
   m_ObjectHideFlags: 0

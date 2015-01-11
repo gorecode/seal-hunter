@@ -17,7 +17,7 @@ public class SlaughterBackground : MonoBehaviour
 
     void Start()
     {
-        PrefabLocator.INSTANCE.slaughterBackgroundController = this;
+        ServiceLocator.INSTANCE.slaughterBackgroundController = this;
 
         objectsToRenderLayersMap = new Dictionary<GameObject, int>();
         

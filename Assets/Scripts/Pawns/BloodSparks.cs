@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngineExt;
 using System.Collections;
 
@@ -44,7 +44,7 @@ public class BloodSparks : MonoBehaviour {
         {
             particleSystem.Pause();
 
-            SlaughterBackground slaughter = PrefabLocator.INSTANCE.slaughterBackgroundController;
+            SlaughterBackground slaughter = ServiceLocator.INSTANCE.slaughterBackgroundController;
 
             if (slaughter != null) slaughter.RenderToTextureLater(gameObject);
 

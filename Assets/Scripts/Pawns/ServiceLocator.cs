@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PrefabLocator : MonoBehaviour {
-    public static PrefabLocator INSTANCE;
+public class ServiceLocator : MonoBehaviour {
+    public static ServiceLocator INSTANCE;
 
     public GameObject bloodSparksPrefab;
     public GameObject bulletPrefab;
