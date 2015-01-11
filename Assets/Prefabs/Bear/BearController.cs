@@ -39,6 +39,8 @@ public class BearController : Creature2
     protected override void OnAlive()
     {
         transform.parent.position += Vector3.right * currentSpeed * Time.deltaTime;
+
+        if (currentSpeed == 0f) health = Mathf.Min(initialHealth, health + Time.deltaTime * initialHealth * 0.25f);
     }
 
     IEnumerator Wait_Sniff_Walk_Coroutine()

@@ -4088,7 +4088,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
   levelProgressBar: {fileID: 1432626029}
-  initialLevel: 2
+  initialLevel: 0
   levelLabel: {fileID: 792748099}
 --- !u!4 &930308226
 Transform:
