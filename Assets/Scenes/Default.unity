@@ -808,7 +808,7 @@ MonoBehaviour:
   enemiesPerSecondSpeed: 0
   dynamicObjects: {fileID: 754483847}
   enemyPrefabs:
-  - {fileID: 100002, guid: 543907ba2c8722643abd41e2c459330a, type: 2}
+  - {fileID: 100000, guid: b36c181b99d9f47a2829890d96fe3ace, type: 2}
 --- !u!4 &134496731
 Transform:
   m_ObjectHideFlags: 0
@@ -4088,7 +4088,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
   levelProgressBar: {fileID: 1432626029}
-  initialLevel: 0
+  initialLevel: 2
   levelLabel: {fileID: 792748099}
 --- !u!4 &930308226
 Transform:

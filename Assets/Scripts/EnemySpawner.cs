@@ -28,15 +28,15 @@ public class EnemySpawner : MonoBehaviour
     void Start()
     {
         releaseList = new ArrayList();
-        
-        SpawnWithPooling();
-
-        SetUpNextSpawnTime();
     }
 
     void OnEnable()
     {
         EventBus.OnBecomeDead += RecycleLater;
+
+        SpawnWithPooling();
+        
+        SetUpNextSpawnTime();
     }
     
     void OnDisable()
@@ -89,6 +89,7 @@ public class EnemySpawner : MonoBehaviour
             GameObject go = GameObjectPool.Instance.Instantiate(prefab, transform.position, Quaternion.identity) as GameObject;
             go.transform.parent = dynamicObjects.transform;
             go.transform.position += Vector3.up * ((Random.value * 2.0f) - 1.0f) * spawnZoneY;
+            (go.GetComponentInChildren(typeof(Creature2)) as Creature2).ForceEnterState(Creature2.State.Alive);
         }
     }
 

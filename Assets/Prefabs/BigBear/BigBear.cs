@@ -4,13 +4,23 @@ using System.Collections;
 using System;
 
 public class BigBear : Creature2 {
+    public enum AliveSubState { WALKING, RUNNING }
+
     public float friction;
 
-    private Action BecomeRunningAction;
+    public float delayBeforeRun = 10.0f;
+
+    private Action advanceToRunningState;
+    private FSM<AliveSubState> aliveFsm;
 
     public override void Damage(float damage)
     {
         base.Damage(damage);
+
+        if (GetCurrentState() == State.Alive && initialHealth - health >= initialHealth / 8)
+        {
+            aliveFsm.Advance(AliveSubState.RUNNING);
+        }
 
         if (health > 0) return;
 
@@ -26,7 +36,12 @@ public class BigBear : Creature2 {
     {
         base.Awake();
 
-        BecomeRunningAction = () => BecomeRunning();
+        aliveFsm = new FSM<AliveSubState>();
+        aliveFsm.AllowTransitionChain(AliveSubState.WALKING, AliveSubState.RUNNING);
+        aliveFsm.RegisterState(AliveSubState.WALKING, OnBecomeWalking);
+        aliveFsm.RegisterState(AliveSubState.RUNNING, OnBecomeRunning);
+
+        advanceToRunningState = () => AdvanceToRunningState();
     }
 
     protected override void OnBecomeAlive(object param)
@@ -36,14 +51,27 @@ public class BigBear : Creature2 {
         walkingSpeed = UnityEngine.Random.Range(defaultWalkingSpeed, defaultWalkingSpeed * 2);
         runningSpeed = UnityEngine.Random.Range(defaultRunningSpeed, defaultRunningSpeed * 2);
 
-        currentSpeed = walkingSpeed;
+        aliveFsm.ForceEnterState(AliveSubState.WALKING);
 
-        myAnimation["Walk"].speed = walkingSpeed / defaultWalkingSpeed;
-        myAnimation.PlayImmediately("Walk");
-
-        Invoke(BecomeRunningAction.GetMethodName(), 4.0f);
+        Invoke(advanceToRunningState.GetMethodName(), delayBeforeRun);
 
         mySpriteAnimator.Update();
+    }
+
+    protected void OnBecomeWalking(object param)
+    {
+        currentSpeed = walkingSpeed;
+        
+        myAnimation["Walk"].speed = walkingSpeed / defaultWalkingSpeed;
+        myAnimation.PlayImmediately("Walk");
+    }
+
+    protected void OnBecomeRunning(object param)
+    {
+        currentSpeed = runningSpeed;
+
+        myAnimation["Run"].speed = runningSpeed / defaultRunningSpeed;
+        myAnimation.PlayImmediately("Run");
     }
 
     protected override void OnAlive()
@@ -51,14 +79,13 @@ public class BigBear : Creature2 {
         base.OnAlive();
 
         myParent.position += Vector3.right * Time.deltaTime * currentSpeed;
+
+        aliveFsm.Update();
     }
 
-    private void BecomeRunning()
+    private void AdvanceToRunningState()
     {
-        myAnimation["Run"].speed = runningSpeed / defaultRunningSpeed;
-        myAnimation.PlayImmediately("Run");
-
-        currentSpeed = runningSpeed;
+        aliveFsm.Advance(AliveSubState.RUNNING);
     }
 
     protected override void OnBecomeDying(object param)

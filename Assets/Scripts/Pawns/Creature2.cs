@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class Creature2 : FSMBehaviour<Creature2.State> {
@@ -19,7 +19,7 @@ public class Creature2 : FSMBehaviour<Creature2.State> {
 
     protected float health;
 
-    private float initialHealth;
+    protected float initialHealth;
 
     protected Level currentLevel;
 
@@ -66,7 +66,7 @@ public class Creature2 : FSMBehaviour<Creature2.State> {
 
     protected virtual void OnBecomeAlive(object param)
     {
-        EventBus.OnBecomeAlive(myParent.gameObject);
+        if (EventBus.OnBecomeAlive != null) EventBus.OnBecomeAlive(myParent.gameObject);
 
         health = initialHealth = maxHealth + 1 * maxHealthIncrementByLevel;
 

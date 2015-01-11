@@ -230,6 +230,7 @@ public class SinglePlayerGameController : MonoBehaviour
                 GameObject bigBearObj = SpawnInactiveBoss(level.bossPrefab);
                 BigBear bigBearScript = bigBearObj.GetComponentInChildren<BigBear>();
                 bigBearScript.maxHealth = 2000;
+                bigBearScript.delayBeforeRun = 4.0f;
                 bigBearScript.ForceEnterState(BigBear.State.Alive);
                 break;
             case 3:
