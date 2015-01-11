@@ -4,6 +4,8 @@ using System.Collections;
 public class FSMBehaviour<S> : SSBehaviour {
     protected readonly FSM<S> fsm = new FSM<S>();
 
+    public S readonlyState;
+
     public void RegisterState(S state, OnEnter onEnter = null, OnUpdate onUpdate = null, OnExit onExit = null)
     {
         fsm.RegisterState(state, onEnter, onUpdate, onExit);
@@ -31,6 +33,8 @@ public class FSMBehaviour<S> : SSBehaviour {
 
     public void Update()
     {
+        readonlyState = GetCurrentState();
+
         fsm.Update();
     }
 
