@@ -205,7 +205,7 @@ public class SinglePlayerGameController : MonoBehaviour
             case 0:
                 GameObject bearObj = SpawnInactiveBoss(level.bossPrefab);
                 BearController bear = bearObj.GetComponentInChildren<BearController>();
-                bear.isBoss = true;
+                bear.tag = Tags.BOSS;
                 bear.maxHealth = 1250;
                 bear.maxHealthIncrementByLevel = 0;
                 bear.ForceEnterState(Creature2.State.Alive);

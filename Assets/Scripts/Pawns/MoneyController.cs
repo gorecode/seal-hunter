@@ -49,7 +49,7 @@ public class MoneyController : MonoBehaviour {
                 break;
             case Creature2.MobType.Bear:
                 BearController bear = creature as BearController;
-                reward = bear.isBoss ? 400 : 200;
+                reward = bear.CompareTag(Tags.BOSS) ? 400 : 200;
                 break;
             case Creature2.MobType.BigBear:
             case Creature2.MobType.Tortoise:

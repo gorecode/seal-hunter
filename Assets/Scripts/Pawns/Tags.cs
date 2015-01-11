@@ -3,4 +3,5 @@ using System.Collections;
 
 public class Tags : MonoBehaviour {
     public const string BOSS_SUPPORT = "BossSupport";
+    public const string BOSS = "Boss";
 }
