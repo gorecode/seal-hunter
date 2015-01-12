@@ -13,6 +13,11 @@ public class BigBear : Creature2 {
     private Action advanceToRunningState;
     private FSM<AliveSubState> aliveFsm;
 
+    public AliveSubState GetAliveState()
+    {
+        return aliveFsm.GetCurrentState();
+    }
+
     public override void Damage(float damage)
     {
         base.Damage(damage);

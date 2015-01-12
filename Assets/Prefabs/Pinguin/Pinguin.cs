@@ -4,7 +4,7 @@ using System.Collections;
 
 public class Pinguin : Creature2
 {
-    enum Alive_SubState { Walking, Sliding }
+    public enum Alive_SubState { Walking, Sliding }
 
     public float friction = 0.02f;
     public float delayBeforeSliding = 1;
@@ -13,6 +13,11 @@ public class Pinguin : Creature2
     private Vector3 direction = Vector3.right;
 
     private FSM<Alive_SubState> aliveState;
+
+    public Alive_SubState GetAliveState()
+    {
+        return Alive_SubState.Sliding;
+    }
 
     public override MobType GetMobType()
     {

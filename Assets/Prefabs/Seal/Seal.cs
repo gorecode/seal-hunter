@@ -27,6 +27,11 @@ public class Seal : Creature2
         aliveState.RegisterState(Alive_SubState.Crawling, OnBecomeCrawling);
     }
 
+    public Alive_SubState GetAliveState()
+    {
+        return aliveState.GetCurrentState();
+    }
+
     public override void Damage(float damage)
     {
         base.Damage(damage);

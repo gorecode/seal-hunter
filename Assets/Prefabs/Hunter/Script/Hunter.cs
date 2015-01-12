@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Hunter : Creature2 {
     public enum AliveState {
-        IDLE, WALKING
+        IDLE, WALKING, FALLING, STANDING_UP
     }
 
     public EasyJoystick joystick;
@@ -11,6 +11,8 @@ public class Hunter : Creature2 {
 
     private Rigidbody2D rbody;
     private FSM<AliveState> aliveState;
+
+    private float fallTime;
 
     public new void Awake()
     {
@@ -20,18 +22,93 @@ public class Hunter : Creature2 {
 
         aliveState = new FSM<AliveState>();
         aliveState.AllowTransitionChain(AliveState.IDLE, AliveState.WALKING, AliveState.IDLE);
+        aliveState.AllowTransitionChain(AliveState.FALLING, AliveState.STANDING_UP, AliveState.IDLE);
+        aliveState.AllowTransitionChain(AliveState.IDLE, AliveState.FALLING);
+        aliveState.AllowTransitionChain(AliveState.WALKING, AliveState.FALLING);
+        aliveState.AllowTransitionChain(AliveState.STANDING_UP, AliveState.FALLING);
+
         aliveState.RegisterState(AliveState.IDLE, OnBecomeIdle);
         aliveState.RegisterState(AliveState.WALKING, OnBecomeWalking, OnWalking);
+        aliveState.RegisterState(AliveState.FALLING, OnBecomeFalling, OnFalling);
+        aliveState.RegisterState(AliveState.STANDING_UP, OnBecomeStandingUp, OnStandingUp);
+    }
+
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        //
+        // Hunter falls down on collision.
+        //
+
+        AliveState myState = aliveState.GetCurrentState();
+
+        if (myState != AliveState.IDLE && myState != AliveState.WALKING) return;
+
+        Creature2 anyMob = collider.gameObject.GetComponent<Creature2>();
+
+        if (anyMob == null) return;
+
+        bool fall = false;
+
+        MobType mobType = anyMob.GetMobType();
+
+        float impulse = 0.0f;
+
+        if (mobType == MobType.Seal)
+        {
+            Seal seal = anyMob as Seal;
+
+            if (seal.GetAliveState() == Seal.Alive_SubState.Crawling)
+            {
+                fall = true;
+            }
+        }
+        else if (!fall && mobType == MobType.SealChild)
+        {
+            fall = true;
+        } else if (!fall && mobType == MobType.Pinguin)
+        {
+            Pinguin pinguin = anyMob as Pinguin;
+
+            if (pinguin.GetAliveState() == Pinguin.Alive_SubState.Sliding)
+            {
+                fall = true;
+            }
+        } else if (!fall && mobType == MobType.BigBear)
+        {
+            BigBear bear = anyMob as BigBear;
+
+            if (bear.GetAliveState() == BigBear.AliveSubState.RUNNING)
+            {
+                impulse = bear.currentSpeed;
+
+                fall = true;
+            }
+        }
+
+        if (fall && aliveState.Advance(AliveState.FALLING))
+        {
+            Vector2 force = Vector2.zero;
+            force.x = impulse;
+            myParent.rigidbody2D.AddForce(force, ForceMode2D.Impulse);
+        }
     }
 
     void FixedUpdate()
     {
-        if (HandleMoveInput())
-            aliveState.Advance(AliveState.WALKING);
-        else
-            aliveState.Advance(AliveState.IDLE);
+        switch (aliveState.GetCurrentState())
+        {
+            case AliveState.IDLE:
+            case AliveState.WALKING:
+                if (HandleMoveInput())
+                    aliveState.Advance(AliveState.WALKING);
+                else
+                    aliveState.Advance(AliveState.IDLE);
 
-        HandleFireInput();
+                HandleFireInput();
+                break;
+            case AliveState.FALLING:
+                break;
+        }
 
         ClampToBattleField();
     }
@@ -121,6 +198,31 @@ public class Hunter : Creature2 {
         }
     }
 
+    protected void OnBecomeFalling(object param)
+    {
+        myAnimation.Play("Fall");
+
+        fallTime = Time.fixedTime;
+    }
+
+    protected void OnFalling()
+    {
+        if (!myAnimation.isPlaying && Time.fixedTime - fallTime >= 0.5f && myParent.rigidbody2D.velocity.magnitude <= 0.01f)
+        {
+            aliveState.Advance(AliveState.STANDING_UP);
+        }
+    }
+
+    protected void OnBecomeStandingUp(object param)
+    {
+        myAnimation.Play("StandUp");
+    }
+
+    protected void OnStandingUp()
+    {
+        if (!myAnimation.isPlaying) aliveState.Advance(AliveState.IDLE);
+    }
+
     protected override void OnBecomeAlive(object param)
     {
         base.OnBecomeAlive(param);
@@ -136,13 +238,18 @@ public class Hunter : Creature2 {
 
         aliveState.Update();
 
-        if ((Mathf.Abs(rbody.velocity.x) + Mathf.Abs(rbody.velocity.y)) >= 0.05f)
+        AliveState state = aliveState.GetCurrentState();
+
+        if (state == AliveState.IDLE || state == AliveState.WALKING)
         {
-            aliveState.Advance(AliveState.WALKING);
-        }
-        else
-        {
-            aliveState.Advance(AliveState.IDLE);
+            if ((Mathf.Abs(rbody.velocity.x) + Mathf.Abs(rbody.velocity.y)) >= 0.05f)
+            {
+                aliveState.Advance(AliveState.WALKING);
+            }
+            else
+            {
+                aliveState.Advance(AliveState.IDLE);
+            }
         }
     }
 
