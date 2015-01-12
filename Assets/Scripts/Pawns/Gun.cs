@@ -27,6 +27,7 @@ public class Gun : FSMBehaviour<Gun.State> {
 
     private Transform firePoint;
     private GameObject muzzle;
+    private Transform crosshair;
 
     private UISprite bulletBar;
 
@@ -51,7 +52,16 @@ public class Gun : FSMBehaviour<Gun.State> {
         bulletBar = GameObject.Find("BulletBar").GetComponent<UISprite>();
     }
 
-    protected void Reload()
+    void Start()
+    {
+        // Set fire point position to crosshair position.
+        crosshair = myParent.transform.Find("Crosshair");
+        Vector3 newLocalPosition = transform.localPosition;
+        newLocalPosition.y += crosshair.position.y - firePoint.position.y;
+        transform.localPosition = newLocalPosition;
+    }
+
+    public void Reload()
     {
         if (numBullets == clipSize) return;
 

@@ -18,6 +18,7 @@ public class ChangeWeaponOnClick : MonoBehaviour {
         for (int i = 0; i < hunter.transform.childCount; i++)
         {
             Transform child = hunter.transform.GetChild(i);
+            if (child.GetComponent<Gun>() == null) continue;
             child.gameObject.SetActive(child.gameObject.name.Equals(gameObject.name));
         }
 
