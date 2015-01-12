@@ -7,6 +7,7 @@ public class Creature2 : FSMBehaviour<Creature2.State> {
 
     public float maxHealth;
     public float maxHealthIncrementByLevel;
+    public int healthStartToGrowAtLevel;
 
     public float currentSpeed;
     public float walkingSpeed;
@@ -20,8 +21,6 @@ public class Creature2 : FSMBehaviour<Creature2.State> {
     protected float health;
 
     protected float initialHealth;
-
-    protected Level currentLevel;
 
     public void Kill()
     {
@@ -59,16 +58,12 @@ public class Creature2 : FSMBehaviour<Creature2.State> {
         RegisterState(State.Dead, OnBecomeDead);
     }
 
-    protected void Start()
-    {
-        currentLevel = ServiceLocator.current.gameObject.GetComponent<Level>();
-    }
-
     protected virtual void OnBecomeAlive(object param)
     {
         if (EventBus.OnBecomeAlive != null) EventBus.OnBecomeAlive(myParent.gameObject);
 
-        health = initialHealth = maxHealth + 1 * maxHealthIncrementByLevel;
+        int currentLevel = ServiceLocator.current.singlePlayerGame.GetLevelIndex() + 1;
+        health = initialHealth = maxHealth + Mathf.Max(0f, (currentLevel - healthStartToGrowAtLevel)) * maxHealthIncrementByLevel;
 
         collider2D.enabled = true;
         

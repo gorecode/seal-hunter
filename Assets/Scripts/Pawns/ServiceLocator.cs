@@ -8,6 +8,7 @@ public class ServiceLocator : MonoBehaviour {
     public GameObject bloodSparksPrefab;
     public GameObject bulletPrefab;
     public SlaughterBackground slaughterBackgroundController;
+    public SinglePlayerGameController singlePlayerGame;
 
     public void Awake()
     {

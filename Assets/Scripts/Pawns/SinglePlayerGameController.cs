@@ -61,6 +61,11 @@ public class SinglePlayerGameController : MonoBehaviour
         tortoiseSupport = GetComponent<TortoiseSupport>();
     }
 
+    public int GetLevelIndex()
+    {
+        return levelIndex;
+    }
+
     public void SetLevelIndex(int current)
     {
         Debug.Log("Set Level to " + current);
