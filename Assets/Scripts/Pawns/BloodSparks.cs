@@ -44,7 +44,7 @@ public class BloodSparks : MonoBehaviour {
         {
             particleSystem.Pause();
 
-            SlaughterBackground slaughter = ServiceLocator.INSTANCE.slaughterBackgroundController;
+            SlaughterBackground slaughter = ServiceLocator.current.slaughterBackgroundController;
 
             if (slaughter != null) slaughter.RenderToTextureLater(gameObject);
 

@@ -2,8 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class GameObjectPool {
-    public static readonly GameObjectPool Instance = new GameObjectPool();
+public class GameObjectPool : MonoBehaviour {
+    public Transform instantiationRoot;
 
     private Dictionary<GameObject, LinkedList<GameObject>> map = new Dictionary<GameObject, LinkedList<GameObject>>();
 
@@ -15,6 +15,7 @@ public class GameObjectPool {
         {
             GameObject newObject = (GameObject)GameObject.Instantiate(prefab, position, rotation);
             newObject.AddComponent<GameObjectPoolItem>();
+            newObject.transform.parent = instantiationRoot;
 
             GameObjectPoolItem marker = newObject.GetComponent<GameObjectPoolItem>();
             marker.prefab = prefab;
@@ -28,6 +29,7 @@ public class GameObjectPool {
 
             oldObject.transform.position = position;
             oldObject.transform.rotation = rotation;
+            oldObject.transform.parent = instantiationRoot;
             oldObject.SetActive(true);
 
             recycled.RemoveFirst();

@@ -28,7 +28,9 @@ public class SinglePlayerGameController : MonoBehaviour
 {
     public float spawnZoneY = 5;
 
-    public GameObject dynamicObjects;
+    public GameObjectPool enemiesPool;
+    public GameObjectPool bossPool;
+
     public LevelDescriptor[] levels;
     public AnimationCurve spawnCurve;
 
@@ -51,7 +53,6 @@ public class SinglePlayerGameController : MonoBehaviour
 
     private List<Creature2> currentBosses = new List<Creature2>();
     private int numAliveEnemies;
-    private GameObjectPool bossPool = new GameObjectPool();
 
     private TortoiseSupport tortoiseSupport;
 
@@ -66,6 +67,7 @@ public class SinglePlayerGameController : MonoBehaviour
 
         levelIndex = current;
         level = levels[current];
+        level.duration = 15f;
         levelStartTime = Time.fixedTime;
 
         mobSpawnTimeline = new float[level.mobs.Length][];
@@ -275,8 +277,7 @@ public class SinglePlayerGameController : MonoBehaviour
 
     public GameObject Spawn(GameObject prefab, bool makeAlive = true)
     {
-        GameObject go = GameObjectPool.Instance.Instantiate(prefab, transform.position, Quaternion.identity) as GameObject;
-        go.transform.parent = dynamicObjects.transform;
+        GameObject go = enemiesPool.Instantiate(prefab, transform.position, Quaternion.identity) as GameObject;
         go.transform.position += Vector3.up * ((Random.value * 2.0f) - 1.0f) * spawnZoneY;
 
         Creature2 mob = (go.GetComponentInChildren(typeof(Creature2)) as Creature2);

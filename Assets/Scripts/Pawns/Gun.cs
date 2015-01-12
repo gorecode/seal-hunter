@@ -157,8 +157,8 @@ public class Gun : FSMBehaviour<Gun.State> {
 
                 mob.Damage(damage);
 
-                GameObject bloodSparksPrefab = ServiceLocator.INSTANCE.bloodSparksPrefab;
-                GameObject bloodSparks = GameObjectPool.Instance.Instantiate(bloodSparksPrefab, hit.point.ToVector3(), Quaternion.identity);
+                GameObject bloodSparksPrefab = ServiceLocator.current.bloodSparksPrefab;
+                GameObject bloodSparks = ServiceLocator.current.pool.Instantiate(bloodSparksPrefab, hit.point.ToVector3(), Quaternion.identity);
                 bloodSparks.GetComponent<BloodSparks>().Emit(Random.Range(15, 35));
 
                 damage = (damage * pierce) / 100f;
@@ -171,7 +171,7 @@ public class Gun : FSMBehaviour<Gun.State> {
 
         if (lastHit != null && damage < 1) distance = lastHit.Value.distance;
 
-        GameObject bullet = GameObjectPool.Instance.Instantiate(ServiceLocator.INSTANCE.bulletPrefab, Vector3.zero, Quaternion.identity);
+        GameObject bullet = ServiceLocator.current.pool.Instantiate(ServiceLocator.current.bulletPrefab, Vector3.zero, Quaternion.identity);
         LineRenderer lr = bullet.GetComponent<LineRenderer>();
         lr.SetPosition(0, firePoint.position);
         lr.SetPosition(1, firePoint.position + (dir * distance).ToVector3());

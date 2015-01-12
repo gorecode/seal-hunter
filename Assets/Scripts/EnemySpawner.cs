@@ -86,7 +86,7 @@ public class EnemySpawner : MonoBehaviour
         if (enemyPrefabs.Length > 0)
         {
             GameObject prefab = enemyPrefabs[Random.Range((int)0, (int)enemyPrefabs.Length)];
-            GameObject go = GameObjectPool.Instance.Instantiate(prefab, transform.position, Quaternion.identity) as GameObject;
+            GameObject go = ServiceLocator.current.pool.Instantiate(prefab, transform.position, Quaternion.identity) as GameObject;
             go.transform.parent = dynamicObjects.transform;
             go.transform.position += Vector3.up * ((Random.value * 2.0f) - 1.0f) * spawnZoneY;
             (go.GetComponentInChildren(typeof(Creature2)) as Creature2).ForceEnterState(Creature2.State.Alive);

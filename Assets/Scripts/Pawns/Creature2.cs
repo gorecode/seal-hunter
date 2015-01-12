@@ -61,7 +61,7 @@ public class Creature2 : FSMBehaviour<Creature2.State> {
 
     protected void Start()
     {
-        currentLevel = ServiceLocator.INSTANCE.gameObject.GetComponent<Level>();
+        currentLevel = ServiceLocator.current.gameObject.GetComponent<Level>();
     }
 
     protected virtual void OnBecomeAlive(object param)

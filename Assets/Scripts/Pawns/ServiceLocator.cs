@@ -2,14 +2,15 @@
 using System.Collections;
 
 public class ServiceLocator : MonoBehaviour {
-    public static ServiceLocator INSTANCE;
+    public static ServiceLocator current;
 
+    public GameObjectPool pool;
     public GameObject bloodSparksPrefab;
     public GameObject bulletPrefab;
     public SlaughterBackground slaughterBackgroundController;
 
     public void Awake()
     {
-        INSTANCE = this;
+        current = this;
     }
 }
