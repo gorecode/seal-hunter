@@ -53,7 +53,7 @@ public class SlaughterBackground : MonoBehaviour
   
     public void RenderToTextureLater(GameObject go)
     {
-        objectsToRender.Add(go.Retain());
+        if (gameObject.activeSelf) objectsToRender.Add(go.Retain());
     }
 
     void Update()
