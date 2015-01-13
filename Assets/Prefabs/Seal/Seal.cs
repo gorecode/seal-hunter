@@ -61,14 +61,30 @@ public class Seal : Creature2
     {
         base.OnBecomeAlive(param);
 
+        moveDir = Vector3.right;
+
+        if (ServiceLocator.current.singlePlayerGame.GetLevelIndex() > 0 && Random.value <= 0.7f)
+        {
+            moveStrategy = MoveStrategy.SIN;
+
+            sinMoveHz = Random.value;
+            sinMoveAmp = Random.Range(0.05f, 0.1f);
+
+            moveDir = moveDir.ToVector2().Rotate(-moveDirMaxYVariation + Random.value * moveDirMaxYVariation * 2f);
+        }
+        else
+        {
+            moveStrategy = MoveStrategy.FORWARD;
+        }
+
         aliveState.ForceEnterState(Alive_SubState.Walking);
     }
 
     protected override void OnAlive()
     {
-        myParent.position += Vector3.right * currentSpeed * Time.deltaTime;
-        
         aliveState.Update();
+
+        UpdateDefaultMovement();
     }
 
     private void OnBecomeWalking(object param)
@@ -85,6 +101,8 @@ public class Seal : Creature2
 
     private void OnBecomeFalling(object param)
     {
+        moveStrategy = MoveStrategy.FORWARD;
+
         currentSpeed = 0;
         
         AudioCenter.PlayRandomClipAtMainCamera(soundsOfFalling);

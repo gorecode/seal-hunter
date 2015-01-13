@@ -59,6 +59,9 @@ public class Pinguin : Creature2
 
         aliveState.ForceEnterState(Alive_SubState.Walking);
 
+        direction = Quaternion.Euler(0, 0, Random.Range(-30, 30)) * Vector3.right;
+        direction.Normalize();
+
         mySpriteAnimator.Update();
     }
 
@@ -90,7 +93,7 @@ public class Pinguin : Creature2
 
     private void OnBecomeSliding(object param)
     {
-        slidingSpeed = currentSpeed = walkingSpeed * 2;
+        slidingSpeed = currentSpeed = walkingSpeed * 4f;
 
         direction = Quaternion.Euler(0, 0, Random.Range(-30, 30)) * direction;
         direction.Normalize();
@@ -117,7 +120,12 @@ public class Pinguin : Creature2
 
                 currentSpeed = Mathf.Max(0.0f, currentSpeed - friction * Time.deltaTime);
 
-                myAnimation.GetCurrentAnimationState().speed = 1.0f - (slidingSpeed - currentSpeed) / slidingSpeed;
+                AnimationState animationState = myAnimation.GetCurrentAnimationState();
+
+                if (animationState != null)
+                {
+                    animationState.speed = 1.0f - (slidingSpeed - currentSpeed) / slidingSpeed;
+                }
 
                 if (currentSpeed < 0.01f) Advance(State.Dead);
 

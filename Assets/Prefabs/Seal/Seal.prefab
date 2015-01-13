@@ -111,12 +111,17 @@ MonoBehaviour:
   runningSpeed: 0
   defaultWalkingSpeed: .5
   defaultRunningSpeed: 0
+  moveStrategy: 0
   soundsOfRessurection: []
   soundsOfDying:
   - {fileID: 8300000, guid: 7ffb8b2bb3363cc45a9075720a027166, type: 3}
   - {fileID: 8300000, guid: 397c88e978c038a4880ee01fc62d101a, type: 3}
   - {fileID: 8300000, guid: ac1bf5e851ba84b47b458eea383f4e7c, type: 3}
   - {fileID: 8300000, guid: cf55dd8e6e8ff5a4cb8dbe5ca10e0ac0, type: 3}
+  moveDir: {x: 1, y: 0, z: 0}
+  moveDirMaxYVariation: 5
+  sinMoveAmp: 1
+  sinMoveHz: 1
   soundsOfFalling:
   - {fileID: 8300000, guid: d495c78cb25fa494e9339bdb143b2341, type: 3}
   - {fileID: 8300000, guid: ee56d481fb4db2e4f9e45185854363f3, type: 3}

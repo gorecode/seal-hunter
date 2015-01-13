@@ -93,7 +93,7 @@ Animation:
   m_WrapMode: 0
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
-  m_CullingType: 1
+  m_CullingType: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -114,6 +114,7 @@ MonoBehaviour:
   runningSpeed: 0
   defaultWalkingSpeed: .300000012
   defaultRunningSpeed: 0
+  moveStrategy: 1
   soundsOfRessurection:
   - {fileID: 8300000, guid: 6a18c2441daef42aea313da690568f13, type: 3}
   - {fileID: 8300000, guid: 045007a578f1c47678ea6a5e956994f7, type: 3}
@@ -126,6 +127,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c9a3f3b1342244d47a3cff3d426390d4, type: 3}
   - {fileID: 8300000, guid: d53979dbde4af461eb7b867edc9cf31b, type: 3}
   - {fileID: 8300000, guid: f6aa0d0eeafb34d8180d75fc1cfd0c11, type: 3}
+  moveDir: {x: 1, y: 0, z: 0}
+  moveDirMaxYVariation: 0
+  sinMoveAmp: 1
+  sinMoveHz: 1
   friction: .300000012
   delayBeforeSliding: 1
   slidingSpeed: 0

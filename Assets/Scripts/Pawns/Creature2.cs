@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 public class Creature2 : FSMBehaviour<Creature2.State> {
+    public enum MoveStrategy { FORWARD, SIN }
     public enum MobType { Seal, Bear, Activist, Pinguin, SealChild, BigBear, Tortoise, Valrus, Unknown }
     public enum State { Alive, Dying, Dead }
 
@@ -15,12 +16,18 @@ public class Creature2 : FSMBehaviour<Creature2.State> {
     public float defaultWalkingSpeed;
     public float defaultRunningSpeed;
 
+    public MoveStrategy moveStrategy = MoveStrategy.SIN;
+
     public AudioClip[] soundsOfRessurection;
     public AudioClip[] soundsOfDying;
 
     protected float health;
-
     protected float initialHealth;
+
+    public Vector3 moveDir = Vector3.right;
+    public float moveDirMaxYVariation;
+    public float sinMoveAmp = 0.1f;
+    public float sinMoveHz = 1.0f;
 
     public void Kill()
     {
@@ -100,6 +107,21 @@ public class Creature2 : FSMBehaviour<Creature2.State> {
     protected virtual void OnBecomeDead(object param)
     {
         EventBus.OnBecomeDead(myParent.gameObject);
+    }
+
+    protected void UpdateDefaultMovement()
+    {
+        myParent.transform.position += moveDir * (currentSpeed * Time.deltaTime);
+
+        if (moveStrategy == MoveStrategy.SIN)
+        {
+            float k = Mathf.Deg2Rad * 360f * sinMoveHz;
+            float y1 = Mathf.Sin(Time.time * k) * sinMoveAmp;
+            float y2 = Mathf.Sin((Time.time - Time.deltaTime) * k) * sinMoveAmp;
+            Vector3 p = myParent.transform.position;
+            p.y += y2 - y1;
+            myParent.transform.position = p;
+        }
     }
 
     public OnEnter Action_PlayAnimation(string clipName)

@@ -7470,8 +7470,13 @@ MonoBehaviour:
   runningSpeed: 0
   defaultWalkingSpeed: 0
   defaultRunningSpeed: 0
+  moveStrategy: 1
   soundsOfRessurection: []
   soundsOfDying: []
+  moveDir: {x: 1, y: 0, z: 0}
+  moveDirMaxYVariation: 0
+  sinMoveAmp: 1
+  sinMoveHz: 1
   joystick: {fileID: 116673173}
   fireButton: {fileID: 1240496016}
 --- !u!1 &2060245774

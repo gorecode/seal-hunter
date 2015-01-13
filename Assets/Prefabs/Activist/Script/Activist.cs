@@ -53,6 +53,8 @@ public class Activist : Creature2 {
         {
             if (aliveState.Advance(AliveState.START_RUNNING_WITHOUT_SEAL))
             {
+                InitSinMovementWithRandomValues();
+
                 AudioCenter.PlayRandomClipAtMainCamera(soundsOfDyingSeal1);
                 AudioCenter.PlayRandomClipAtMainCamera(soundsOfDyingSeal2);
             }
@@ -98,6 +100,28 @@ public class Activist : Creature2 {
         mySpriteAnimator.Update();
 
         dropDownState = DropDownState.NONE;
+
+        moveDir = Vector3.right;
+        
+        if (Random.value <= 0.85f)
+        {
+            InitSinMovementWithRandomValues();
+        }
+        else
+        {
+            moveStrategy = MoveStrategy.FORWARD;
+        }
+
+    }
+
+    private void InitSinMovementWithRandomValues()
+    {
+        moveStrategy = MoveStrategy.SIN;
+        
+        sinMoveHz = Random.value;
+        sinMoveAmp = Random.Range(0.1f, 0.15f);
+        
+        moveDir = moveDir.ToVector2().Rotate(-5f + Random.value * 5f * 2f);
     }
 
     protected void OnBecomeRunWithDeadSeal(object param)
@@ -109,7 +133,7 @@ public class Activist : Creature2 {
     {
         aliveState.Update();
 
-        myParent.position += Vector3.right * Time.deltaTime * currentSpeed;
+        UpdateDefaultMovement();
     }
 
     protected override void OnDying()
