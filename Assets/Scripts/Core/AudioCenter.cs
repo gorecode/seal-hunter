@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class AudioCenter : MonoBehaviour {
+    public static AudioCenter instance { get { return Singleton<AudioCenter>.Instance; } }
+
     public Transform dynamicObjects;
     public GameObject oneShotAudioPrefab;
 
@@ -31,6 +33,16 @@ public class AudioCenter : MonoBehaviour {
     public static void PlayClipAtMainCamera(AudioClip clip)
     {
         Singleton<AudioCenter>.Instance.PlayOneShot(clip);
+    }
+
+    public AudioSource GetActiveAudioSourceForClip(AudioClip clip)
+    {
+        LinkedList<AudioSource> list = null;
+        if (!pool.TryGetValue(clip, out list)) return null;
+        if (list.First == null) return null;
+        for (LinkedListNode<AudioSource> node = list.First; node != list.Last.Next; node = node.Next)
+            if (node.Value.isPlaying) return node.Value;
+        return null;
     }
 
     public void PlayOneShot(AudioClip clip)

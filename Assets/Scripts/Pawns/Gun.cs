@@ -61,6 +61,11 @@ public class Gun : FSMBehaviour<Gun.State> {
         transform.localPosition = newLocalPosition;
     }
 
+    void OnDisable()
+    {
+        StopReload();
+    }
+
     public void Reload()
     {
         if (numBullets == clipSize) return;
@@ -69,7 +74,22 @@ public class Gun : FSMBehaviour<Gun.State> {
         {
             reloadCompletitionTime = Time.fixedTime + reloadTime;
 
-            if (reloadSounds != null) AudioCenter.PlayRandomClipAtMainCamera(reloadSounds);
+            if (reloadSounds != null && reloadSounds.Length > 0) AudioCenter.PlayClipAtMainCamera(reloadSounds[0]);
+        }
+    }
+
+    public void StopReload()
+    {
+        if (GetCurrentState() == State.RELOAD)
+        {
+            if (reloadSounds != null && reloadSounds.Length > 0)
+            {
+                AudioSource reloadSoundSource = AudioCenter.instance.GetActiveAudioSourceForClip(reloadSounds[0]);
+                
+                if (reloadSoundSource != null) reloadSoundSource.Stop();
+            }
+            
+            Advance(State.IDLE);
         }
     }
 
