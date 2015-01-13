@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Hunter : Creature2 {
     public enum AliveState {
@@ -13,10 +14,16 @@ public class Hunter : Creature2 {
     private FSM<AliveState> aliveState;
 
     private float fallTime;
+    private List<GameObject> gunList;
+    private GameObject activeGun;
 
     public new void Awake()
     {
         base.Awake();
+
+        gunList = new List<GameObject>();
+
+        InitGunList();
 
         rbody = myParent.rigidbody2D;
 
@@ -31,6 +38,47 @@ public class Hunter : Creature2 {
         aliveState.RegisterState(AliveState.WALKING, OnBecomeWalking, OnWalking);
         aliveState.RegisterState(AliveState.FALLING, OnBecomeFalling, OnFalling);
         aliveState.RegisterState(AliveState.STANDING_UP, OnBecomeStandingUp, OnStandingUp);
+
+        FindActiveGun();
+    }
+
+    public GameObject GetActiveGun()
+    {
+        for (int i = 0; i < gunList.Count; i++)
+        {
+            GameObject go = gunList[i];
+
+            if (go.activeSelf) return go;
+        }
+        return null;
+    }
+
+    public void SetActiveGunByName(string name)
+    {
+        for (int i = 0; i < gunList.Count; i++)
+        {
+            GameObject go = gunList[i];
+
+            bool sameName = go.name.Equals(name);
+
+            go.SetActive(sameName);
+
+            if (sameName) activeGun = go;
+        }
+    }
+
+    void FindActiveGun()
+    {
+        for (int i = 0; i < gunList.Count; i++)
+        {
+            GameObject go = gunList[i];
+
+            if (go.activeSelf)
+            {
+                activeGun = go;
+                break;
+            }
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collider)
@@ -111,6 +159,14 @@ public class Hunter : Creature2 {
         }
 
         ClampToBattleField();
+    }
+
+    private void InitGunList()
+    {
+        Transform gunsObject = myParent.transform.Find("Guns");
+        foreach (Transform child in gunsObject)
+            if (child.GetComponent<Gun>() != null)
+                gunList.Add(child.gameObject);
     }
 
     private void HandleFireInput()
@@ -207,6 +263,8 @@ public class Hunter : Creature2 {
 
     protected void OnFalling()
     {
+        activeGun.SetActive(false);
+
         if (!myAnimation.isPlaying && Time.fixedTime - fallTime >= 0.5f && myParent.rigidbody2D.velocity.magnitude <= 0.01f)
         {
             aliveState.Advance(AliveState.STANDING_UP);
@@ -215,6 +273,8 @@ public class Hunter : Creature2 {
 
     protected void OnBecomeStandingUp(object param)
     {
+        activeGun.SetActive(false);
+
         myAnimation.Play("StandUp");
     }
 
@@ -255,6 +315,8 @@ public class Hunter : Creature2 {
 
     private void OnBecomeIdle(object param)
     {
+        activeGun.SetActive(true);
+
         myAnimation.Stop();
 
         mySpriteAnimator.sheet = 0;
