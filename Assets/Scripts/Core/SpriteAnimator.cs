@@ -39,7 +39,7 @@ public class SpriteAnimator : MonoBehaviour {
 
     public void Update()
     {
-        if (mySpriteRenderer == null || sheets == null) return;
+        if (mySpriteRenderer == null || sheets == null || sheets.Length == 0) return;
 
         int sheetIndex = (int)sheet;
         int spriteIndex = (int)index;

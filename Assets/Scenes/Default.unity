@@ -1374,6 +1374,7 @@ MonoBehaviour:
   pool: {fileID: 322607488}
   bloodSparksPrefab: {fileID: 100000, guid: 941598cd5ea6c43de928a70ef0b0939f, type: 2}
   bulletPrefab: {fileID: 100000, guid: 1513cf90d3ac8e74cb31dc4b7a66d4b6, type: 2}
+  shellHitPrefab: {fileID: 0}
   slaughterBackgroundController: {fileID: 7708080}
   singlePlayerGame: {fileID: 930308225}
 --- !u!4 &322607485

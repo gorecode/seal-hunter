@@ -185,11 +185,19 @@ public class Gun : FSMBehaviour<Gun.State> {
             {
                 if (damage < 1) break;
 
+                float healthBefore = mob.GetHealth();
                 mob.Damage(damage);
+                float healthAfter = mob.GetHealth();
 
-                GameObject bloodSparksPrefab = ServiceLocator.current.bloodSparksPrefab;
-                GameObject bloodSparks = ServiceLocator.current.pool.Instantiate(bloodSparksPrefab, hit.point.ToVector3(), Quaternion.identity);
-                bloodSparks.GetComponent<BloodSparks>().Emit(Random.Range(15, 35));
+                if (healthAfter == healthBefore)
+                {
+                    ServiceLocator.current.pool.Instantiate(ServiceLocator.current.shellHitPrefab, hit.point.ToVector3(), Quaternion.identity);
+                } else
+                {
+                    GameObject bloodSparksPrefab = ServiceLocator.current.bloodSparksPrefab;
+                    GameObject bloodSparks = ServiceLocator.current.pool.Instantiate(bloodSparksPrefab, hit.point.ToVector3(), Quaternion.identity);
+                    bloodSparks.GetComponent<BloodSparks>().Emit(Random.Range(15, 35));
+                }
 
                 damage = (damage * pierce) / 100f;
 
