@@ -7,7 +7,7 @@ public class GameObjectPool : MonoBehaviour {
 
     private Dictionary<GameObject, LinkedList<GameObject>> map = new Dictionary<GameObject, LinkedList<GameObject>>();
 
-    public GameObject Instantiate(GameObject prefab, Vector3 position, Quaternion rotation)
+    public GameObject Instantiate(GameObject prefab, Vector3 position, Quaternion rotation, bool attachToParent = true)
     {
         LinkedList<GameObject> recycled = GetRecycledObjects(prefab);
 
@@ -15,7 +15,9 @@ public class GameObjectPool : MonoBehaviour {
         {
             GameObject newObject = (GameObject)GameObject.Instantiate(prefab, position, rotation);
             newObject.AddComponent<GameObjectPoolItem>();
-            newObject.transform.parent = instantiationRoot;
+
+            if (attachToParent)
+                newObject.transform.parent = instantiationRoot;
 
             GameObjectPoolItem marker = newObject.GetComponent<GameObjectPoolItem>();
             marker.prefab = prefab;
@@ -29,7 +31,10 @@ public class GameObjectPool : MonoBehaviour {
 
             oldObject.transform.position = position;
             oldObject.transform.rotation = rotation;
-            oldObject.transform.parent = instantiationRoot;
+
+            if (attachToParent)
+                oldObject.transform.parent = instantiationRoot;
+
             oldObject.SetActive(true);
 
             recycled.RemoveFirst();

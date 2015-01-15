@@ -27,12 +27,12 @@ public class AudioCenter : MonoBehaviour {
     {
         if (clips == null || clips.Length == 0) return;
         AudioClip clip = clips[Random.Range(0, clips.Length - 1)];
-        if (clip != null) Singleton<AudioCenter>.Instance.PlayOneShot(clip);
+        if (clip != null) instance.PlayOneShot(clip);
     }
     
     public static void PlayClipAtMainCamera(AudioClip clip)
     {
-        Singleton<AudioCenter>.Instance.PlayOneShot(clip);
+        instance.PlayOneShot(clip);
     }
 
     public AudioSource GetActiveAudioSourceForClip(AudioClip clip)
