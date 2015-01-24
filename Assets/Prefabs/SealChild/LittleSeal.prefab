@@ -102,17 +102,23 @@ MonoBehaviour:
   readonlyState: 0
   maxHealth: 10
   maxHealthIncrementByLevel: 5
-  healthStartToGrowAtLevel: 3
   currentSpeed: 0
   walkingSpeed: .200000003
   runningSpeed: 0
   defaultWalkingSpeed: .200000003
   defaultRunningSpeed: 0
+  moveStrategy: 1
   soundsOfRessurection: []
   soundsOfDying:
   - {fileID: 8300000, guid: 394534c46a4ef48c5955c69d4b1e912e, type: 3}
   - {fileID: 8300000, guid: 421b4638122b54939be09158629998a0, type: 3}
   - {fileID: 8300000, guid: f5e1b4716dde3465982e9dd74a3f8ae7, type: 3}
+  moveDir: {x: 1, y: 0, z: 0}
+  moveDirMaxYVariation: 0
+  sinMoveAmp: .100000001
+  sinMoveHz: 1
+  headshotMultiplier: 1
+  hudRoot: {fileID: 0}
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1

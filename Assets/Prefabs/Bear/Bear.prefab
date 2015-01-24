@@ -101,6 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcebb5b971620e24d94abe23385e7f2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  readonlyState: 0
   maxHealth: 0
   maxHealthIncrementByLevel: 250
   currentSpeed: 0
@@ -108,10 +109,17 @@ MonoBehaviour:
   runningSpeed: 0
   defaultWalkingSpeed: 0
   defaultRunningSpeed: 0
+  moveStrategy: 1
   soundsOfRessurection: []
   soundsOfDying:
   - {fileID: 8300000, guid: df3d5d61962f8fb49a894ed087a2a179, type: 3}
   - {fileID: 8300000, guid: cbd0e7a56e74eed4a94a3f4df6cf162c, type: 3}
+  moveDir: {x: 1, y: 0, z: 0}
+  moveDirMaxYVariation: 0
+  sinMoveAmp: .100000001
+  sinMoveHz: 1
+  headshotMultiplier: 1.25
+  hudRoot: {fileID: 0}
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1

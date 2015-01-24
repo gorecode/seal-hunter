@@ -7595,6 +7595,7 @@ MonoBehaviour:
   moveDirMaxYVariation: 0
   sinMoveAmp: 1
   sinMoveHz: 1
+  headshotMultiplier: 2
   hudRoot: {fileID: 0}
   joystick: {fileID: 116673173}
   fireButton: {fileID: 1240496016}

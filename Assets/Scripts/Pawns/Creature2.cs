@@ -29,6 +29,8 @@ public class Creature2 : FSMBehaviour<Creature2.State> {
     public float sinMoveAmp = 0.1f;
     public float sinMoveHz = 1.0f;
 
+    public float headshotMultiplier = 2.0f;
+
     public Transform hudRoot;
 
     public void Kill()
@@ -43,7 +45,7 @@ public class Creature2 : FSMBehaviour<Creature2.State> {
 
     public virtual void Damage(float damage, Limb target)
     {
-        if (target == Limb.Head) damage *= 2f;
+        if (target == Limb.Head) damage *= headshotMultiplier;
 
         health -= damage;
     }
