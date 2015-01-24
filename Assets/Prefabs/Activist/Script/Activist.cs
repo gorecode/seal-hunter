@@ -43,11 +43,11 @@ public class Activist : Creature2 {
         return MobType.Activist;
     }
 
-    public override void Damage(float damage)
+    public override void Damage(float damage, Limb target)
     {
         if (GetCurrentState() != State.Alive) return;
 
-        base.Damage(damage);
+        base.Damage(damage, target);
 
         if (health > 0 && health <= maxHealth / 2)
         {

@@ -34,8 +34,6 @@ public class EnemySpawner : MonoBehaviour
     {
         EventBus.OnBecomeDead += RecycleLater;
 
-        SpawnWithPooling();
-        
         SetUpNextSpawnTime();
     }
     

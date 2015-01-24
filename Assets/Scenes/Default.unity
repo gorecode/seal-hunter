@@ -103,7 +103,7 @@ Transform:
   - {fileID: 61433652}
   - {fileID: 1552264027}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
 --- !u!114 &7708080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -811,7 +811,7 @@ GameObject:
   m_Icon: {fileID: -2065832391, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &134496730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -828,7 +828,7 @@ MonoBehaviour:
   enemiesPerSecondSpeed: 0
   dynamicObjects: {fileID: 754483847}
   enemyPrefabs:
-  - {fileID: 100000, guid: b36c181b99d9f47a2829890d96fe3ace, type: 2}
+  - {fileID: 100002, guid: 543907ba2c8722643abd41e2c459330a, type: 2}
 --- !u!4 &134496731
 Transform:
   m_ObjectHideFlags: 0
@@ -840,7 +840,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
 --- !u!1 &143022301
 GameObject:
   m_ObjectHideFlags: 0
@@ -1094,7 +1094,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
 --- !u!114 &189890922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1325,7 +1325,7 @@ Transform:
   - {fileID: 2016194545}
   - {fileID: 481831659}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
 --- !u!50 &319807318
 Rigidbody2D:
   m_ObjectHideFlags: 0
@@ -1375,6 +1375,7 @@ MonoBehaviour:
   bloodSparksPrefab: {fileID: 100000, guid: 941598cd5ea6c43de928a70ef0b0939f, type: 2}
   bulletPrefab: {fileID: 100000, guid: 1513cf90d3ac8e74cb31dc4b7a66d4b6, type: 2}
   shellHitPrefab: {fileID: 100000, guid: 673ca52efbff64aadbd31f4505696c6d, type: 2}
+  moneyController: {fileID: 56711199}
   slaughterBackgroundController: {fileID: 7708080}
   singlePlayerGame: {fileID: 930308225}
 --- !u!4 &322607485
@@ -1408,7 +1409,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 322607483}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6bcc785f38a5245b594dc41ca31e2151, type: 3}
   m_Name: 
@@ -1760,6 +1761,47 @@ Prefab:
   m_RootGameObject: {fileID: 1778058407}
   m_IsPrefabParent: 0
   m_IsExploded: 1
+--- !u!1 &425871864
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 425871866}
+  - 114: {fileID: 425871865}
+  m_Layer: 0
+  m_Name: (singleton) AudioCenter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &425871865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 425871864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ff234cf4ee474bcf918021de138f239, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dynamicObjects: {fileID: 0}
+  oneShotAudioPrefab: {fileID: 0}
+--- !u!4 &425871866
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 425871864}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
 --- !u!1 &453103946
 GameObject:
   m_ObjectHideFlags: 0
@@ -2106,7 +2148,7 @@ Transform:
   - {fileID: 116673172}
   - {fileID: 1240496015}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
 --- !u!1 &498907933
 GameObject:
   m_ObjectHideFlags: 0
@@ -2670,7 +2712,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
 --- !u!1 &583443421
 GameObject:
   m_ObjectHideFlags: 0
@@ -2711,7 +2753,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
 --- !u!1 &596179287
 GameObject:
   m_ObjectHideFlags: 0
@@ -3275,7 +3317,7 @@ Transform:
   m_Children:
   - {fileID: 797841244}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
 --- !u!1 &769991545
 GameObject:
   m_ObjectHideFlags: 0
@@ -3387,7 +3429,7 @@ Transform:
   - {fileID: 1091188603}
   - {fileID: 792748098}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
 --- !u!1001 &787236479
 Prefab:
   m_ObjectHideFlags: 0
@@ -4055,7 +4097,7 @@ GameObject:
   m_Icon: {fileID: -2065832391, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &930308225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4150,7 +4192,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
 --- !u!114 &930308227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7541,7 +7583,6 @@ MonoBehaviour:
   readonlyState: 0
   maxHealth: 0
   maxHealthIncrementByLevel: 0
-  healthStartToGrowAtLevel: 0
   currentSpeed: 0
   walkingSpeed: 4
   runningSpeed: 0
@@ -7554,6 +7595,7 @@ MonoBehaviour:
   moveDirMaxYVariation: 0
   sinMoveAmp: 1
   sinMoveHz: 1
+  hudRoot: {fileID: 0}
   joystick: {fileID: 116673173}
   fireButton: {fileID: 1240496016}
 --- !u!1 &2060245774

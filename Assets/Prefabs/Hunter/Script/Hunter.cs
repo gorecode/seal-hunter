@@ -91,8 +91,11 @@ public class Hunter : Creature2 {
 
         if (myState != AliveState.IDLE && myState != AliveState.WALKING) return;
 
+        // Try legacy mobs without limbs.
         Creature2 anyMob = collider.gameObject.GetComponent<Creature2>();
-
+        // Try new mobs with limbs.
+        if (anyMob == null) anyMob = collider.gameObject.transform.parent.GetComponent<Creature2>();
+        // This is not mob, return.
         if (anyMob == null) return;
 
         bool fall = false;

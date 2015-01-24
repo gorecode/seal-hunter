@@ -18,9 +18,9 @@ public class BigBear : Creature2 {
         return aliveFsm.GetCurrentState();
     }
 
-    public override void Damage(float damage)
+    public override void Damage(float damage, Limb target)
     {
-        base.Damage(damage);
+        base.Damage(damage, target);
 
         if (GetCurrentState() == State.Alive && initialHealth - health >= initialHealth / 8)
         {

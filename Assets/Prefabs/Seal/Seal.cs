@@ -10,6 +10,9 @@ public class Seal : Creature2
 
     private FSM<Alive_SubState> aliveState;
 
+    private Transform head;
+    private Transform body;
+
     public override MobType GetMobType()
     {
         return MobType.Seal;
@@ -18,6 +21,9 @@ public class Seal : Creature2
     public new void Awake()
     {
         base.Awake();
+
+        head = transform.Find("Head");
+        body = transform.Find("Body");
 
         aliveState = new FSM<Alive_SubState>();
         aliveState.AllowTransitionChain(Alive_SubState.Walking, Alive_SubState.Falling, Alive_SubState.Crawling);
@@ -32,13 +38,13 @@ public class Seal : Creature2
         return aliveState.GetCurrentState();
     }
 
-    public override void Damage(float damage)
+    public override void Damage(float damage, Limb target)
     {
-        base.Damage(damage);
+        base.Damage(damage, target);
 
         if (!State.Alive.Equals(GetCurrentState())) return;
 
-        if (health > 0 && health < maxHealth / 2)
+        if (health > 0 && health < maxHealth / 2 && target == Limb.Body)
         {
             aliveState.Advance(Alive_SubState.Falling);
         }
@@ -47,7 +53,7 @@ public class Seal : Creature2
             switch (aliveState.GetCurrentState())
             {
                 case Alive_SubState.Walking:
-                    Advance(State.Dying, Random2.RandomArrayElement("DieByHeadshot", "DieFalling"));
+                    Advance(State.Dying, target == Limb.Head ? "DieByHeadshot" : "DieFalling");
                     break;
                 case Alive_SubState.Crawling:
                 case Alive_SubState.Falling:
@@ -55,6 +61,18 @@ public class Seal : Creature2
                     break;
             }
         }
+    }
+
+    protected override void DisableCollider()
+    {
+        head.gameObject.SetActive(false);
+        body.gameObject.SetActive(false);
+    }
+
+    protected override void EnableCollider()
+    {
+        head.gameObject.SetActive(true);
+        body.gameObject.SetActive(true);
     }
 
     protected override void OnBecomeAlive(object param)

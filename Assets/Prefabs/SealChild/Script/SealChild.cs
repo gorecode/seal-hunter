@@ -15,9 +15,9 @@ public class SealChild : Creature2 {
         return MobType.SealChild;
     }
 
-    public override void Damage(float damage)
+    public override void Damage(float damage, Limb target)
     {
-        base.Damage(damage);
+        base.Damage(damage, target);
 
         if (health <= 0) Advance(State.Dying, Random2.RandomArrayElement("Die1", "Die2"));
     }

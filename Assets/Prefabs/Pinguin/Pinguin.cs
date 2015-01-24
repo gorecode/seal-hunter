@@ -24,9 +24,9 @@ public class Pinguin : Creature2
         return MobType.Pinguin;
     }
 
-    public override void Damage(float damage)
+    public override void Damage(float damage, Limb target)
     {
-        base.Damage(damage);
+        base.Damage(damage, target);
 
         if (health > 0) return;
 

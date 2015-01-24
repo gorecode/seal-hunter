@@ -2,13 +2,13 @@ using UnityEngine;
 using System.Collections;
 
 public class Creature2 : FSMBehaviour<Creature2.State> {
+    public enum Limb { Head, Body }
     public enum MoveStrategy { FORWARD, SIN }
     public enum MobType { Seal, Bear, Activist, Pinguin, SealChild, BigBear, Tortoise, Valrus, Unknown }
     public enum State { Alive, Dying, Dead }
 
     public float maxHealth;
     public float maxHealthIncrementByLevel;
-    public int healthStartToGrowAtLevel;
 
     public float currentSpeed;
     public float walkingSpeed;
@@ -29,9 +29,11 @@ public class Creature2 : FSMBehaviour<Creature2.State> {
     public float sinMoveAmp = 0.1f;
     public float sinMoveHz = 1.0f;
 
+    public Transform hudRoot;
+
     public void Kill()
     {
-        Damage(health);
+        Damage(health, Limb.Body);
     }
 
     public virtual MobType GetMobType()
@@ -39,8 +41,10 @@ public class Creature2 : FSMBehaviour<Creature2.State> {
         return MobType.Unknown;
     }
 
-    public virtual void Damage(float damage)
+    public virtual void Damage(float damage, Limb target)
     {
+        if (target == Limb.Head) damage *= 2f;
+
         health -= damage;
     }
 
@@ -58,6 +62,8 @@ public class Creature2 : FSMBehaviour<Creature2.State> {
     {
         base.Awake();
 
+        hudRoot = transform.parent.Find("HudRoot");
+
         AllowTransitionChain(State.Alive, State.Dying, State.Dead);
 
         RegisterState(State.Alive, OnBecomeAlive, OnAlive);
@@ -70,9 +76,10 @@ public class Creature2 : FSMBehaviour<Creature2.State> {
         if (EventBus.OnBecomeAlive != null) EventBus.OnBecomeAlive(myParent.gameObject);
 
         int currentLevel = ServiceLocator.current.singlePlayerGame.GetLevelIndex() + 1;
-        health = initialHealth = maxHealth + Mathf.Max(0f, (currentLevel - healthStartToGrowAtLevel)) * maxHealthIncrementByLevel;
 
-        collider2D.enabled = true;
+        health = initialHealth = maxHealth + Mathf.Max(0f, currentLevel * maxHealthIncrementByLevel);
+
+        EnableCollider();
         
         mySpriteRenderer.sortingLayerID = SortingLayer.FOREGROUND;
         
@@ -87,7 +94,7 @@ public class Creature2 : FSMBehaviour<Creature2.State> {
     {
         EventBus.OnBecomeDying(myParent.gameObject);
 
-        collider2D.enabled = false;
+        DisableCollider();
         
         mySpriteRenderer.sortingLayerID = SortingLayer.BACKGROUND;
 
@@ -107,6 +114,16 @@ public class Creature2 : FSMBehaviour<Creature2.State> {
     protected virtual void OnBecomeDead(object param)
     {
         EventBus.OnBecomeDead(myParent.gameObject);
+    }
+
+    protected virtual void EnableCollider()
+    {
+        collider2D.enabled = true;
+    }
+
+    protected virtual void DisableCollider()
+    {
+        collider2D.enabled = false;
     }
 
     protected void UpdateDefaultMovement()

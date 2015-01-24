@@ -4,9 +4,9 @@ using System.Collections;
 
 public class BearController : Creature2
 {
-    public override void Damage(float damage)
+    public override void Damage(float damage, Limb target)
     {
-        base.Damage(damage);
+        base.Damage(damage, target);
 
         if (health <= 0) Advance(State.Dying, Random2.RandomArrayElement("HeadExplosion", "Eyeshot"));
     }

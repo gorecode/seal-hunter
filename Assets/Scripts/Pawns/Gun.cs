@@ -167,6 +167,8 @@ public class Gun : FSMBehaviour<Gun.State> {
 
         RaycastHit2D? lastHit = null;
 
+        Creature2 prevMob = null;
+
         for (int i = 0; i < hits.Length; i++)
         {
             RaycastHit2D hit = hits[i];
@@ -177,16 +179,34 @@ public class Gun : FSMBehaviour<Gun.State> {
              * 2) all enemies have Animation set to "Based on Renderers", so if enemy will die offscreen - level glitches.
              */
 
+            Debug.Log("Bullet hit the " + hit.transform.gameObject.name);
+
             if (hit.point.x < Consts.BF_L) continue;
 
+            Creature2.Limb limb = Creature2.Limb.Body;
+
+            if ("Head".Equals(hit.transform.gameObject.name))
+            {
+                limb = Creature2.Limb.Head;
+            }
+
+            // Legacy mobs has bounding box attached directly to sprite.
             Creature2 mob = hit.transform.gameObject.GetComponent(typeof(Creature2)) as Creature2;
+
+            // New mobs has bounding boxes attached to child game objects.
+            if (mob == null) mob = hit.transform.parent.gameObject.GetComponent(typeof(Creature2)) as Creature2;
 
             if (mob != null) 
             {
+                // Don't allow one bullet hit mob twice.
+                if (prevMob == mob) continue;
+
+                prevMob = mob;
+
                 if (damage < 1) break;
 
                 float healthBefore = mob.GetHealth();
-                mob.Damage(damage);
+                mob.Damage(damage, limb);
                 float healthAfter = mob.GetHealth();
 
                 if (healthAfter == healthBefore)
@@ -194,6 +214,13 @@ public class Gun : FSMBehaviour<Gun.State> {
                     ServiceLocator.current.pool.Instantiate(ServiceLocator.current.shellHitPrefab, hit.point.ToVector3(), Quaternion.identity);
                 } else
                 {
+                    if (limb == Creature2.Limb.Head)
+                    {
+                        MoneyController moneyCtrl = ServiceLocator.current.moneyController;
+
+                        if (moneyCtrl != null) moneyCtrl.AddRewardForHeadshot(mob);
+                    }
+
                     GameObject bloodSparksPrefab = ServiceLocator.current.bloodSparksPrefab;
                     GameObject bloodSparks = ServiceLocator.current.pool.Instantiate(bloodSparksPrefab, hit.point.ToVector3(), Quaternion.identity);
                     bloodSparks.GetComponent<BloodSparks>().Emit(Random.Range(15, 35));
